@@ -1,0 +1,24 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+			"folder_exclude_patterns":
+			[
+				"bin",
+				"obj",
+                "compiled",
+                "dev_out",
+				"target",
+                "workspace"
+			],
+			"file_exclude_patterns":
+			[
+				"*.csproj.*",
+                ".lein*",
+                ".nrepl*",
+                "figwheel_server.log"
+			]
+		}
+	]
+}
