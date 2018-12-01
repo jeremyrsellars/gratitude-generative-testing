@@ -1,5 +1,7 @@
 /* gratitude.generative-testing CSS */
 
+/* Scroll Chamber (outline bar) */
+
 .scroll-chamber {
     height: 2em;
     left: 0; right: 0;
@@ -29,8 +31,9 @@
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     height: 2em;
-    padding-left: 10vw;
-    padding-right: 10vw;
+    min-width: 25vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
     counter-increment: section;                 /* Increment the value of section counter by 1 */
 }
 .scroll-chamber #content::after {
@@ -52,4 +55,33 @@
     padding-left: 1em;
     padding-right: 1em;
     border-right: 2px solid white;
+}
+
+/* Highlight.js */
+
+body .hljs {
+    border: 1px solid #aaa;
+    border-radius: 0.3em;
+    padding: 0.5em;
+}
+
+.hljs::before {
+    display: block;
+    float: right;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: -0.5em;   /*undo .hljs padding*/
+    margin-right: -0.5em; /*undo .hljs padding*/
+    background: #ccc;
+    border-bottom-left-radius: 0.3em;
+}
+
+.hljs.lang-clojure::before {
+    content: "Clojure";
+}
+
+.hljs.lang-csharp::before {
+    content: "C#";
 }
