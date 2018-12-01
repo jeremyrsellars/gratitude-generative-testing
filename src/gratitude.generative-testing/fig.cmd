@@ -1,1 +1,1 @@
-lein with-profile dev figwheel
+lein with-profile devcards figwheel
