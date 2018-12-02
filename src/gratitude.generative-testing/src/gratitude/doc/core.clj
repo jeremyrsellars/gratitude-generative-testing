@@ -12,3 +12,9 @@
   (let [f (io/as-file "TODO.md")]
     (when-let [s (and (.exists f) (slurp f))]
       s)))
+
+(defmacro softwarecraftsmanship
+  []
+  (let [f (io/as-file "manifesto.softwarecraftsmanship.org.md")]
+    (when-let [s (and (.exists f) (slurp f))]
+      s)))

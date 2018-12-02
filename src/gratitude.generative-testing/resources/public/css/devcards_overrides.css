@@ -35,8 +35,9 @@ body {
 }
 
 .com-rigsomelight-devcards_rendered-card a {
-    color: #428bca;
+    color: #008080;
     text-decoration: none;
+    font-weight: bold;
 }
 
 
@@ -52,4 +53,39 @@ body {
 
 .com-rigsomelight-devcards-card-base-no-pad {
     min-height: calc(100vh - 7em);
+}
+
+.cljs-logo {
+    display: none;
+    height: 0; width: 0;
+
+}
+
+.cljs-logo::before {
+    height: 4em; width: 4em;
+    background-image: '/favicon.ico';
+}
+
+
+.com-rigsomelight-devcards-panel-heading {
+    /*display: block;*/
+    z-index: 1;
+    float: right;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom-left-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    margin-right: 2em;
+}
+
+.com-rigsomelight-devcards-panel-heading.com-rigsomelight-devcards-typog {
+    background-color: #753636;
+    color: white;
+}
+
+.com-rigsomelight-devcards-panel-heading.com-rigsomelight-devcards-typog a{
+    color: white;
+    font-weight: 600;
 }

@@ -85,3 +85,7 @@ body .hljs {
 .hljs.lang-csharp::before {
     content: "C#";
 }
+
+.black {
+    background-color: black;
+}

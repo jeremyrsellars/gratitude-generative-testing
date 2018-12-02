@@ -1,20 +1,11 @@
 (ns gratitude.a-good-place-to-start
   (:require [devcards.core :refer [defcard deftest]]
             devcards.util.markdown
-            [sablono.core :as sab])
+            devcards.system
+            [sablono.core :as sab]
+            [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]])
   (:require-macros [gratitude.doc.core]))
 
-(defn highlight-code-blocks
-  []
-  (set! (.-called (.-initHighlighting js/hljs)) false) ;; prevent short-circuit
-  (.initHighlighting js/hljs))
-
-; (defonce _Once_highlight-on-interval
-;   (js/setInterval highlight-code-blocks 2000))
-
-(defn- schedule-code-highlighting
-  []
-  (js/setTimeout highlight-code-blocks 10))
 
 (defcard Welcome
   (sab/html [:div
