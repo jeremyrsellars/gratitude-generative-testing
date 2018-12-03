@@ -30,26 +30,23 @@
      ["Gratitude for Sponsors"
       "#!/gratitude.a_good_place_to_start/Gratitude_for_sponsors"]
      ["Craftsmanship"
-      {:href "#!/gratitude.callout.software_craftsmanship/Software_Craftsmanship_Manifesto"
-       :target "_new"}]
+      "#!/gratitude.a_good_place_to_start/Software_Craftsmanship_Manifesto_link"]
      ["TODO.md"
       "#!/gratitude.a_good_place_to_start/TODO.md"]
      ["TODO.md (bad)"
       "#!/gratitude.generative_testing.core/TODO.md"]
      ["gratitude.generative_testing.core"
-      "#!/gratitude.generative_testing.core"]
-     ["gratitude.generative_testing.core"
-      "#!/gratitude.generative_testing.core"]
-     ["gratitude.generative_testing.core"
       "#!/gratitude.generative_testing.core"]]))
 
-(defn main []
+
+(defn main [element-id]
   ;; conditionally start the app based on whether the #main-app-area
   ;; node is on the page
-  (if-let [node (.getElementById js/document "outline")]
+  (if-let [node (.getElementById js/document element-id)]
     (.render js/ReactDOM (sab/html (us.sellars.slides.outline/scroll-chamber @outline-atom)) node)
     (println "outline element wasn't found")))
-(main)
+
+(main "outline")
 
 ;; remember to run lein figwheel and then browse to
 ;; http://localhost:3470/cards.html

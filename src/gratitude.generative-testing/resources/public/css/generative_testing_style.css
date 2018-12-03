@@ -43,6 +43,13 @@
     text-decoration: none;
     color: white;
 }
+.scroll-chamber #content>a:target{
+    font-weight: bold;
+}
+.scroll-chamber #content>a:target{
+    font-weight: bold;
+    text-decoration: underline;
+}
 .scroll-chamber #content>*::before{
     content:"<";
     padding-left: 1em;

@@ -8,6 +8,4 @@
 (defcard Software_Craftsmanship_Manifesto
   (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (gratitude.doc.core/softwarecraftsmanship))}}])
   {}
-  {:object {:render (schedule-code-highlighting)}
-   :classname "black"})
-
+  {:classname "black"})

@@ -5,12 +5,12 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
   :min-lein-version "2.7.1"
-  
+
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.439"]
                  [devcards "0.2.6"]
                  [sablono "0.8.4"]
-                 
+
                  ;; need to specify this for sablono
                  ;; when not using devcards
                  [cljsjs/react "16.6.0-0"]
@@ -24,7 +24,7 @@
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                     "target"]
-  
+
   :source-paths ["src"]
 
   :cljsbuild {
@@ -57,6 +57,7 @@
                                    :optimizations :advanced}}]}
 
   :figwheel { :css-dirs ["resources/public/css"]
+              :server-ip "0.0.0.0"
               :server-port 3470}
 
   :profiles {:dev {:dependencies [[binaryage/devtools "0.9.10"]
