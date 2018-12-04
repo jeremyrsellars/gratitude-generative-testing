@@ -29,7 +29,7 @@
 
   :cljsbuild {
               :builds [{:id "devcards"
-                        :source-paths ["src"]
+                        :source-paths ["src" "show"]
                         :figwheel { :devcards true  ;; <- note this
                                    ;; :open-urls will pop open your application
                                    ;; in the default browser once Figwheel has
