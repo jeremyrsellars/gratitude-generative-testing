@@ -1,5 +1,6 @@
 (ns gratitude.a-good-place-to-start
-  (:require [devcards.core :refer [defcard deftest]]
+  (:require [clojure.string :as string]
+            [devcards.core :refer [defcard deftest]]
             devcards.util.markdown
             devcards.system
             [sablono.core :as sab]
@@ -37,6 +38,13 @@
   (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (gratitude.doc.core/todo))}}])
   {}
   {:object {:render (schedule-code-highlighting)}})
+
+(defcard _10_introduction
+  (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (string/replace (gratitude.doc.core/slide-markdown "10_introduction.md")
+                                                                                                  #"(?<=\n)(?=# )" "\r\n-------------\r\n"))}}])
+  {}
+  {:object {:render (schedule-code-highlighting)}})
+
 
 ; (defcard Software_Craftsmanship_Manifesto
 ;   (sab/html [:div {:id "!/gratitude.a_good_place_to_start/Software_Craftsmanship_Manifesto"}

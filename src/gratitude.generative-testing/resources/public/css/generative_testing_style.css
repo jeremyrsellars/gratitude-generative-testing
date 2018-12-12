@@ -96,3 +96,53 @@ body .hljs {
 .black {
     background-color: black;
 }
+
+
+.visible-when-target{
+    display: none;
+}
+
+.visible-when-target:target{
+    display: initial;
+}
+
+blockquote{
+    background:#f9f9f9;
+    border-left:4px solid #008080;
+    margin:1.5em 10px;
+    max-width:40em;
+    padding:0.5em 10px;
+    quotes:"“" "”" "‘" "’"
+}
+
+blockquote p
+{
+    display:inline;
+}
+
+blockquote a
+{
+    display:block;
+}
+
+blockquote:before
+{
+    color:#008080;
+    content:open-quote;
+    font-size:4.236em;
+    line-height:0.1em;
+    margin-right:0.25em;
+    vertical-align:-0.4em;
+}
+
+#content .says,#content .amy-says
+{
+    float:right;
+    border-left:4px solid #bb77aa;
+    border-right:4px solid #bb77aa;
+    margin-right:1.25em;
+    background:#f9f9f9;
+    margin-left:10px;
+    width:80%;
+    width:calc(100% - 10px - 1.25em);
+}
