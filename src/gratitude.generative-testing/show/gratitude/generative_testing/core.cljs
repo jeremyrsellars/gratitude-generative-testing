@@ -3,7 +3,8 @@
             [sablono.core :as sab]
             us.sellars.slides.outline
             gratitude.a-good-place-to-start
-            gratitude.callout.software-craftsmanship)
+            gratitude.callout.software-craftsmanship
+            gratitude.app)
   (:require-macros [gratitude.doc.core]))
 
 (defcard About_Devcards
@@ -46,7 +47,7 @@
     (.render js/ReactDOM (sab/html (us.sellars.slides.outline/scroll-chamber @outline-atom)) node)
     (println "outline element wasn't found")))
 
-(main "outline")
+(defonce _once (main "outline"))
 
 ;; remember to run lein figwheel and then browse to
 ;; http://localhost:3470/cards.html

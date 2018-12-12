@@ -13,6 +13,22 @@ Unit tests validate one example at a time, but what if you didn't have to think 
 	* validation of examples of generating "synthetic thank you notes" for testing, property testing the implementation,
 	* model-based testing the awards system.
 
+
+# Gratitude app
+
+* Thank-you notes
+    * From :user
+    * To [:user]
+    * Message string
+    * Tacos int
+    * When #inst
+* CRUD Implementation
+    * FS/Event-sourcing-based
+    * Notifications?
+* Awards system
+    * Monthly report
+* "Murphy" user.  Anything that can go wrong will go wrong.
+
 ## Examples in C# and Clojure.
 
 * [x] Code formatting in devcards

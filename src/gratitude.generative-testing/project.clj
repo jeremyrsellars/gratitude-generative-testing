@@ -36,6 +36,7 @@
                                    ;; in the default browser once Figwheel has
                                    ;; started and complied your application.
                                    ;; Comment this out once it no longer serves you.
+                                   :on-jsload "gratitude.app/reload-hook"
                                    :open-urls ["http://localhost:3470/cards.html"]}
                         :compiler { :main       "gratitude.generative-testing.core"
                                     :asset-path "js/compiled/devcards_out"
