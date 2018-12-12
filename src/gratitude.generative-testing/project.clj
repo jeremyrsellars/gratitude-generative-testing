@@ -31,6 +31,7 @@
               :builds [{:id "devcards"
                         :source-paths ["src" "show"]
                         :figwheel { :devcards true  ;; <- note this
+                                    :websocket-host :js-client-host
                                    ;; :open-urls will pop open your application
                                    ;; in the default browser once Figwheel has
                                    ;; started and complied your application.
@@ -43,7 +44,7 @@
                                     :source-map-timestamp true }}
                        {:id "dev"
                         :source-paths ["src"]
-                        :figwheel true
+                        ;:figwheel true
                         :compiler {:main       "gratitude.generative-testing.core"
                                    :asset-path "js/compiled/out"
                                    :output-to  "resources/public/js/compiled/gratitude/generative_testing.js"
