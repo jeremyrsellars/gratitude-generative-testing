@@ -1,6 +1,10 @@
 <title>Manifesto for Software Craftsmanship</title>
 <link href="css/manifesto.softwarecraftsmanship.org/screen.css" media="screen" rel="stylesheet" type="text/css">
-
+<style type="text/css">
+div {
+    font-family: serif;
+}
+</style>
 <div id="container">
       <div class="content_top-image" id="content_top">
       <a class="heading_title title-image" href="#/en">
