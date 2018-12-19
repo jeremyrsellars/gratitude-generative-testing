@@ -45,6 +45,12 @@
   {}
   {:object {:render (schedule-code-highlighting)}})
 
+(defcard _20_generative_testing
+  (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (string/replace (gratitude.doc.core/slide-markdown "20_generative_testing.md")
+                                                                                                  #"(?<=\n)(?=# )" "\r\n-------------\r\n"))}}])
+  {}
+  {:object {:render (schedule-code-highlighting)}})
+
 
 ; (defcard Software_Craftsmanship_Manifesto
 ;   (sab/html [:div {:id "!/gratitude.a_good_place_to_start/Software_Craftsmanship_Manifesto"}

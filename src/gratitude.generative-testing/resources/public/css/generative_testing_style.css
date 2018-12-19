@@ -153,6 +153,23 @@ blockquote:before
     width:80%;
     width:calc(100% - 10px - 1.25em);
 }
+
+.before-alternating-table + table {
+    border: 1px solid black;
+    border-radius: 0.3em;
+}
+
+.before-alternating-table + table th {
+    border-bottom: 1px solid #888;
+}
+
+.before-alternating-table + table tbody td {
+    vertical-align: top;
+}
+.before-alternating-table + table tbody tr:nth-child(even) td {
+    background-color: #ddd;
+}
+
 @media screen {
     .before-speaker-note + * { display: none; }
 }
