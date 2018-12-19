@@ -70,6 +70,13 @@ body .hljs {
     border: 1px solid #aaa;
     border-radius: 0.3em;
     padding: 0.5em;
+    font-family: "lucida console";
+}
+
+@media screen {
+    body .hljs {
+        font-size: 18pt;
+    }
 }
 
 .hljs::before {
@@ -145,4 +152,21 @@ blockquote:before
     margin-left:10px;
     width:80%;
     width:calc(100% - 10px - 1.25em);
+}
+@media screen {
+    .before-speaker-note + * { display: none; }
+}
+
+@media print {
+    img {
+        display: block;
+        max-width:130px;
+        max-height:65px;
+        width: auto;
+        height: auto;
+    }
+
+    .scroll-chamber {
+        display: none;
+    }
 }
