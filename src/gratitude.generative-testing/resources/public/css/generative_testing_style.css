@@ -171,7 +171,28 @@ blockquote:before
 }
 
 @media screen {
-    .before-speaker-note + * { display: none; }
+    /* .before-speaker-note + * { display: none; }*/
+
+    img {
+        display: block;
+        max-width:50vw;
+        max-height:50vh;
+        width: auto;
+        height: auto;
+    }
+
+}
+
+.before-speaker-note + *,
+code.lang-speaker-note {
+    background-color: #f8f8f8;
+}
+
+
+pre code.lang-speaker-note {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: normal;
+    line-height: 0;
 }
 
 @media print {

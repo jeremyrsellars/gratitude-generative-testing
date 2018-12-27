@@ -4,6 +4,8 @@
             devcards.util.markdown
             devcards.system
             [sablono.core :as sab]
+            gratitude.generative-testing.section-10-introduction
+            gratitude.generative-testing.section-20-property-testing
             [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]])
   (:require-macros [gratitude.doc.core]))
 
@@ -39,6 +41,15 @@
   {}
   {:object {:render (schedule-code-highlighting)}})
 
+(defcard Outline
+  (sab/html
+   [:div
+    [:h1 "Generating data for 10,000 tests"]
+    [:ul
+     [:li [:a {:href "#!/gratitude.generative_testing.section_10_introduction"}          "Introduction"]]
+     [:li [:a {:href "#!/gratitude.generative_testing.section_20_property_testing"}    "Property testing"]]
+     [:li [:a {:href "#!/gratitude.generative_testing.section_30_simple_generators"}     "Simple generators"]]
+     [:li [:a {:href "#!/gratitude.generative_testing.section_40_composing_generators"}  "Composing generators"]]]]))
 (defcard _10_introduction
   (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (string/replace (gratitude.doc.core/slide-markdown "10_introduction.md")
                                                                                                   #"(?<=\n)(?=# )" "\r\n-------------\r\n"))}}])
