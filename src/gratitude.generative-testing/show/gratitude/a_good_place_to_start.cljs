@@ -6,6 +6,7 @@
             [sablono.core :as sab]
             gratitude.generative-testing.section-10-introduction
             gratitude.generative-testing.section-20-property-testing
+            gratitude.generative-testing.section-30-simple-generators
             [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]])
   (:require-macros [gratitude.doc.core]))
 
