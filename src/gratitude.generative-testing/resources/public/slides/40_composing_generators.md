@@ -201,11 +201,10 @@ Generate example cards by defining and combining some generators with some of th
 
 # Back to the sheep pen
 
-```speaker-note
-Consider generating more tricky sheepish and sheepish-like data, we may want to combine several generators.
+<style class='before-speaker-note'></style>
 
-Consider composing better sheepish-like strings in an attempt to trick the `sheep-bleat?` function.
-```
+* Consider generating more tricky sheepish and sheepish-like data, we may want to combine several generators.
+* Consider composing better sheepish-like strings in an attempt to trick the `sheep-bleat?` function.
 
 ------------
 

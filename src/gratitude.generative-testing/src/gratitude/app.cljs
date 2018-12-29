@@ -1,5 +1,6 @@
 (ns gratitude.app
   (:require [devcards.core :refer [defcard deftest]]
+            gratitude.data-generators
             [sablono.core :as sab]
             gratitude.data-entry
             gratitude.expression

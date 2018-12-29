@@ -8,6 +8,7 @@
             gratitude.generative-testing.section-20-property-testing
             gratitude.generative-testing.section-30-simple-generators
             gratitude.generative-testing.section-40-composing-generators
+            gratitude.generative-testing.section-50-gratitude-generators
             [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]])
   (:require-macros [gratitude.doc.core]))
 
@@ -51,7 +52,9 @@
      [:li [:a {:href "#!/gratitude.generative_testing.section_10_introduction"}          "Introduction"]]
      [:li [:a {:href "#!/gratitude.generative_testing.section_20_property_testing"}    "Property testing"]]
      [:li [:a {:href "#!/gratitude.generative_testing.section_30_simple_generators"}     "Simple generators"]]
-     [:li [:a {:href "#!/gratitude.generative_testing.section_40_composing_generators"}  "Composing generators"]]]]))
+     [:li [:a {:href "#!/gratitude.generative_testing.section_40_composing_generators"}  "Composing generators"]]
+     [:li [:a {:href "#!/gratitude.generative_testing.section_50_gratitude_generators"}  "Gratitude demo"]]
+     [:li [:a #_{:href "#!/gratitude.generative_testing.section_40_composing_generators"}  "Closing"]]]]))
 (defcard _10_introduction
   (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (string/replace (gratitude.doc.core/slide-markdown "10_introduction.md")
                                                                                                   #"(?<=\n)(?=# )" "\r\n-------------\r\n"))}}])
