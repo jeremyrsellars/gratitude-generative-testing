@@ -8,6 +8,7 @@
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.439"]
+                 [org.clojure/test.check "0.9.0"]
                  [devcards "0.2.6"]
                  [sablono "0.8.4"]
 
@@ -29,20 +30,30 @@
 
   :cljsbuild {
               :builds [{:id "devcards"
-                        :source-paths ["src" "show"]
+                        :source-paths ["show" "test" "src"]
                         :figwheel { :devcards true  ;; <- note this
                                     :websocket-host :js-client-host
                                    ;; :open-urls will pop open your application
                                    ;; in the default browser once Figwheel has
                                    ;; started and complied your application.
                                    ;; Comment this out once it no longer serves you.
-                                   :on-jsload "gratitude.app/reload-hook"
+                                   ;:on-jsload "gratitude.app/reload-hook"
                                    :open-urls ["http://localhost:3470/cards.html"]}
                         :compiler { :main       "gratitude.generative-testing.core"
                                     :asset-path "js/compiled/devcards_out"
                                     :output-to  "resources/public/js/compiled/gratitude/generative_testing_devcards.js"
                                     :output-dir "resources/public/js/compiled/devcards_out"
                                     :source-map-timestamp true }}
+
+                       {:id "pages"
+                        :source-paths ["show" "test" "src"]
+                        :compiler { :main       "gratitude.generative-testing.core"
+                                    :devcards true
+                                    :asset-path "js/compiled/pages_out"
+                                    :output-to  "resources/public/js/compiled/gratitude/generative_testing_pages.js"
+                                    :optimizations :advanced
+                                    :source-map-timestamp true }}
+
                        {:id "dev"
                         :source-paths ["src"]
                         ;:figwheel true
@@ -51,6 +62,7 @@
                                    :output-to  "resources/public/js/compiled/gratitude/generative_testing.js"
                                    :output-dir "resources/public/js/compiled/out"
                                    :source-map-timestamp true }}
+                       #_
                        {:id "prod"
                         :source-paths ["src"]
                         :compiler {:main       "gratitude.generative-testing.core"

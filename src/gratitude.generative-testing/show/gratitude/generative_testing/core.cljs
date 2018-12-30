@@ -39,15 +39,18 @@
      ["gratitude.generative_testing.core"
       "#!/gratitude.generative_testing.core"]]))
 
-
-(defn main [element-id]
+(defn ^:export main [element-id]
   ;; conditionally start the app based on whether the #main-app-area
   ;; node is on the page
   (if-let [node (.getElementById js/document element-id)]
     (.render js/ReactDOM (sab/html (us.sellars.slides.outline/scroll-chamber @outline-atom)) node)
     (println "outline element wasn't found")))
 
-(defonce _once (main "outline"))
+(defn ^:export slides
+  []
+  (println "Starting devcards")
+  (devcards.core/start-devcard-ui!)
+  (println "Started devcards"))
 
 ;; remember to run lein figwheel and then browse to
 ;; http://localhost:3470/cards.html

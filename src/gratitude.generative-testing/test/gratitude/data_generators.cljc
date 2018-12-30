@@ -136,7 +136,6 @@
 
 (defn with-thank-you-note-generators
   [{:keys [::user/id] :as generators}]
-  (println 'with-thank-you-note-generators (::user/id generators))
   (merge generators
     {::expression/to
       #(s/gen (s/coll-of ::user/id :max-count 1 :into #{}) generators)

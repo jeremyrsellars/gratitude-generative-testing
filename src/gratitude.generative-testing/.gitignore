@@ -16,3 +16,4 @@ figwheel_server*
 /telemetry*edn
 *.tmp
 debug.log.txt
+publish-pages.exclusions.txt

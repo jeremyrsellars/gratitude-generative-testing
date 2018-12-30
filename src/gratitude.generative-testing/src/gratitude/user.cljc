@@ -11,5 +11,3 @@
 (s/def ::user
   (s/keys :req [::id ::full-name]
           :opt [::avatar-url]))
-
-(println '(s/valid? ::avatar-url "http://somegth.com/asdf/") (s/valid? ::avatar-url "http://somegth.com/asdf/"))
