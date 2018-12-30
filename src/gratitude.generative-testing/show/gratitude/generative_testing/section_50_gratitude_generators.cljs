@@ -15,7 +15,7 @@
 
 ; (defn slide-markdown-to-html
 ;   [markdown]
-;   (let [replaced-md (string/replace markdown #"(?<=\n)(-{5,}\r?\n)(?=# )" "\r\n-------------\r\n")]
+;   (let [replaced-md (string/replace markdown #"\n(-{5,}\r?\n)(?=# )" "\r\n-------------\r\n")]
 ;     (sab/html
 ;       [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html replaced-md)}}])))
 
