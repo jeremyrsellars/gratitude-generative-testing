@@ -26,6 +26,7 @@
 
 (def outline-atom
   (atom
+   (into
     [["Welcome"
       "#!/gratitude.a_good_place_to_start/Welcome"]
      ["Gratitude for Sponsors"
@@ -37,7 +38,9 @@
      ["TODO.md (bad)"
       "#!/gratitude.generative_testing.core/TODO.md"]
      ["gratitude.generative_testing.core"
-      "#!/gratitude.generative_testing.core"]]))
+      "#!/gratitude.generative_testing.core"]]
+    (map (juxt first #(nth % 2))
+      gratitude.a-good-place-to-start/outline))))
 
 (defn ^:export main [element-id]
   ;; conditionally start the app based on whether the #main-app-area

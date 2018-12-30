@@ -19,8 +19,18 @@
     (swap! devcards.system/app-state
       assoc-in [:base-card-options :heading] false)))
 
+(def outline
+  [["Welcome"                1    "#!/gratitude.a_good_place_to_start/Welcome"]
+   ["Introduction"           1    "#!/gratitude.generative_testing.section_10_introduction"]
+   ["Property testing"       0    "#!/gratitude.generative_testing.section_20_property_testing"]
+   ["Simple generators"      0    "#!/gratitude.generative_testing.section_30_simple_generators"]
+   ["Composing generators"   0    "#!/gratitude.generative_testing.section_40_composing_generators"]
+   ["Gratitude app demo"     0    "#!/gratitude.generative_testing.section_50_gratitude_generators"]
+   ["Closing"                1    "#!/gratitude.generative_testing.section_60_closing"]])
+
 (defcard Welcome
-  (sab/html [:div
+  (sab/html
+   [:div
              [:h1 "Generate Data for 10,000 Unit Tests"]
              [:h2 "Jeremy Sellars"]
              [:h2 "@agentJsellars"]
@@ -29,7 +39,12 @@
                 "No New Legacy Blog – jeremyrsellars.github.io/no-new-legacy/"]
              [:p]
              [:a {:href "http://softekinc.com" :target "_new"}
-                "Softek Solutions – softekinc.com"]])
+                "Softek Solutions – softekinc.com"]
+    [:h2 "Outline"]
+    [:ul
+      (for [[title level href] (next outline #_ :skip-the-title-slide)
+            :when (zero? level)]
+        [:li {:key (str title "_" href)}[:a {:href href} title]])]])
   {}
   {:heading false})
 
@@ -50,46 +65,8 @@
    [:div
     [:h1 "Generating data for 10,000 tests"]
     [:ul
-     [:li [:a {:href "#!/gratitude.generative_testing.section_10_introduction"}          "Introduction"]]
-     [:li [:a {:href "#!/gratitude.generative_testing.section_20_property_testing"}    "Property testing"]]
-     [:li [:a {:href "#!/gratitude.generative_testing.section_30_simple_generators"}     "Simple generators"]]
-     [:li [:a {:href "#!/gratitude.generative_testing.section_40_composing_generators"}  "Composing generators"]]
-     [:li [:a {:href "#!/gratitude.generative_testing.section_50_gratitude_generators"}  "Gratitude demo"]]
-     [:li [:a #_{:href "#!/gratitude.generative_testing.section_40_composing_generators"}  "Closing"]]]]))
-(defcard _10_introduction
-  (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (string/replace (gratitude.doc.core/slide-markdown "10_introduction.md")
-                                                                                                  #"(?<=\n)(?=# )" "\r\n-------------\r\n"))}}])
-  {}
-  {:object {:render (schedule-code-highlighting)}})
-
-(defcard _20_generative_testing
-  (sab/html [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (string/replace (gratitude.doc.core/slide-markdown "20_generative_testing.md")
-                                                                                                  #"(?<=\n)(?=# )" "\r\n-------------\r\n"))}}])
-  {}
-  {:object {:render (schedule-code-highlighting)}})
-
-
-; (defcard Software_Craftsmanship_Manifesto
-;   (sab/html [:div {:id "!/gratitude.a_good_place_to_start/Software_Craftsmanship_Manifesto"}
-;              [:iframe {:src "http://manifesto.softwarecraftsmanship.org"}]])
-;                        ;:style {:width "100%", :height "100%" :position "fixed", :left "10%", :right "10%", :top "10%", :bottom "10%"}}]]))
-;   {}
-;   {:classname "black"})
-
-; (defcard Software_Craftsmanship_Manifesto_Internal
-;   (sab/html [:div
-;              [:iframe {:src "#!/gratitude.callout.software_craftsmanship/Software_Craftsmanship_Manifesto"
-;                        :style {:width "50vw", :height "50vh"}}]])
-;   {}
-;   {:classname "black"})
-
-; (defcard Software_Craftsmanship_Manifesto
-;   (sab/html [:iframe {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html (gratitude.doc.core/softwarecraftsmanship))}
-;                       :style {:width "50vw", :height "50vh"}}])
-;   {}
-;   {:classname "black"})
-
-
+      (for [[title level href] outline]
+        [:li {:key (str title "_" href)}[:a {:href href} title]])]]))
 
 (defcard Software_Craftsmanship_Manifesto_link
   (sab/html [:div [:a {:href "#!/gratitude.callout.software_craftsmanship/Software_Craftsmanship_Manifesto"
