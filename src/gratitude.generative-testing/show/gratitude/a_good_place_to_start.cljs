@@ -9,6 +9,7 @@
             gratitude.generative-testing.section-30-simple-generators
             gratitude.generative-testing.section-40-composing-generators
             gratitude.generative-testing.section-50-gratitude-generators
+            gratitude.generative-testing.section-60-closing
             [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]])
   (:require-macros [gratitude.doc.core]))
 
