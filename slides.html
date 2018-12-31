@@ -5,16 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
     <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css" rel="stylesheet" type="text/css"></style>
-    <script type="text/javascript">
-        var scrollCenter = function scrollCenter(x){
-            console.log(x);
-            x.scrollIntoView({
-                behavior: 'auto',
-                block: 'center',
-                inline: 'center'
-            });
-        }
-    </script>
   </head>
   <body>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
@@ -25,7 +15,22 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/cs.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/clojure.min.js"></script>
     <style type="text/css">
-
+.com-rigsomelight-devcards-card-base {
+    background-color: transparent;
+    background-color: rgba(255,255,255, 0.5);
+}
+body::after {
+    background-image: url(//jeremyrsellars.github.io/no-new-legacy/assets/media/neurons-440660_1280.jpg);
+    background-size: cover;
+    content: "";
+    opacity: 0.0125;
+    top: 0;
+    left: 0;
+    height: 8em;
+    right: 0;
+    position: fixed;
+    z-index: -1;
+}
 @media (min-width: 1200px) {
     .com-rigsomelight-devcards-container {
         width: 1100px;
@@ -40,8 +45,19 @@
     </style>
     <script type="text/javascript">
     gratitude.generative_testing.core.main("outline");
-    gratitude.generative_testing.core.slides();
-    if(window.location.hash.length < 2) window.location.hash = "!/gratitude.a_good_place_to_start";
+    gratitude.generative_testing.core.startSlides();
+    if(window.location.hash.length < 2) window.location.hash = gratitude.generative_testing.core.homeSlideHash();
+    var navigateWith = function navigateWith(fn) {
+        var h = fn(window.location.hash);
+        if(h){
+            window.location.hash=h;
+            window.scrollTo(0, 0);
+        }
+    }
     </script>
+    <div class="slide-nav">
+        <div id="previous" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
+        <div id="next"     onclick="navigateWith(gratitude.generative_testing.core.nextSlideHash)">&gt;</div>
+    </div>
   </body>
 </html>

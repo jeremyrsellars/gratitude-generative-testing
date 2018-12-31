@@ -21,7 +21,7 @@
 
 .scroll-chamber #content {
     white-space: nowrap;
-    background: linear-gradient(0.25turn, #33FF, #888, #3F3);
+    background: linear-gradient(0.25turn, #33FF, #888, #3C3);
     position: relative;
     float: left;
 }
@@ -62,6 +62,48 @@
     padding-left: 1em;
     padding-right: 1em;
     border-right: 2px solid white;
+}
+
+@media (max-width: 1024px) {
+    .scroll-chamber {
+        height: 4em;
+    }
+    .scroll-chamber #container {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 4em;
+        color: white;
+    }
+    .scroll-chamber #content {
+        background: linear-gradient(0.5turn, #33FF, #888, #3C3);
+        width: 100vw;
+    }
+    .scroll-chamber #content>*{
+        display: block;
+        padding-left: 15vw;
+        padding-right: 15vw;
+    }
+    .scroll-chamber #content>*::after{
+        content: " ";
+        padding-left: 1em;
+        padding-right: 1em;
+        border-right: 0;
+    }
+}
+@media (max-height: 1024px) {
+    .scroll-chamber {
+        height: 5em;
+        font-size: 6pt;
+    }
+    .scroll-chamber #container {
+        height: 5em;
+        padding-top: 0em;
+        padding-bottom: 0em;
+    }
+    .scroll-chamber #content>*{
+        padding-top: 0em;
+        padding-bottom: 0em;
+    }
 }
 
 /* Highlight.js */
@@ -207,4 +249,66 @@ pre code.lang-speaker-note {
     .scroll-chamber {
         display: none;
     }
+}
+
+
+.slide-class {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .jumbo h1, .jumbo h2, .jumbo h3 {
+        text-align: center;
+    }
+}
+@media (min-height: 760px) {
+    .jumbo h1, .jumbo h2, .jumbo h3{
+        padding-top: 20vh;
+        font-size: 4em;
+    }
+}
+
+.before-center-note + *,
+code.lang-speaker-note {
+    background-color: #f8f8f8;
+}
+
+.slide-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3em;
+    background-color: #88F;
+    background-color: rgba(128,128,255,0.2);
+    z-index: 1;
+    vertical-align: middle;
+}
+
+.slide-nav>*{
+    height: 3em;
+    width: 3em;
+    font-size: 2em;
+    color:white;
+    background-color: gray;
+    background-color: rgba(0,0,0,0.0725);
+    padding: .75em;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.slide-nav #previous{
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-bottom-right-radius: 100%;
+    text-align: left;
+}
+
+.slide-nav #next{
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-bottom-left-radius: 100%;
+    text-align: right;
 }
