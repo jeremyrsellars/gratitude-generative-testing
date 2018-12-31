@@ -47,6 +47,17 @@ body::after {
     gratitude.generative_testing.core.main("outline");
     gratitude.generative_testing.core.startSlides();
     if(window.location.hash.length < 2) window.location.hash = gratitude.generative_testing.core.homeSlideHash();
+    var navigateWith = function navigateWith(fn) {
+        var h = fn(window.location.hash);
+        if(h){
+            window.location.hash=h;
+            window.scrollTo(0, 0);
+        }
+    }
     </script>
+    <div class="slide-nav">
+        <div id="previous" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
+        <div id="next"     onclick="navigateWith(gratitude.generative_testing.core.nextSlideHash)">&gt;</div>
+    </div>
   </body>
 </html>
