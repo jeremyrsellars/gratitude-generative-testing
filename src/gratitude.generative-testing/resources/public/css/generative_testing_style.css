@@ -21,7 +21,7 @@
 
 .scroll-chamber #content {
     white-space: nowrap;
-    background: linear-gradient(0.25turn, #33FF, #888, #3F3);
+    background: linear-gradient(0.25turn, #33FF, #888, #3C3);
     position: relative;
     float: left;
 }
@@ -62,6 +62,33 @@
     padding-left: 1em;
     padding-right: 1em;
     border-right: 2px solid white;
+}
+
+@media (max-width: 1024px) {
+    .scroll-chamber {
+        height: 4em;
+    }
+    .scroll-chamber #container {
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 4em;
+        color: white;
+        padding-top: 0em;
+        padding-bottom: 0em;
+    }
+    .scroll-chamber #content {
+        background: linear-gradient(0.5turn, #33FF, #888, #3C3);
+        width: 100vw;
+    }
+    .scroll-chamber #content>*{
+        display: block;
+    }
+    .scroll-chamber #content>*::after{
+        content: " ";
+        padding-left: 1em;
+        padding-right: 1em;
+        border-right: 0;
+    }
 }
 
 /* Highlight.js */
@@ -207,4 +234,26 @@ pre code.lang-speaker-note {
     .scroll-chamber {
         display: none;
     }
+}
+
+
+.slide-class {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .jumbo h1, .jumbo h2, .jumbo h3 {
+        text-align: center;
+    }
+}
+@media (min-height: 760px) {
+    .jumbo h1, .jumbo h2, .jumbo h3{
+        padding-top: 20vh;
+        font-size: 4em;
+    }
+}
+
+.before-center-note + *,
+code.lang-speaker-note {
+    background-color: #f8f8f8;
 }

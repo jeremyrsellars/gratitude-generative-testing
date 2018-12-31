@@ -1,8 +1,15 @@
+-------#About_Speaker.jumbo
+
 # Jeremy Sellars
 
 ```speaker-note
 My name is Jeremy Sellars.  I help businesses by showing how difficult and time-consuming tasks can be made simple, tractable, and cost-effective, then I help implement them with software.
 ```
+
+-------------
+
+
+---------#Gratitude.jumbo
 
 # Gratitude
 
@@ -21,17 +28,23 @@ If you don't know it, the chorus says "I'm starting with the man in the mirror; 
 I think most of us at this conference are here to improve our capabilities in technology skills, design skills, interpersonal skills, etc..
 ```
 
+---------#Sponsors.jumbo
+
 # Gratitude for our Sponsors
 
 ```speaker-note
 This conference wouldn't be possible without our sponsors.
 ```
 
+---------#Interview-0.jumbo
+
 # Introductions
 
 ```speaker-note
-I'd like to get to know each other a bit over the next 50 minutes.  So, a short informal interview which you should feel free to participate in as much or as little as you desire.
+I'd like to get to know each other a bit over the next 55 minutes.  So, a short informal interview which you should feel free to participate in as much or as little as you desire.
 ```
+
+---------#Interview-1.jumbo
 
 # How many of us are in business?
 
@@ -39,17 +52,23 @@ I'd like to get to know each other a bit over the next 50 minutes.  So, a short 
 Let us propose for a moment that a business is a group of people oriented around the idea of providing products or services or ideas that clients would value... value enough to voluntarily return "certificates of gratitude" as compensation.  Perhaps these certificates are covered with images of famous people like Benjamin Franklin or perhaps they say "pay to the order of __`your name`__".  I'm getting at the notion that when we engage in business, mutual benefit is a good goal, at least at some level.  Both sides of the transaction get something they want.
 ```
 
+---------#Interview-2.jumbo
+
 # How many of us are employees?
 
 ```speaker-note
 I think it is a useful analogy, if we don't stretch it too far, that we, as employees, provide our employer with products, services, research, labor, TPS reports, or ideas that they value, and that they compensate us for.  In a way, we individuals are in business serving our customor (even if that *customer* is our *employer*).
 ```
 
+---------#Interview-3.jumbo
+
 # How many of us are in "Information Technology?"
 
 ```speaker-note
 * I used to kind of bristle if someone confused "programming" with "Information Technology."  Then I realized that much of programming is collecting facts, and writing an algorithm to interpret the facts to produce a desired result.  Sometimes the end-result is information (as in a database or a report).  Other times it is a systematic action taken on the information produced.
 ```
+
+---------#Interview-4.jumbo
 
 # Do you love data?
 
@@ -58,6 +77,8 @@ Since you all have come to a session about generating data and generative testin
 
 Ok, that's it for the interview. Thanks.
 ```
+
+---------#Art-Sculpture
 
 # The "Art" of sculpture
 
@@ -72,6 +93,7 @@ So, it's common knowledge that computers aren't magical devices; most computers 
 
 ![David's Face](https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/%27David%27_by_Michelangelo_Fir_JBU013.jpg/400px-%27David%27_by_Michelangelo_Fir_JBU013.jpg)
 
+---------#Art-Programming.jumbo
 
 # The "art" of programming
 
@@ -82,7 +104,11 @@ Programming is a lot like that. ;-)
 > Every CD-ROM has program inside it and it is the task of the programmer to discover it.
 [Jeremy Sellars](https://jeremy.sellars.us)
 
+<style class='before-speaker-note'></style>
+
 * I think that's why we derive so much pleasure as we watch the CD-ROM spinning on the lathe in the work station and carefully take a chisel in hand and move it slowly to the correct part of the surface of the disk and tap out the beautiful stream of the music in our minds.
+
+---------#Media
 
 # The media of programs
 
@@ -100,10 +126,14 @@ Of course this isn't how it works.  We actually use ~~carefully arranged vacuum 
 Generally, each of these technologies "stand on the shoulders of giants" and endeavor to model the desired computation or algorithm in a way that is less specific about the hardware or the representation of bits, and more specific about the information of the system being modeled.
 ```
 
+---------.jumbo
+
 # The "art" of abstraction
 
 > Being abstract is something profoundly different from being vague... The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.
 [Edsger W. Dijkstra](http://wiki.c2.com/?EwDijkstraQuotes)
+
+---------
 
 # The Single Level of Abstraction Principle
 
@@ -122,6 +152,8 @@ Appropriate use of abstraction – appropriate detail for the semantic level of 
 
 This idea of semantic level will also be helpful when understanding how to effectively test software.
 ```
+
+---------
 
 # Craftsmanship Manifesto
 
@@ -147,7 +179,7 @@ This idea of semantic level will also be helpful when understanding how to effec
 Software quality, from the [Manifesto for Software Craftsmanship](http://manifesto.softwarecraftsmanship.org/) emphasizes 4 values, and I see each of them touched on in these topics surrounding generative testing:
 ```
 
------------------
+-----------------.jumbo
 
 ## Well-crafted software
 
@@ -159,7 +191,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * Also, a team's prior investment in tests shouldn't prevent or delay adding this feature.
 * In other words, in well-crafted software, both the product and the tests need to be extensible.
 
------------------
+-----------------.jumbo
 
 ## Steadily adding value
 
@@ -169,7 +201,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * (I don't know about you, but that mucks up my estimates).
 * Generative testing supplements traditional example-based unit tests by making its own examples; a new field and generator can be declared once and then the generator takes over to "fill in" the new field.
 
------------------
+-----------------.jumbo
 
 ## A community of professionals
 
@@ -180,7 +212,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * I am excited to see if this session adds to your excitement about these topics and helps you accomplish your goals.
 * Feel free to let me know on twitter, etc..
 
------------------
+-----------------.jumbo
 
 ## Productive partnerships
 
@@ -195,7 +227,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * Think about software requirements/specification documents.
 * Rather than go back and forth with stakeholders about some line of text in a spec doc, it may be far more productive to "show" examples that are possible based on a translation of the document into a generative specification.
 
------------------
+-----------------.jumbo
 
 
 # Enter the workshop

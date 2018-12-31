@@ -4,6 +4,7 @@
             devcards.util.markdown
             devcards.system
             [sablono.core :as sab]
+            gratitude.generative-testing.core
             gratitude.generative-testing.section-10-introduction
             gratitude.generative-testing.section-20-property-testing
             gratitude.generative-testing.section-30-simple-generators
@@ -19,15 +20,6 @@
     (swap! devcards.system/app-state
       assoc-in [:base-card-options :heading] false)))
 
-(def outline
-  [["Welcome"                1    "#!/gratitude.a_good_place_to_start/Welcome"]
-   ["Introduction"           1    "#!/gratitude.generative_testing.section_10_introduction"]
-   ["Property testing"       0    "#!/gratitude.generative_testing.section_20_property_testing"]
-   ["Simple generators"      0    "#!/gratitude.generative_testing.section_30_simple_generators"]
-   ["Composing generators"   0    "#!/gratitude.generative_testing.section_40_composing_generators"]
-   ["Gratitude app demo"     0    "#!/gratitude.generative_testing.section_50_gratitude_generators"]
-   ["Closing"                1    "#!/gratitude.generative_testing.section_60_closing"]])
-
 (defcard Welcome
   (sab/html
    [:div
@@ -42,7 +34,7 @@
                 "Softek Solutions – softekinc.com"]
     [:h2 "Outline"]
     [:ul
-      (for [[title level href] (next outline #_ :skip-the-title-slide)
+      (for [[title level href] (next gratitude.generative-testing.core/outline #_ :skip-the-title-slide)
             :when (zero? level)]
         [:li {:key (str title "_" href)}[:a {:href href} title]])]])
   {}
@@ -65,7 +57,7 @@
    [:div
     [:h1 "Generating data for 10,000 tests"]
     [:ul
-      (for [[title level href] outline]
+      (for [[title level href] gratitude.generative-testing.core/outline]
         [:li {:key (str title "_" href)}[:a {:href href} title]])]]))
 
 (defcard Software_Craftsmanship_Manifesto_link
@@ -76,3 +68,16 @@
                   [:a {:href "http://manifesto.softwarecraftsmanship.org"
                        :target "manifesto"}
                     "Open manifesto.softwarecraftsmanship.org"]]))
+
+(def _setup-card-sequence
+  (reset! gratitude.generative-testing.core/outline-atom
+    (reduce
+      #(into %1 (map (juxt :description :hash) %2))
+      []
+      [gratitude.generative-testing.core/slide-outline
+       gratitude.generative-testing.section-10-introduction/slides
+       gratitude.generative-testing.section-20-property-testing/slides
+       gratitude.generative-testing.section-30-simple-generators/slides
+       gratitude.generative-testing.section-40-composing-generators/slides
+       gratitude.generative-testing.section-50-gratitude-generators/slides
+       gratitude.generative-testing.section-60-closing/slides])))

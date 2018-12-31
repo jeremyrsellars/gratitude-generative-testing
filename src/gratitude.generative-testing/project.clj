@@ -39,7 +39,7 @@
                                    ;; Comment this out once it no longer serves you.
                                    ;:on-jsload "gratitude.app/reload-hook"
                                    :open-urls ["http://localhost:3470/cards.html"]}
-                        :compiler { :main       "gratitude.generative-testing.core"
+                        :compiler { :main       "gratitude.a-good-place-to-start"
                                     :asset-path "js/compiled/devcards_out"
                                     :output-to  "resources/public/js/compiled/gratitude/generative_testing_devcards.js"
                                     :output-dir "resources/public/js/compiled/devcards_out"
@@ -50,7 +50,9 @@
                         :compiler { :main       "gratitude.generative-testing.core"
                                     :devcards true
                                     :asset-path "js/compiled/pages_out"
+                                    :output-dir "resources/public/js/compiled/gratitude/"
                                     :output-to  "resources/public/js/compiled/gratitude/generative_testing_pages.js"
+                                    :source-map "resources/public/js/compiled/gratitude/generative_testing_pages.js.map"
                                     :optimizations :advanced
                                     :source-map-timestamp true }}
 

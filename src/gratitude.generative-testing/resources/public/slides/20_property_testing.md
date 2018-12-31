@@ -1,3 +1,5 @@
+-----------.jumbo
+
 # "Generative Testing"
 
 ```speaker-note
@@ -11,7 +13,7 @@ From the plain English root verbs of "generative testing", we can surmise there 
 Let's start with the more familiar part: _testing_.
 ```
 
------------
+-----------.jumbo
 
 # Testing
 
@@ -71,7 +73,7 @@ bool isSheepBleat(string s)
 |`·baa`    |false       |leading space |
 |`baa·`    |false       |trailing space|
 
------------
+-----------.jumbo
 
 # Example-based Tests
 
@@ -304,7 +306,7 @@ These facts should hold true for any test case applied to the system being teste
 
 This is one reason I recommend starting with example-based unit tests before moving on generating additional test cases.  But, just because you supply specific examples and results, that doesn't mean you can't benefit from the property tests above in the parameterized tests.  The properties should hold true for the specific examples and the new, generated examples.
 ```
----------
+---------.jumbo
 
 # Should I use examples or properties?
 
@@ -348,7 +350,7 @@ This is one reason I recommend starting with example-based unit tests before mov
     * Is it a legacy system running on virtual hardware in the cloud?
     * Is it a third-party payment system that will only tell you that the request was issued correctly by issuing the request?
 
----------
+---------.jumbo
 
 # Parameterized Tests
 

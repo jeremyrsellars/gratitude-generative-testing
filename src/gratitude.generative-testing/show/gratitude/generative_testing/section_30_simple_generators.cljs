@@ -7,13 +7,4 @@
             [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]])
   (:require-macros [gratitude.doc.core]))
 
-(defn slide-markdown-to-html
-  [markdown]
-  (let [replaced-md (string/replace markdown #"\n(-{5,}\r?\n)(?=# )" "\r\n-------------\r\n")]
-    (sab/html
-      [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html replaced-md)}}])))
-
-(defcard _30_simple_generators
-  (slide-markdown-to-html (gratitude.doc.core/slide-markdown "30_simple_generators.md"))
-  {}
-  {:object {:render (schedule-code-highlighting)}})
+(def slides (gratitude.doc.core/slide-markdown-cards "30_simple_generators.md"))
