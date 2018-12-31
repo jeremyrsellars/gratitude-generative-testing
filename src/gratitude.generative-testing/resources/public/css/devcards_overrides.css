@@ -52,6 +52,14 @@ body {
     left: 0; right: 0; top: 3em; bottom: 0;
 }
 */
+@media (max-width: 1000px) {
+    .com-rigsomelight-devcards-card-base.com-rigsomelight-devcards-breadcrumbs.com-rigsomelight-devcards-typog{
+        font-size: 6pt;
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
 .com-rigsomelight-devcards-card-base.com-rigsomelight-devcards-breadcrumbs.com-rigsomelight-devcards-typog>span:first-child>a::before {
     content: "Jeremy's ";
 }
