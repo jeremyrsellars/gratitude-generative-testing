@@ -1,0 +1,210 @@
+/* gratitude.generative-testing CSS */
+
+/* Scroll Chamber (outline bar) */
+
+.scroll-chamber {
+    height: 2em;
+    left: 0; right: 0;
+    bottom: 0;
+    scroll-behavior: smooth;
+    position: fixed;
+    overflow: hidden;
+    border: 2px solid gray;
+    background: white;
+}
+
+.scroll-chamber #container {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    color: white;
+}
+
+.scroll-chamber #content {
+    white-space: nowrap;
+    background: linear-gradient(0.25turn, #33FF, #888, #3F3);
+    position: relative;
+    float: left;
+}
+
+.scroll-chamber #content>*{
+    display: inline-block;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    height: 2em;
+    min-width: 25vw;
+    padding-left: 15vw;
+    padding-right: 15vw;
+    counter-increment: section;                 /* Increment the value of section counter by 1 */
+}
+.scroll-chamber #content::after {
+    content: "Thanks for coming!  Have a great conference!"
+}
+.scroll-chamber #content>a{
+    text-decoration: none;
+    color: white;
+}
+.scroll-chamber #content>a:target{
+    font-weight: bold;
+}
+.scroll-chamber #content>a:target{
+    font-weight: bold;
+    text-decoration: underline;
+}
+.scroll-chamber #content>*::before{
+    content:"<";
+    padding-left: 1em;
+    padding-right: 1em;
+    content: counter(section);                  /* Display the value of section counter */
+    /*border-left: 2px solid white;*/
+}
+.scroll-chamber #content>*::after{
+    content: " ";
+    padding-left: 1em;
+    padding-right: 1em;
+    border-right: 2px solid white;
+}
+
+/* Highlight.js */
+
+body .hljs {
+    border: 1px solid #aaa;
+    border-radius: 0.3em;
+    padding: 0.5em;
+    font-family: "lucida console";
+}
+
+@media screen {
+    body .hljs {
+        font-size: 18pt;
+    }
+}
+
+.hljs::before {
+    display: block;
+    float: right;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: -0.5em;   /*undo .hljs padding*/
+    margin-right: -0.5em; /*undo .hljs padding*/
+    background: #ccc;
+    border-bottom-left-radius: 0.3em;
+}
+
+.hljs.lang-clojure::before {
+    content: "Clojure";
+}
+
+.hljs.lang-csharp::before {
+    content: "C#";
+}
+
+.black {
+    background-color: black;
+}
+
+
+.visible-when-target{
+    display: none;
+}
+
+.visible-when-target:target{
+    display: initial;
+}
+
+blockquote{
+    background:#f9f9f9;
+    border-left:4px solid #008080;
+    margin:1.5em 10px;
+    max-width:40em;
+    padding:0.5em 10px;
+    quotes:"“" "”"
+}
+
+blockquote p
+{
+    display:inline;
+}
+
+blockquote a
+{
+    display:block;
+}
+
+blockquote:before
+{
+    color:#008080;
+    content:open-quote;
+    font-size:4.236em;
+    line-height:0.1em;
+    margin-right:0.25em;
+    vertical-align:-0.4em;
+}
+
+#content .says,#content .amy-says
+{
+    float:right;
+    border-left:4px solid #bb77aa;
+    border-right:4px solid #bb77aa;
+    margin-right:1.25em;
+    background:#f9f9f9;
+    margin-left:10px;
+    width:80%;
+    width:calc(100% - 10px - 1.25em);
+}
+
+.before-alternating-table + table {
+    border: 1px solid black;
+    border-radius: 0.3em;
+}
+
+.before-alternating-table + table th {
+    border-bottom: 1px solid #888;
+}
+
+.before-alternating-table + table tbody td {
+    vertical-align: top;
+}
+.before-alternating-table + table tbody tr:nth-child(even) td {
+    background-color: #ddd;
+}
+
+@media screen {
+    /* .before-speaker-note + * { display: none; }*/
+
+    img {
+        display: block;
+        max-width:50vw;
+        max-height:50vh;
+        width: auto;
+        height: auto;
+    }
+
+}
+
+.before-speaker-note + *,
+code.lang-speaker-note {
+    background-color: #f8f8f8;
+}
+
+
+pre code.lang-speaker-note {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    white-space: pre-wrap;
+    line-height: 0em;
+}
+
+@media print {
+    img {
+        display: block;
+        max-width:130px;
+        max-height:65px;
+        width: auto;
+        height: auto;
+    }
+
+    .scroll-chamber {
+        display: none;
+    }
+}

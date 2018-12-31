@@ -1,0 +1,399 @@
+
+.button-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 0px;
+}
+
+.button_hover-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 -27px;
+}
+
+.content_tile-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 -54px;
+}
+
+.content_top-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 -166px;
+}
+
+.footer-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 -310px;
+}
+
+.input-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 -522px;
+}
+
+.title-image {
+  background: url(http://manifesto.softwarecraftsmanship.org/images/application.png) 0 -561px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/*********************************** Site Structure ******************************/
+
+html {
+  overflow-y: scroll;
+}
+
+.translations {
+  margin: 10px auto;
+  font-size: 12px;
+  width: 100%;;
+  text-align: center;
+}
+
+#container {
+  margin: 10px auto;
+  width: 729px;
+  font-size: 1.2em;
+}
+
+#content_top {
+  height: 120px;
+  width: 529px;
+  text-align: center;
+  padding-top: 25px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.input_container {
+  padding: 10px 10px 10px 10px;
+  width: 180px;
+  height: 20px;
+}
+
+input.large_round {
+  width: 170px;
+  background-color: #C3B5A5;
+  border: 0px;
+  font-size: 12pt;
+}
+input:focus {
+  outline-color: -moz-use-text-color;
+  outline-style: none;
+  outline-width: 0;
+}
+
+#content {
+  background-image: url(http://manifesto.softwarecraftsmanship.org/images/content_tile.png);
+  background-repeat: repeat-y;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.signatory-header {
+  margin: 6em 0 3em 0;
+  border-top: 1px solid rgb(141,100,60);
+  padding-top: 3em;
+}
+
+.signatory-header h1 {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+.signatory-header div {
+  display: inline-block;
+  vertical-align: bottom;
+  float: right;
+}
+
+#footer {
+  background-repeat: no-repeat;
+  height: 211px;
+  text-align: center;
+}
+
+.small_right {
+  text-align: right;
+  font-size: 8pt;
+}
+
+/********************************** Text formatting *****************/
+p {
+  padding-bottom: 25px;
+}
+p.text {
+  font-size: 14pt;
+  text-align: left;
+  padding-left: 15px;
+  width: 535px;
+}
+p.text_center {
+  font-size: 14pt;
+  text-align: center;
+  width: 550px;
+  margin: 0 auto;
+}
+p.big_letter:first-letter {
+  font-family: Georgia,;
+  font-size: 50px;
+  font-weight: normal;
+  line-height: 80%;
+  letter-spacing: -6px;
+  padding: 0.20em;
+}
+
+.center {
+  text-align: center;
+  width: 100%;
+}
+.center table {
+  padding-left: 150px;
+}
+
+p.notice {
+  font-size: 7pt;
+  text-align: center;
+}
+
+.left {
+  padding-left: 30px;
+  font-size: 14pt;
+  text-align: left;
+  width: 580px;
+}
+
+.right {
+  padding-left: 106px;
+  font-size: 14pt;
+  text-align: left;
+  padding-bottom: 20px;
+  width: 580px;
+}
+
+table.form_fields {
+  text-align: center;
+  font-size: 12pt;
+  margin-left: auto;
+  margin-right: auto;
+}
+table.form_fields td.button-cell {
+  padding-right: 3px;
+  height: 45px;
+}
+
+.value {
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.value:lang(es) {
+  font-size: 15pt;
+  font-weight: bold;
+}
+
+#signatory-table {
+  width: 38rem;
+}
+
+#signatory-table td {
+  float: left;
+  width: 190px;
+  padding-left: 10px;
+  padding-top: 6px;
+}
+
+.search-result td {
+  text-align: right;
+}
+
+#signatory-table td.signatory-name {
+  text-align: left;
+}
+
+#signatory-table tr.search-result {
+  width: 100%;
+}
+
+#signatory-table tr.search-result td {
+  font-size: 14px;
+  float: none;
+  width: 0;
+}
+
+#search-button {
+  background-color: #6D3D19;
+  padding: 0.5rem;
+  -moz-box-shadow: 0 0 3px #6D3D19;
+  -webkit-box-shadow: 0 0 3px #6D3D19;
+  box-shadow: 0 0 3px #6D3D19;
+  border-radius: 4px;
+}
+
+#clear-button {
+  padding: 0.4rem;
+  position: absolute;
+  margin-left: 140px;
+  font-size: 1rem;
+}
+
+#search-name {
+  padding-right: 26px;
+  padding-left: 6px;
+  height: 1.75rem;
+  width: 135px;
+  font-size: 16px;
+  border: none;
+}
+
+.errors {
+  text-align: left;
+}
+.errors ul {
+  padding-left: 30px;
+}
+.errors p {
+  padding-bottom: 5px;
+}
+
+#signature-form-errors {
+  padding-bottom: 8px;
+}
+
+.footertxt {
+  padding-top: 180px;
+}
+.footertxt a:link, .footertxt a:visited {
+  color: black;
+}
+
+h2 {
+  font-weight: bold;
+  padding: 10px;
+  color: #673711;
+  font-size: 1.2em;
+}
+
+/*************************** Hyperlinks ***********************/
+a:link, a:visited {
+  color: #F1DBC6;
+  text-decoration: none;
+}
+a:hover {
+  color: #FFCC66;
+}
+a:active {
+  color: #FFFFFF;
+}
+
+#view, #reading, #metrics {
+  font-size: 0.8em;
+  text-decoration: underline;
+}
+
+#view, #reading {
+  margin-right: 1em;
+}
+
+/***************************  Navigation **********************/
+.button-text {
+  margin-top: -6px;
+  vertical-align: center;
+}
+
+.button {
+  font-size: 16px;
+  padding: 2px 27px;
+  text-align: center;
+  height: 7px !important;
+  -o-border-radius: 18px;
+  -moz-border-radius: 18px;
+  -webkit-border-radius: 18px;
+  border-radius: 18px;
+  background: #c3b5a5;
+  background: -moz-linear-gradient(top, #c3b5a5 0%, #aea295 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c3b5a5), color-stop(100%, #aea295));
+  background: -webkit-linear-gradient(top, #c3b5a5 0%, #aea295 100%);
+  background: -o-linear-gradient(top, #c3b5a5 0%, #aea295 100%);
+  background: -ms-linear-gradient(top, #c3b5a5 0%, #aea295 100%);
+  background: linear-gradient(to bottom, #c3b5a5 0%, #aea295 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c3b5a5', endColorstr='#aea295',GradientType=0 );
+  border: 1px solid #decebc;
+}
+
+.button:hover {
+  color: black;
+  background: #c3b5a5;
+  background: -moz-linear-gradient(top, #c3b5a5 0%, #a19383 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #c3b5a5), color-stop(100%, #a19383));
+  background: -webkit-linear-gradient(top, #c3b5a5 0%, #a19383 100%);
+  background: -o-linear-gradient(top, #c3b5a5 0%, #a19383 100%);
+  background: -ms-linear-gradient(top, #c3b5a5 0%, #a19383 100%);
+  background: linear-gradient(to bottom, #c3b5a5 0%, #a19383 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#c3b5a5', endColorstr='#a19383',GradientType=0 );
+}
+
+.button_link:link, #sign {
+  color: black;
+  text-decoration: none;
+}
+
+#navlist {
+  width: 210px;
+  text-align: center;
+}
+#navlist li {
+  list-style: none;
+  padding-bottom: 18px;
+  font-weight: bold;
+}
+#navlist li a {
+  text-decoration: none;
+}
+
+.heading_title {
+  width: 450px;
+  height: 54px;
+  display: block;
+  margin: -3px auto -2px auto;
+}
+
+.invisible_headings {
+  display: none;
+}
+
+.further_reading li {
+  padding: 4px;
+}
+
+.further_reading_header {
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:url('fonts/icomoon.eot?9fxkf6');
+  src:url('fonts/icomoon.eot?#iefix9fxkf6') format('embedded-opentype'),
+    url('fonts/icomoon.woff?9fxkf6') format('woff'),
+    url('fonts/icomoon.ttf?9fxkf6') format('truetype'),
+    url('fonts/icomoon.svg?9fxkf6#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'icomoon';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-search:before {
+  content: "\e600";
+}
+
+.icon-remove-sign:before {
+  content: "\e601";
+}
