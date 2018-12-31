@@ -47,7 +47,7 @@
 
                        {:id "pages"
                         :source-paths ["show" "test" "src"]
-                        :compiler { :main       "gratitude.generative-testing.core"
+                        :compiler { :main       "gratitude.a-good-place-to-start"
                                     :devcards true
                                     :asset-path "js/compiled/pages_out"
                                     :output-dir "resources/public/js/compiled/gratitude/"
