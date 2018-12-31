@@ -279,8 +279,6 @@ code.lang-speaker-note {
     right: 0;
     top: 0;
     height: 3em;
-    background-color: #88F;
-    background-color: rgba(128,128,255,0.2);
     z-index: 1;
     vertical-align: middle;
 }
