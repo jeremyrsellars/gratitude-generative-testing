@@ -101,9 +101,9 @@ Let's demonstrate an integer generator in each library to get a feel for what's 
 ```clojure
 user=> (s/gen int?)
 #clojure.test.check.generators.Generator{:gen #object[clojure.test.check.generators$such_that$fn__1825 0x633837ae "clojure.test.check.generators$such_that$fn__1825@633837ae"]}
-user=> (gen/generate (s/gen int?))
+user=> (gen/generate (s/gen int?) 42)
 123
-user=> (take 3 (repeatedly #(gen/generate (s/gen int?) 3)))
+user=> (take 3 (repeatedly #(gen/generate (s/gen int?) 42)))
 (60273 -94 -3)
 user=> (gen/sample (s/gen int?) 3))
 (0 -1 1)
@@ -114,6 +114,7 @@ Notice:
 * `int?` is a `fn` from Clojure's standard library
 * `(s/gen int?)` yields a `clojure.test.check.generators.Generator`
 * `(gen/generate (s/gen int?))` yields an integer
+* `(gen/generate (s/gen int?) optional-size)` yields an integer, and can yield more-interesting results
 * `(gen/sample (s/gen int?) 3)` yields 3 integers
 
 ### `gen/generate` vs. `gen/sample`
@@ -121,19 +122,18 @@ Notice:
 <style class='before-speaker-note'></style>
 
 * In this case, we'll ask clojure.spec for an int generator.
-* It creates an instance of a Java class called `clojure.test.check.generators.Generator`, then generate some examples with it.
+* It creates an instance of a Java class called `Generator` in the `clojure.test.check.generators` package, then generate some examples with it.
 * Notice:
     * `int?` is a `fn` from Clojure's standard library that asks if a value/class is an integer.  Clojure.spec is able to look up an appropriate generator from this function.
     * `(s/gen int?)` yields a `clojure.test.check.generators.Generator` capable of generating integers
     * `(gen/generate (s/gen int?))` yields an integer (and not necessarilly a simple one)
     * `(gen/sample (s/gen int?) 3)` yields 3 integers, usually simpler ones
 
-
 <style class='before-speaker-note'></style>
 
 * This generates a new value, or list of values, each time, which already sounds more interesting than example-based unit tests.
 * So, you may notice that the result from `gen/generate` seems more surprising than that of `gen/sample`.
-  * test.check usually starts by generating smaller, more normal values.  We'll come back to this concept of `size` later.
+  * test.check usually starts by generating smaller, more "boring" values.  We'll come back to this concept of `size` later.
 
 <style class='before-speaker-note'></style>
 
@@ -149,7 +149,7 @@ Notice:
 
 * Let's see how to create and use a generator in FsCheck.
     * Again, we'll ask for an int generator.
-    * It creates an instance of a .Net class called `FsCheck.Gen`.
+    * It creates an instance of a .Net class called `Gen` in the `FsCheck` namespace.
 * C#'s type system may help describe what is going on for our type-oriented friends.
 
 ```csharp
@@ -164,9 +164,9 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 
 <style class='before-speaker-note'></style>
 
-* FsCheck generators have a `size` parameter that can help control the size of data generated, to prevent examples from being too simple to expose errors or too complex to execute quickly, like the size of lists, among other things.
+* FsCheck generators have a `size` parameter that can help control the iterestingness of data generated, to prevent examples from being too simple to expose errors or too complex to execute quickly, like the size of lists, producing unusual characters in strings, among other things.
     * We'll come back to that later because it's very dependent on the type of generator being used.
-    * FsCheck has a good writeup of this in the [documentation](https://fscheck.github.io/FsCheck/TestData.html#The-size-of-test-data).
+    * FsCheck has a good writeup of this in the [documentation](https://fscheck.github.io/FsCheck/TestData.html#The-size-of-test-data) linked in the last slide.
 * Some ways of generating examples:
     1. So, one way to make a generator for integer values is `var gen = Gen.Choose(low, hi)`.  This returns an instance of `Gen<int>`.
     2. To generate 3 examples, we use `gen.Sample(someSize, 3)`.
@@ -181,7 +181,10 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 (s/gen nil?)
 ```
 
-With FsCheck, you can make a constant generator that always returns the same value that is passed in.
+Or, more literally, you can make a constant generator that always returns the same value that is passed in.
+```clojure
+(gen/return nil)
+```
 
 ```csharp
 Gen.Constant<string>(null);
@@ -192,14 +195,20 @@ Gen.Constant<string>(null);
 ## Choose between alternatives
 
 ```clojure
+; Equal probability, using a hash set literal value in `#{}`
 (s/gen #{"bears" "beets" "Battlestar Galactica"})
+; Weighted probability
+(sgen/frequency
+  [[2 (gen/return "bears")]
+   [1 (gen/return "beets")]
+   [1 (gen/return "Battlestar Galactica")]])
 ```
 
 <style class='before-speaker-note'></style>
 
 * Imagine you have a few values and you want to generate a random choice between those.
 * clojure.spec:
-    * The default generate for a hash set `#{}` in clojure.spec is a choice of the members.
+    * The default generator for a hash set `#{}` in clojure.spec is a choice of the members.
 * FsCheck
     * With FsCheck, making the choice between options can be done with a combination of generators, with `Gen.OneOf`.
     * In this case, it chooses between "constant" generators which always return the same value.

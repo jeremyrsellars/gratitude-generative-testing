@@ -17,7 +17,10 @@
 * Clojure
     * Clojure.spec Guide – https://clojure.org/guides/spec
     * Test.check – https://github.com/clojure/test.check
+    * More advanced test.check generators – https://clojure.github.io/test.check/clojure.test.check.generators.html
 * C#/F#/.Net
     * FsCheck – https://fscheck.github.io/FsCheck
+    * "Size"/complexity of generated data – https://fscheck.github.io/FsCheck/TestData.html#The-size-of-test-data
+    * Useful Generator Combinators – https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators
 * Haskell
     * https://wiki.haskell.org/Introduction_to_QuickCheck1

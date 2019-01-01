@@ -278,7 +278,7 @@ code.lang-speaker-note {
     left: 0;
     right: 0;
     top: 0;
-    height: 3em;
+    max-height: 0;
     z-index: 1;
     vertical-align: middle;
 }

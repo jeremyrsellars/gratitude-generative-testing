@@ -341,11 +341,11 @@ This is one reason I recommend starting with example-based unit tests before mov
 
 <style class='before-speaker-note'></style>
 
-* In many cases if you already have an algorithm that can create the right answer for a test case, there wouldn't be a reason to write new code.
-* Often we don't start out with an algorithm known to work, but stakeholders have identified some things they expected to be true of the system (nicely packaged in a specification document, if we're lucky).
+* In many cases *if* you already have an algorithm that can create the right answer for a test case, there wouldn't be a reason to write new code.
+* Often we don't start out with an algorithm known to work, but stakeholders have identified some things they expected to be true of the system.  If we're lucky, it is nicely packaged in a specification document.
 * Sometimes a specification may be incomplete or not internally consistent.
     * A specification I was working with recently explicitly forbade the number 1, but 0, 2, 3, 4, etc. were fine.  The problem was that the number 1 could actually occur (because of a revision in a different part of the document), and then the behavior was undefined.
-* Sometimes an algorithm believed to work doesn't actually behave the way it is believed to – the properties don't hold true in some corner cases.  Maybe the algorithm is right and the spec is wrong, or vice versa.  Either way, it is helpful to identify this, and the earlier, the better.
+* Sometimes an algorithm believed to work doesn't actually behave the way it is suppose to – the properties don't hold true in some corner cases.  Maybe the algorithm is right and the spec is wrong, or vice versa.  Either way, it is helpful to identify this, and the earlier, the better.
 * The oracle may be "expensive" (measured computationally, dollar-cost, network, or some other resource) to use the oracle.
     * Is it a legacy system running on virtual hardware in the cloud?
     * Is it a third-party payment system that will only tell you that the request was issued correctly by issuing the request?

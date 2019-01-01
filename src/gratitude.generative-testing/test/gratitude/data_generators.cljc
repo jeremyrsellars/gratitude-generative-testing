@@ -51,8 +51,8 @@
 (s/def ::user-id
   (-> string?
       (s/with-gen #(sgen/frequency
-                      [[9 (s/gen ::sane-email-address)]]
-                      [[1 (s/gen ::insane-email-address)]]))))
+                      [[9 (s/gen ::sane-email-address)]
+                       [1 (s/gen ::insane-email-address)]]))))
 
 (defn insane-string-generator
   [gen-fn]

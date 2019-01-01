@@ -112,7 +112,9 @@ This list is a good place to start along the path to transforming and combining 
 
 <style class='before-speaker-note'></style>
 
-Now, let's build a card generator.  A card will be modeled with a type and enums in C# (like `new Card{Suit=Suit.Diamonds, Rank=Rank.Ten})`:
+Now, let's build a card generator.  A card will be modeled with a type and enums in C#.
+
+`new Card{Suit=Suit.Diamonds, Rank=Rank.Ten})`
 
 ```csharp
     public struct Card
@@ -203,12 +205,88 @@ Generate example cards by defining and combining some generators with some of th
 
 <style class='before-speaker-note'></style>
 
-* Consider generating more tricky sheepish and sheepish-like data, we may want to combine several generators.
-* Consider composing better sheepish-like strings in an attempt to trick the `sheep-bleat?` function.
+* Here are some ways we can use the generator-combining and transforming functions to generate more-tricky sheepish and sheepish-like data.
+
+
+```clojure
+(ns sheepish.f-better-sheepish-examples
+  (:require [clojure.spec.alpha :as s] [clojure.spec.gen.alpha :as gen] [clojure.string :as string]
+            [clojure.pprint :as pprint] clojure.test.check.generators))
+
+(defn generate-examples
+  [spec example-count]
+  (let [generator (s/gen spec)
+        generate-example #(gen/generate generator)
+        examples (repeatedly generate-example)]
+    (take example-count examples)))
+
+;; Let's say we want to compose the test string into before, the `b`, intermediate characters, `a` characters, and "after".
+
+(s/def ::usually-empty-string
+  (s/with-gen string?
+   #(gen/frequency [[9 (gen/return "")]
+                    [1 (s/gen string?)]])))
+; generates strings like ( "", "", "ON865d3", "", "", "", "", "", "")
+
+(pprint/pprint (generate-examples ::usually-empty-string 40))
+```
+
+-----------
+
+# Back to the sheep pen (continued)
+
+```clojure
+(s/def ::string-of-a
+  (s/with-gen string?
+    #(gen/fmap
+      (fn [n] (string/join (repeat (max n 0) \a)))
+      (s/gen (s/int-in -3 4)))))
+; generates strings like ("aaa", "", "aa")
+(pprint/pprint (generate-examples ::string-of-a 40))
+
+(s/def ::string-of-b
+  (s/with-gen string?
+    #(gen/fmap
+      (fn [n] (string/join (repeat (max n 0) \b)))
+      (s/gen (s/int-in 0 3)))))
+
+(pprint/pprint (generate-examples ::string-of-b 40))
+```
+
+-----------
+
+# Back to the sheep pen (continued)
+
+```clojure
+(s/def ::sheepish-like-substrings
+  (s/with-gen (s/coll-of string?)
+    #(gen/tuple (s/gen ::usually-empty-string)
+                (s/gen ::string-of-b)
+                (s/gen ::usually-empty-string)
+                (s/gen ::string-of-a)
+                (s/gen ::usually-empty-string)
+                (s/gen ::string-of-a))))
+; generates vectors of substrings like
+; (["A9hrfNg56618b066y07nb" "bb" "" "" "Q" "aa"]
+;  ["" "b" "" "" "" ""] ...)
+
+(pprint/pprint (generate-examples ::sheepish-like-substrings 10))
+
+(s/def ::sheepish-like-string
+  (s/with-gen string?
+    #(gen/fmap string/join (s/gen ::sheepish-like-substrings))))
+; generates strings like ("baaaaa" "bBey1gsp0" "bbCDUmyMzt4Kaaa8l70Eaaa" "b" "bbaa" "baaa" "baaa" "baaaaa" "baaa" "bbaaa")
+
+(pprint/pprint (generate-examples ::sheepish-like-string 10))
+```
 
 ------------
 
 # Source code
 
-* Clojure: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/sheepish/test/sheepish/e_hearts_card_generators.cljc
-* C#: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/Sheepish.net/Sheepish.CSharp/E_Example_Generators.cs
+* Clojure
+    * Hearts: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/sheepish/test/sheepish/e_hearts_card_generators.cljc
+    * Sheepish: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/sheepish/test/sheepish/f_better_sheepish_examples.cljc
+* C#
+    * Hearts: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/Sheepish.net/Sheepish.CSharp/E_Example_Generators.cs
+    * Sheepish: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/Sheepish.net/Sheepish.CSharp/F_Parameterized_Test_With_Better_Generators.cs

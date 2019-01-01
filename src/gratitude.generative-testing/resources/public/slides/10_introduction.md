@@ -208,7 +208,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 <style class='before-speaker-note'></style>
 
 * With your help, this topic meets this point, too.
-* You, the reader, are participating and are hopefully benefitting from this community of professionals.
+* You, by participating in this conference, are hopefully benefitting from this community of professionals.
 * I am excited to see if this session adds to your excitement about these topics and helps you accomplish your goals.
 * Feel free to let me know on twitter, etc..
 
