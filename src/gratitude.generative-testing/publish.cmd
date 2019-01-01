@@ -23,3 +23,4 @@ del "%~dp0..\..\..\Generative-Testing_gh-pages\js\compiled\gratitude\generative_
 ren "%~dp0..\..\..\Generative-Testing_gh-pages\js\compiled\gratitude\generative_testing_pages.js" generative_testing_devcards.js
 del "%~dp0..\..\..\Generative-Testing_gh-pages\js\compiled\gratitude\generative_testing_devcards.js.map"
 ren "%~dp0..\..\..\Generative-Testing_gh-pages\js\compiled\gratitude\generative_testing_pages.js.map" generative_testing_devcards.js.map
+FOR %%f in ("%~dp0..\..\..\Generative-Testing_gh-pages\*.html") DO powershell -f "%~dp0scripts\versionize-html.ps1" "%%f"
