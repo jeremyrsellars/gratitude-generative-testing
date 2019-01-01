@@ -17,6 +17,7 @@ echo \gratitude\gratitude\>>"%outexc%"
 echo \gratitude\process>>"%outexc%"
 echo \gratitude\sablono>>"%outexc%"
 echo \gratitude\us\sellars>>"%outexc%"
+echo js\compiled\gratitude\inferred_externs.js>>"%outexc%"
 xcopy /EXCLUDE:%outexc% /s /y "%~dp0resources\public\*" "%~dp0..\..\..\Generative-Testing_gh-pages\"
 del "%~dp0..\..\..\Generative-Testing_gh-pages\js\compiled\gratitude\generative_testing_devcards.js"
 ren "%~dp0..\..\..\Generative-Testing_gh-pages\js\compiled\gratitude\generative_testing_pages.js" generative_testing_devcards.js

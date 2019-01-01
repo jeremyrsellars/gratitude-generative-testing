@@ -4,6 +4,8 @@
   ;           [sablono.core :as sab])
   ; (:require-macros [gratitude.doc.core]))
 
+(set! *warn-on-infer* true)
+
 (defn highlight-code-blocks
   []
   (set! (.-called (.-initHighlighting js/hljs)) false) ;; prevent short-circuit

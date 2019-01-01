@@ -43,6 +43,7 @@
                                     :asset-path "js/compiled/devcards_out"
                                     :output-to  "resources/public/js/compiled/gratitude/generative_testing_devcards.js"
                                     :output-dir "resources/public/js/compiled/devcards_out"
+                                    :infer-externs true
                                     :source-map-timestamp true }}
 
                        {:id "pages"
@@ -54,6 +55,7 @@
                                     :output-to  "resources/public/js/compiled/gratitude/generative_testing_pages.js"
                                     :source-map "resources/public/js/compiled/gratitude/generative_testing_pages.js.map"
                                     :optimizations :advanced
+                                    :infer-externs true
                                     :source-map-timestamp true }}
 
                        {:id "dev"
@@ -63,6 +65,7 @@
                                    :asset-path "js/compiled/out"
                                    :output-to  "resources/public/js/compiled/gratitude/generative_testing.js"
                                    :output-dir "resources/public/js/compiled/out"
+                                   :infer-externs true
                                    :source-map-timestamp true }}
                        #_
                        {:id "prod"
@@ -70,6 +73,7 @@
                         :compiler {:main       "gratitude.generative-testing.core"
                                    :asset-path "js/compiled/out"
                                    :output-to  "resources/public/js/compiled/gratitude/generative_testing.js"
+                                   :infer-externs true
                                    :optimizations :advanced}}]}
 
   :figwheel { :css-dirs ["resources/public/css"]
