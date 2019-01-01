@@ -234,7 +234,6 @@ code.lang-speaker-note {
 pre code.lang-speaker-note {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     white-space: pre-wrap;
-    line-height: 0em;
 }
 
 @media print {
