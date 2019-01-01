@@ -72,7 +72,11 @@
 (def _setup-card-sequence
   (reset! gratitude.generative-testing.core/outline-atom
     (reduce
-      #(into %1 (map (juxt :description :hash) %2))
+      (fn [all-slides slide-s2]
+       (->> slide-s2
+            (remove :blank?)
+            (map (juxt :description :hash))
+            (into all-slides)))
       []
       [gratitude.generative-testing.core/slide-outline
        gratitude.generative-testing.section-10-introduction/slides

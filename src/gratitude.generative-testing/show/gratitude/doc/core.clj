@@ -50,18 +50,21 @@
                         markdown (string/replace extra+markdown slide-extras-regex "")
                         first-line (re-find #"(?i)\w[-_ a-z0-9'\"]+" markdown)
                         card-sym (symbol (str *ns*) (str (or id (str "slide-" idx))))]]
-            {:card-sym card-sym, :classname classname, :markdown markdown,
+            {:card-sym card-sym
+             :classname classname
+             :markdown markdown,
+             :blank? (string/blank? markdown)
              :description first-line
              :hash (symbol-hash (namespace card-sym) (name card-sym))}))]
     (list 'do
       (cons 'clojure.core/vector
-        (for [{:keys [card-sym classname markdown]} slides
-              :when (not (string/blank? markdown))]
+        (for [{:keys [card-sym classname markdown blank?]} slides
+              :when (not blank?)]
           `(devcards.core/defcard ~card-sym
             (sab/html
               [:div {:dangerouslySetInnerHTML {"__html" (devcards.util.markdown/markdown-to-html ~markdown)}}])
             {:object {:render (us.sellars.slides.higlight-js/schedule-code-highlighting)}}
             {:classname ~classname})))
       (mapv
-        #(select-keys % [:hash :classname :markdown :description])
+        #(select-keys % [:hash :classname :markdown :description :blank?])
         slides))))
