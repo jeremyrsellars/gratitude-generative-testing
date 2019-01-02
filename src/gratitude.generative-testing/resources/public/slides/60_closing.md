@@ -5,14 +5,13 @@
 * Here are some resources you may find helpful on your journey.
 * Thank you all for coming and I hope you enjoy the rest of the conference.
 
-## Helpful Resources
+## Review or Share
 
 * Slides for this talk – https://jeremyrsellars.github.io/gratitude-generative-testing/slides.html
 * My [No New Legacy](http://jeremyrsellars.github.io/no-new-legacy/) Blog - http://jeremyrsellars.github.io/no-new-legacy/
-    * [Generative Testing, Software Quality, and Professionalism](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-09-07-generative-testing-introduction)
-    * [Properties and Oracles](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-09-11-generative-testing-properties)
-    * [simple-generators](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-11-11-generative-testing-simple-generators)
-    * [composing-generators](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-11-25-generative-testing-composing-generators)
+    * [Generative Testing, Software Quality, and Professionalism](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-09-07-generative-testing-introduction).  [Properties and Oracles](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-09-11-generative-testing-properties).  [Simple generators](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-11-11-generative-testing-simple-generators).  [Composing generators](http://jeremyrsellars.github.io/no-new-legacy/posts/2018-11-25-generative-testing-composing-generators)
+
+## Helpful Resources
 
 * Clojure
     * Clojure.spec Guide – https://clojure.org/guides/spec
@@ -24,3 +23,5 @@
     * Useful Generator Combinators – https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators
 * Haskell
     * https://wiki.haskell.org/Introduction_to_QuickCheck1
+* Other Languages?
+    * Some ideas: https://hypothesis.works/articles/quickcheck-in-every-language/

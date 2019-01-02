@@ -1,3 +1,5 @@
+-----------.jumbo
+
 # *Generative* Testing
 
 1. Generate some test scenarios (data for parameterized tests).
@@ -26,13 +28,13 @@
 
 ![John Hughes](http://www.cse.chalmers.se/~rjmh/Me%20prisma.jpg)
 
-----------------
+----------------.jumbo
 
 # First Generators
 
 * What is a generator?
-* Generates reproducible, pseudo-random values
-* Shrink
+    * Generates reproducible, pseudo-random values
+    * Shrink (produce less "interesting" values)
 
 ```speaker-note
 Should I talk about John Hughes/ACM here?
@@ -42,9 +44,9 @@ Less talk, more code!
 For comparison's sake, we'll try 2 libraries in different language ecosystems.
 ```
 
+* *Clojure*: [Clojure.Spec](https://clojure.org/guides/spec) via [Test.Check](https://github.com/clojure/test.check).
+* *C#/F#/.Net*: [FsCheck](https://fscheck.github.io/FsCheck)
 * Haskell: [QuickCheck](https://wiki.haskell.org/Introduction_to_QuickCheck1)
-* Clojure: [Clojure.Spec](https://clojure.org/guides/spec) via [Test.Check](https://github.com/clojure/test.check).
-* C#/F#/.Net: [FsCheck](https://fscheck.github.io/FsCheck)
 
 
 <style class='before-speaker-note'></style>

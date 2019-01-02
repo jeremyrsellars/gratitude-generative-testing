@@ -237,4 +237,4 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * I don't mean to say that craftsmanship demands using generative testing.
 * I am suggesting that this is another useful tool for your workshop.
 
-Let's get started!
+* Let's get started!

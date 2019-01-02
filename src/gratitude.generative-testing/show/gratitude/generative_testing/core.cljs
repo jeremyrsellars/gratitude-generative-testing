@@ -15,7 +15,7 @@
    ["Property testing"       0    "#!/gratitude.generative_testing.section_20_property_testing"]
    ["Simple generators"      0    "#!/gratitude.generative_testing.section_30_simple_generators"]
    ["Composing generators"   0    "#!/gratitude.generative_testing.section_40_composing_generators"]
-   ["Gratitude app demo"     0    "#!/gratitude.generative_testing.section_50_gratitude_generators"]
+   ["Generative tests applied" 0  "#!/gratitude.generative_testing.section_50_gratitude_generators"]
    ["Closing"                1    "#!/gratitude.generative_testing.section_60_closing"]])
 
 (def slide-outline

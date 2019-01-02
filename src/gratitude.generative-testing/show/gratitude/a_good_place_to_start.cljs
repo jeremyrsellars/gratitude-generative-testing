@@ -23,15 +23,28 @@
 (defcard Welcome
   (sab/html
    [:div
-             [:h1 "Generate Data for 10,000 Unit Tests"]
-             [:h2 "Jeremy Sellars"]
-             [:h2 "@agentJsellars"]
-             [:p]
+             [:h1 {:style {:text-align "center"
+                           :font-size "4em"}}
+                "Generate Data for 10,000 Unit Tests"]
+             [:h1 "Jeremy Sellars"]
+    [:ul
+      [:li "Content for this talk"
+        [:ul
+          [:li "Slides – "
+             [:a {:href "http://jeremyrsellars.github.io/gratitude-generative-testing/slides.html" :target "_new"}
+                "jeremyrsellars.github.io/gratitude-generative-testing/slides.html"]]
+          [:li "Source code – "
+             [:a {:href "http://github.com/jeremyrsellars/gratitude-generative-testing/" :target "_new"}
+                "http://github.com/jeremyrsellars/gratitude-generative-testing/"]]]]
+      [:li "No New Legacy Blog – "
              [:a {:href "http://jeremyrsellars.github.io/no-new-legacy/" :target "_new"}
-                "No New Legacy Blog – jeremyrsellars.github.io/no-new-legacy/"]
-             [:p]
+                "jeremyrsellars.github.io/no-new-legacy/"]]
+      [:li "Twitter "
+             [:a {:href "http://twitter.com/agentJsellars" :target "_new"}
+                "@agentJsellars"]]
+      [:li "Softek Solutions – "
              [:a {:href "http://softekinc.com" :target "_new"}
-                "Softek Solutions – softekinc.com"]
+                "softekinc.com"]]]
     [:h2 "Outline"]
     [:ul
       (for [[title level href] (next gratitude.generative-testing.core/outline #_ :skip-the-title-slide)

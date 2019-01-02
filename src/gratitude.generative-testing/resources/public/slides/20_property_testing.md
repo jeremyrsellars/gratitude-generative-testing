@@ -67,8 +67,8 @@ bool isSheepBleat(string s)
 |----------|------------|--------------|
 |`b`       |false       |Too short     |
 |`ba`      |false       |Too short     |
-|`baa`     |true        |2+ `a`s       |
-|`baaa`    |true        |2+ `a`s       |
+|`baa`     |**true**    |2+ `a`s       |
+|`baaa`    |**true**    |2+ `a`s       |
 |`baaad`   |false       |invalid `d`   |
 |`·baa`    |false       |leading space |
 |`baa·`    |false       |trailing space|
@@ -144,41 +144,31 @@ The parameterized test might look like this, which executes an assertion functio
 # C# with nUnit example-based tests
 
 ```csharp
-    [TestFixture]
-    public class A_Parameterized_Test
-    {
-        [TestCaseSource(nameof(SheepishExamples))]
-        public void SheepBleatDetection(SheepishTestCase testCase) =>
-            Assert.AreEqual(
-                testCase.IsSheepBleat,
-                Sheepish.IsSheepBleat(testCase.Text), testCase.Reason);
+[TestFixture] public class A_Parameterized_Test
+{
+    [TestCaseSource(nameof(SheepishExamples))]
+    public void SheepBleatDetection(SheepishTestCase testCase) =>
+        Assert.AreEqual(testCase.IsSheepBleat, Sheepish.IsSheepBleat(testCase.Text), testCase.Reason);
 
-        static IEnumerable<SheepishTestCase> SheepishExamples =>
-            new[] {
-                new SheepishTestCase("b",         false,    "Too short"),
-                new SheepishTestCase("ba",        false,    "Too short"),
-                new SheepishTestCase("baa",       true,     "2+ 'a' s"),
-                new SheepishTestCase("baaa",      true,     "2+ 'a' s"),
-                new SheepishTestCase("baaad",     false,    "invalid ' d'"),
-                new SheepishTestCase(" baa",      false,    "leading space"),
-                new SheepishTestCase("baa " ,     false,    "trailing space"),
-            };
+    static IEnumerable<SheepishTestCase> SheepishExamples => new[] {
+        new SheepishTestCase("b",         false,    "Too short"),
+        new SheepishTestCase("ba",        false,    "Too short"),
+        new SheepishTestCase("baa",       true,     "2+ 'a' s"),
+        new SheepishTestCase("baaa",      true,     "2+ 'a' s"),
+        new SheepishTestCase("baaad",     false,    "invalid ' d'"),
+        new SheepishTestCase(" baa",      false,    "leading space"),
+        new SheepishTestCase("baa " ,     false,    "trailing space")};
 
-        public class SheepishTestCase
-        {
-            public SheepishTestCase(string text, bool isSheepBleat, string reason)
-            {
-                Text = text;
-                IsSheepBleat = isSheepBleat;
-                Reason = reason;
-            }
-            public string Text;
-            public bool IsSheepBleat;
-            public string Reason;
-            // nUnit requires a unique ToString() for a name.
-            public override string ToString() => Text;
+    public class SheepishTestCase {
+        public SheepishTestCase(string text, bool isSheepBleat, string reason) {
+            Text = text; IsSheepBleat = isSheepBleat; Reason = reason;
         }
+        public string Text;
+        public bool IsSheepBleat;
+        public string Reason;
+        public override string ToString() => Text;  // nUnit requires a unique ToString() for a name.
     }
+}
 ```
 
 --------------
@@ -233,17 +223,14 @@ Same examples, but with the answers no-longer known beforehand.
 
 
 ```csharp
-    [TestFixture]
-    public class B_Parameterized_Test_With_Oracle
-    {
+    [TestFixture] public class B_Parameterized_Test_With_Oracle {
         [TestCaseSource(nameof(SheepishExamples))]
         public void SheepBleatDetection(SheepishTestCase testCase) =>
             Assert.AreEqual(
                 Regex.IsMatch(testCase.Text, @"^baa+$"),
                 Sheepish.IsSheepBleat(testCase.Text), testCase.Reason);
 
-        static IEnumerable<SheepishTestCase> SheepishExamples =>
-            new[] {
+        static IEnumerable<SheepishTestCase> SheepishExamples => new[] {
                 new SheepishTestCase("b",         "Too short"),
                 new SheepishTestCase("ba",        "Too short"),
                 new SheepishTestCase("baa",       "2+ 'a' s"),
@@ -253,17 +240,14 @@ Same examples, but with the answers no-longer known beforehand.
                 new SheepishTestCase("baa " ,     "trailing space"),
             };
 
-        public class SheepishTestCase
-        {
-            public SheepishTestCase(string text, string reason)
-            {
+        public class SheepishTestCase {
+            public SheepishTestCase(string text, string reason) {
                 Text = text;
                 Reason = reason;
             }
             public string Text;
             public string Reason;
-            // nUnit requires a unique ToString() for a name.
-            public override string ToString() => Text;
+            public override string ToString() => Text;  // nUnit requires a unique ToString() for a name.
         }
     }
 ```
@@ -358,4 +342,6 @@ This is one reason I recommend starting with example-based unit tests before mov
 Now that we have a way of testing arbitrary test cases, we can turn to the fun part.
 
 Next, the generative testing library/framework can generate examples for us.
+
+Then, it can supply those generated examples to our parameterized tests.
 ```

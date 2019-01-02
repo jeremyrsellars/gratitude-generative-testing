@@ -23,7 +23,7 @@ body {
 
 @media screen {
     .com-rigsomelight-devcards_rendered-card {
-        font-size: 18px;
+        font-size: 18pt;
     }
 }
 
@@ -61,7 +61,10 @@ body {
     }
 }
 .com-rigsomelight-devcards-card-base.com-rigsomelight-devcards-breadcrumbs.com-rigsomelight-devcards-typog>span:first-child>a::before {
-    content: "Jeremy's ";
+    content: "@agentJsellars";
+    font-weight: bold;
+    font-size: 200%;
+    padding-right: 1em;
 }
 
 @media screen {
@@ -103,4 +106,9 @@ body {
 .com-rigsomelight-devcards-panel-heading.com-rigsomelight-devcards-typog a{
     color: white;
     font-weight: 600;
+}
+body {
+    background-color: #fcf6eb;
+    background-size: 1.4em 1.4em;
+    background-image: linear-gradient(to right, #bde 0.5px, transparent 1px), linear-gradient(to bottom, #bde 0.75px, transparent 1px);
 }

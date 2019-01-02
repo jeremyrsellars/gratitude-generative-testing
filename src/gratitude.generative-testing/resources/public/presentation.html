@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slides: Generate Data for 10,000 Unit Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=versionize" rel="stylesheet" type="text/css"></style>
+  </head>
+  <body>
+    <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+    <div id="outline"></div>
+    <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=versionize" type="text/javascript"></script>
+    <link href="css/generative_testing_style.css?Rel=versionize" rel="stylesheet" type="text/css">
+    <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/cs.min.js"></script>
+    <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/clojure.min.js"></script>
+    <style type="text/css">
+.com-rigsomelight-devcards-card-base {
+    background-color: transparent;
+    background-color: rgba(255,255,255, 0.5);
+}
+body::after {
+    background-image: url(//jeremyrsellars.github.io/no-new-legacy/assets/media/neurons-440660_1280.jpg);
+    background-size: cover;
+    content: "";
+    opacity: 0.0125;
+    top: 0;
+    left: 0;
+    height: 8em;
+    right: 0;
+    position: fixed;
+    z-index: -1;
+}
+@media (min-width: 1200px) {
+    .com-rigsomelight-devcards-container {
+        width: 1100px;
+        width: calc(100% - 100px)
+    }
+}
+
+.before-speaker-note + * { display: none; }
+
+.lang-speaker-note { display: none; }
+
+    </style>
+    <script type="text/javascript">
+    // gratitude.generative_testing.core.main("outline");
+    gratitude.generative_testing.core.startSlides();
+    if(window.location.hash.length < 2) window.location.hash = gratitude.generative_testing.core.homeSlideHash();
+    var navigateWith = function navigateWith(fn) {
+        var h = fn(window.location.hash);
+        if(!!h){
+            window.location.hash = h;
+            window.scrollTo(0, 0);
+        }
+    }
+    var navigateTo = function navigateTo(h) {
+        if(!!h){
+            window.location.hash = h;
+            window.scrollTo(0, 0);
+        }
+    }
+    </script>
+<!--     <div class="slide-nav">
+        <div id="previous" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
+        <div id="next"     onclick="navigateWith(gratitude.generative_testing.core.nextSlideHash)">&gt;</div>
+    </div> -->
+    <script>
+      var addConnection = function(connection) {
+        console.log("added connection");
+        connection.onmessage = function (message) {
+            console.log("received data: " + message.data);
+            if (/^#!/.test(message.data)) navigateTo(message.data);
+            connection.send("received data: " + message.data);
+        };
+      };
+
+      navigator.presentation.receiver.connectionList.then(function (list) {
+        list.connections.map(function (connection) {
+          addConnection(connection);
+        });
+        list.onconnectionavailable = function (evt) {
+          addConnection(evt.connection);
+        };
+      });
+    </script>
+  </body>
+</html>
