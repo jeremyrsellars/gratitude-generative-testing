@@ -304,24 +304,14 @@ This is one reason I recommend starting with example-based unit tests before mov
 
 ----------
 
-## When to test with an oracle
-
-* When there is an answer
-* When you already have an algorithm or reference specification
-    * A rewrite in another language/platform
-    * Count the cost (time, money, availability)
-
-## When to use examples
+## Use examples...
 
 * When you already have enumerated examples as a means of communication
 * When the examples are easy to change
     * Count the cost (maintanence)
 * When particular test cases have been problematic in the past
 
-## When to test with properties
-
-* When there are traits that should hold true for any condition
-* When you want to test for exceptions
+## Test with properties...
 
 <style class='before-speaker-note'></style>
 
@@ -334,14 +324,30 @@ This is one reason I recommend starting with example-based unit tests before mov
     * Is it a legacy system running on virtual hardware in the cloud?
     * Is it a third-party payment system that will only tell you that the request was issued correctly by issuing the request?
 
+<style type="text/css"></style>
+
+* When there are traits that should hold true for any condition
+* When you want to test for exceptions
+
+## Test with an oracle...
+
+* When the answer can be expressed as a value
+* When you already have an algorithm or reference specification
+    * A rewrite in another language/platform
+    * Count the cost (time, money, availability)
+
 ---------.jumbo
 
-# Parameterized Tests
+# Random Examples
 
-```speaker-note
-Now that we have a way of testing arbitrary test cases, we can turn to the fun part.
+<style class='before-speaker-note'></style>
 
-Next, the generative testing library/framework can generate examples for us.
+* Now that we have a way of testing arbitrary test cases, we can turn to the fun part.
+* We use these great concepts together to make them more powerful: parameterized tests, random data, property-based tests.
+* The generative testing library/framework can pull these together for us:
+    * generate examples for us.
+    * Then, it can supply those generated examples to our parameterized tests.
 
-Then, it can supply those generated examples to our parameterized tests.
-```
+
+# + Parameterized Tests
+# = Awesome

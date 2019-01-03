@@ -23,7 +23,7 @@ We know sheepish has only `a` and `b` characters, so let's take a list of random
 
 <style class='before-speaker-note'></style>
 
-With FsCheck, the Gen class offers extension methods, much like LINQ's `.ToList()`, like `.NonEmptyListOf()`, or just `.ListOf()` which return a generator that can generate a list.  It is important to note that this returns a generator, not a list.  Also, FsCheck provides its own `Gen.Select` extension method that creates a generator that applies a function to the output of another generator.  Let's see how it reads.
+With FsCheck, the Gen class offers extension methods, much like LINQ's `.ToList()`, like `.NonEmptyListOf()`, or just `.ListOf()` which return a generator that can generate a list.  It is important to note that this returns a generator, not a list.  `.Sample()` returns a list.  `.ListOf` returns a `Gen<List>`. Also, FsCheck provides its own `Gen.Select` extension method that creates a generator that applies a function to the output of another generator.
 
 ```csharp
         static IEnumerable<string> SheepishAlphabetExamples =>
@@ -67,7 +67,9 @@ In order to generate composite data for non-trivial applications, we'll need to 
 
 <style class='before-speaker-note'></style>
 
-Here are some generators for testing the card game of "Hearts," which uses a standard 52-card deck of playing cards.  Some of the generators listed below are built from random card generator, `Gen<Card> cardGen` in C# or `(s/gen ::card)`.
+* Here are some generators for testing the card game of "Hearts," which uses a standard 52-card deck of playing cards.
+* Some of the generators listed below are built from random card generator, `Gen<Card> cardGen` in C# or `(s/gen ::card)`.
+* Let's go through this list in order.
 
 <style id='combinators' class='before-alternating-table'></style>
 
@@ -75,7 +77,7 @@ Here are some generators for testing the card game of "Hearts," which uses a sta
 |-----------|------------|-------------------|
 |alternative generators| `Gen.OneOf(heartGen, queenSpadeGen, cardGen)`| `(s/or :heart ::heart-card`<br>`      :queen-spade ::queen-of-spades`<br>`      :zero-point-card ::card)`|
 |exact-length list| `cardGen.ListOf(5)`| `(s/coll-of ::card :count 5)`|
-|homogeneous pair tuple| `cardGen.Two()`| `(s/coll-of ::card :count 2)`|
+|homogeneous pair tuple| `cardGen.Two()`| `(s/coll-of ::card :count 2)`<br>`(s/coll-of ::card :count 2 :into [])`|
 |homogeneous triple tuple| `cardGen.Three()`| `(s/coll-of ::card :count 3)`|
 |homogeneous quadruple tuple| `cardGen.Four()`| `(s/coll-of ::card :count 4)`|
 |heterogeneous tuple| `Gen.zip(suitGen, rankGen)`|`(s/cat :suit ::suit, :rank ::rank)`<br>`(gen/tuple (s/gen int?) (s/gen string?))`|
@@ -85,24 +87,142 @@ Here are some generators for testing the card game of "Hearts," which uses a sta
 |size-driven list, non-empty| `cardGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
 |constant| `Gen.Constant(queenOfSpades)`| `#{some-value}`|
 |satisfying constraint| `cardGen.Where(c => c.Suit == Suit.Hearts)`| `(s/and ::card is-heart?)`|
-|satisfying constraint<br>(without throwing)| `cardGen.Where(c => c.Suit == Suit.Hearts`<br>`                  && c.Suit == Suit.Clubs)`<br>`// impossible or improbable`| `Use a custom generator`|
+|satisfying constraint<br>(without throwing)| `cardGen.TryWhere(c => c.Suit == Suit.Hearts`<br>`                  && c.Suit == Suit.Clubs)`<br>`// impossible or improbable`| `Use a custom generator`|
 |random permutations| `Gen.Shuffle(new Card[]{exampleCard1,exampleCard2})`| `(gen/shuffle xs)`|
 
 <style class='before-speaker-note'></style>
 
-This list is a good place to start along the path to transforming and combining generators.  Further description of the above, from the FsCheck perspective, can be found in [FsCheck Test Data: Useful-Generator-Combinators](https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators).
+This list is a good place to start along the path of learning to transforming and combining generators.  Further description of the above, from the FsCheck perspective, can be found in [FsCheck Test Data: Useful-Generator-Combinators](https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators).
+
+-------
+
+# List types
 
 <style class='before-speaker-note'></style>
 
 * You may note several similarities and differences between the .Net and Clojure versions.
+* One difference is around the types of list returned from different generators.
+* The FsCheck functions sometimes use .Net's `System.Tuple` type for short, fixed-size lists, which provide **constant time access**. It uses `IList<T>` for variable-length & longer lists.  The type of the data structure is encoded into the type signature of the extension methods like `ListOf`, `Two`, `Three`, `Four`.
+* In contrast, Clojure specs may specify the type of container, with different characteristics (like vectors, lists, and sets).  Clojure usually mimics Tuples with vectors, which **also offer constant time access in these use cases.**  In the first clojure poker example, a vector is generated: `(s/coll-of int? :into [])`.  In fact, the default collection type for `s/coll-of` is a vector, so `:into []` is optional.  But, it could just as easily be generated as a sorted-set with `:into (sorted-set)`.  In FsCheck, this would require two steps: generating a collection, then transforming the result type with `.Select`, as in `intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))`.  For more, optional parameters of [`s/coll-of`](https://clojure.github.io/spec.alpha/clojure.spec.alpha-api.html#clojure.spec.alpha/coll-of), see [`s/every`](https://clojure.github.io/spec.alpha/clojure.spec.alpha-api.html#clojure.spec.alpha/every) for a detailed description of the options for how to customize collection-data generation.
 
-* List types: `Tuple<T1,...>` and `IList<T>` (.Net) vs. arbitrary types of sequence (Clojure)
-	* The FsCheck library sometimes use .Net's `System.Tuple` type, which provide constant `O(1)` access time, or `IList<T>` for variable-length/longer lists.  The type of the data structure is encoded into the type signature of the extension methods like `ListOf`, `Two`, `Three`, `Four`.
-	* In contrast, Clojure specs may specify the type of container, with different characteristics (like vectors, lists, and sets).  Clojure usually mimics Tuples with vectors, which also offer constant time access in these use cases.  In this example, a vector is generated: `(s/coll-of int? :into [])`.  In fact, the default collection type for `s/coll-of` is a vector, so `:into []` is optional.  But, it could just as easily be generated as a sorted-set with `:into (sorted-set)`.  In FsCheck, this would require two steps: generating a collection, then transforming the result type with `.Select`, as in `intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))`.  For more, optional parameters of [`s/coll-of`](https://clojure.github.io/spec.alpha/clojure.spec.alpha-api.html#clojure.spec.alpha/coll-of), see [`s/every`](https://clojure.github.io/spec.alpha/clojure.spec.alpha-api.html#clojure.spec.alpha/every) for a detailed description of the options for how to customize collection-data generation.
-* Labeled tuples and conformance (Clojure spec) vs Anonymous tuples (.Net): To generate a random value from 2 generators, FsCheck's `Gen.OneOf` takes 2 parameters, while Clojure spec `s/or` takes 4 – twice as many parameters.  This is also true of homogeneous tuples with `s/cat`.  Both produce similar unlabeled data, but in Clojure the values can be run 'backwards' through a spec to produce labeled data.  This is called conformance.
-    * Since FsCheck uses `System.Tuple`, which doesn't support "naming" the ordinals, it uses anonymous labels like `tuple.Item1`, `.Item2`, etc. so the semantic meaning of `Item2` may not be obvious in the code or during runtime introspection.  Often the generic type serves to label the data, but when a tuple is used to model `float heightCm` and `float weightKg`, this can be confusing, since the use is embedded in the type.  Consider using [Domain Identifiers]({{urls.base_path}}posts/2017-08-08-domain-identifiers-instead-of-primitive-obsession) for some better ways to model with types.
-    * The Clojure "alternative" generator, i.e. `(s/or :a-number int?, :a-string string?)`, where a single value is returned that matches one spec `1` or another `"a"`. The "extra" parameters provide labels for conforming a value, a process similar to destructuring.  This is out of scope for data generation (and this blog), but can sure come in handy to switch behavior based on which spec matches.
-    * For the heterogeneous tuple example, in `(s/cat :a-number int?, :a-string string?)` where a vector tuple like `[1 "a"]` is returned containing a value matching each spec in order, the "extra" parameters also provide labels when conforming a value for destructuring or runtime introspection.
+```csharp
+Gen<IList<Card>>      pokerHandGen     = cardGen.ListOf(5);    // IList`T
+Gen<Tuple<Card,Card>> blackjackHandGen = cardGen.Two();        // Tuple<T1,T2>
+```
+
+```clojure
+(let [^Gen poker-hand-gen    (s/coll-of ::card, :count 5, :into [])    ; vector
+      ^Gen another-poker-gen (s/coll-of ::card, :count 5)              ; also vector
+      ^Gen blackack-hand-gen (s/coll-of ::card, :count 2, :into #{})]  ; hash set
+  ...)
+```
+
+# Custom List types
+
+```csharp
+intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
+```
+
+```clojure
+(s/coll-of int?, :count 5, :into (sorted-set))
+```
+
+-------
+
+# Anonymous vs. Labeled data
+
+<style class='before-speaker-note'></style>
+
+* Another difference is in whether or not list contents are labeled.
+* To generate a random value from 2 generators, FsCheck's `Gen.OneOf` takes 2 parameters, while Clojure spec `s/or` takes 4 – twice as many parameters.  This is also true of homogeneous tuples with `s/cat`.  Both produce similar unlabeled data, but in Clojure the values can be run 'backwards' through a spec to produce labeled data.  This is called conformance.
+* The Clojure "alternative" generator, the card classification example, produces a single card that matches one of the specs. The "extra" parameters provide labels for "conforming" a value, a process similar to destructuring.  This is out of scope for data generation (and this talk), but it can sure come in handy to switch behavior based on which spec matches.
+* For the tuple example, a vector is returned containing a value matching each spec in order, the "extra" parameters also provide labels when conforming a value for destructuring or runtime introspection.
+
+### Alternative generators
+
+```csharp
+Gen.OneOf(heartGen, queenSpadeGen, cardGen)     ; yields a card generator
+```
+
+```clojure
+(s/def ::card-classification
+    (s/or :heart ::heart-card
+          :queen-spade ::queen-of-spades
+          :zero-point-card ::card))                  ; yields a card generator
+```
+
+### Heterogeneous tuple
+
+```csharp
+Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
+```
+
+```clojure
+(s/def ::card-tuple
+  (s/cat :suit ::suit, :rank ::rank))              ; yields [:hearts :ten]
+
+(s/conform ::card-tuple [:hearts :ten])            ; yields {:suit :hearts, :rank :ten}
+```
+-------------
+
+# Staying safe with un-labeled data
+
+<style class='before-speaker-note'></style>
+
+* Since FsCheck uses `System.Tuple`, which doesn't support "naming" the ordinals, it uses anonymous labels like `tuple.Item1`, `.Item2`, etc. so the semantic meaning of `Item2` may not be obvious in the code.  Often the generic type serves to label the data, but when a tuple is used to model both height and weight with a float, this can be confusing.  If you want to embedd the intended use in the type, consider avoiding a primitive like float, and using a custom type.
+
+
+```csharp
+    float CalculateBMI(float height, float weight) // confusing
+```
+
+```csharp
+    public class Length {
+      public static Length FromInches(float inches) => new Length(inches * 2.54);
+      public static Length FromCentimeters(int cm) => new Length(cm);
+      private Length(float cm)// private constructor saves dimension
+    }
+```
+
+```csharp
+    float CalculateBMI(Length height, Weight weight) // better!
+```
+
+```csharp
+    var weight = Weight.FromPounds(100);
+    var height = Length.FromInches(100);
+    var bmi = CalculateBMI(weight, height); // doesn't compile! Yeah!
+```
+
+----------
+
+# Registering generators and shrinkers for arbitrary data types/specs
+
+```csharp
+public class LengthGenerators
+{
+    public static Arbitrary<T> Arbitrary<Length> arbLen =
+        Gen.Choose(0, 1000).Select(s => Length.FromInches(s)).ToArbitrary();
+}
+// Then register all the Arbitrary generators with
+// Arb.Register<LengthGenerators>();
+```
+
+```clojure
+(s/def ::rank keyword?)
+(s/def ::suit keyword?)
+(s/def ::card (s/keys :req-un [::suit ::rank]))
+(gen/generate
+      (s/gen (s/coll-of ::card :count 2)
+        {::card #(gen/return {:rank :ace, :suit :spades})}))  ; provide custom card generator
+(gen/generate
+      (s/gen (s/coll-of ::card :count 2)
+        {::suit #(gen/return :spades)
+         ::rank #(gen/return :ace)}))  ; default card generator can use custom rank/suit generators
+; both always generate a hand of 2 "ace of spade" cards
+[{:suit :spades, :rank :ace}
+ {:suit :spades, :rank :ace}]
+```
 
 -------------
 
@@ -220,7 +340,9 @@ Generate example cards by defining and combining some generators with some of th
         examples (repeatedly generate-example)]
     (take example-count examples)))
 
-;; Let's say we want to compose the test string into before, the `b`, intermediate characters, `a` characters, and "after".
+;; Let's say we want to decompose the test string into:
+;;    preamble + `b` + some intermediate characters
+;;    + some `a` characters, + some "after" characters.
 
 (s/def ::usually-empty-string
   (s/with-gen string?
