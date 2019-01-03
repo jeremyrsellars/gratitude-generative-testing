@@ -86,25 +86,29 @@ You can probably imagine these tests in your unit testing framework of choice.  
 
 ------------#Clojure
 
-# Clojure
+# Clojure – A dynamically typed LISP dialect
 
-A dynamically typed LISP dialect.
-
-* Clojure – A dynamically typed LISP for the Java Virtual Machine
-* ClojureScript – A dynamically typed LISP for JavaScript
-* ClojureCLR – A dynamically typed LISP for the .NET Framework
-
-> ![https://imgs.xkcd.com/comics/lisp_cycles.png](https://imgs.xkcd.com/comics/lisp_cycles.png)
-- [XKCD 297](https://xkcd.com/297/)
+* Clojure – Hosted on Java Virtual Machine
+* ClojureScript – Compiled to JavaScript
+* ClojureCLR – Hosted on the .NET Framework
 
 ```clojure
-(defn sheep-bleat?
-    [s]
-    (if (string/starts-with? s "b")
-        (string/ends-with? s "aa") ; obvious bug here!  What about the middle?
+(defn sheep-bleat?                        ; define a function named "sheep-bleat?"
+    [s]                                   ; argument list
+    (if (string/starts-with? s "b")      ; (if test-expression evaluated-when-true evaluated-when-false)
+        (string/ends-with? s "aa")       ; (function argument-1 argument-2)
         false))
-```
 
+;; Literal data structures, etc.         ; Comments are proceeded by ;
+(list 1 2 3)                             ; List (quick access to front of list)
+[1 2 3 "go!"]                            ; Vector (quick access to any index)
+{:name "Jeremy", "role" "speaker"}       ; Hash map (quick access by key)
+#{"set" "without" "duplicates"}          ; Hash set (quick membership test)
+#(if (= % ".clj") "Clojure" "Other")     ; Anonymous function
+(fn infer-language [ext]                 ; Locally-scoped function (first-class!)
+    (if (= % ".clj") "Clojure" "Other")) ; Everything is an expression
+:keyword  :com.example/kw  ::alias/kw    ; Keywords often describe data
+```
 ------------#Clojure-example-based-tests
 
 # Clojure example-based tests
@@ -137,6 +141,26 @@ The parameterized test might look like this, which executes an assertion functio
   ; Run the test for each of the examples
   (doseq [[text expected-answer reason] examples]
      (assert-sheep-bleat text expected-answer reason)))
+```
+
+------------#Csharp
+
+# C# – An Object-Oriented language for .Net
+
+Perhaps you've heard of it.  ;-)
+
+```csharp
+public class AnimalLanguageDetection         // Class definition
+{
+    public bool IsSheepBleat(string s)       // Function definition
+    {                                        // Insignificant parenthesis ;-)
+        return                               // Imperative statement
+               s != null && s[0] == 'b';     // Expression with inline operators
+    }
+
+    public bool IsDogBark(string s) =>       // Function definition
+        false;                               // Expression
+}
 ```
 
 ------------#nUnit-example-based-tests
@@ -182,8 +206,23 @@ With unit tests, we may wish to come up with specific examples and test that aga
 ### Regular expression as an oracle
 
 ```
-^baa+$
+baa+
+
+/^baa+$/
 ```
+
+Matches strings like:
+
+```
+"baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+"baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+"baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+"baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+"baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+"baaaaaa"
+```
+
+Source: [onlinestringtools.com/generate-string-from-regex?&regex=^baa+$](https://onlinestringtools.com/generate-string-from-regex?&regex=^baa+$)
 
 
 --------------#Clojure-oracle
