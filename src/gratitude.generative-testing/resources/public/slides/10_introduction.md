@@ -218,13 +218,15 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 <style class='before-speaker-note'></style>
 
 * One of the great helps from all things "generative" is that generative models can build examples.
-* Sheep say "Baa!", right?  Or is it "Baaaaaa"?  Consider a regular expression that specifies what "sheep-bleat" looks like in text: `baa+`.
-* Does "baaaaa" match the sheep-bleet specification? yes.
-* Howabout "bowow"? nope.
-* This ability to evaluate data against a specification is useful (in a reductive sense), but what if you had a way to derive many mega-bleats (I mean megabytes) of example text?  That could help you talk with the stakeholders and show examples to make sure everyone is bleating the same language.
+    * A regular expression matches many valid email addresses, for example.
+    * The regex specifies what some text should look like.
+    * This ability to evaluate data against a specification is useful (in a reductive sense), but what if you had a way to derive many different examples of example text?  That could help you talk with the stakeholders and show examples to make sure everyone is bleating the same language.
+    * Another example is in music.  When my wife teaches piano lessons...  "Ok, now play it with feeling."
 * As the saying goes, a picture is worth a thousand words.
 * Think about software requirements/specification documents.
 * Rather than go back and forth with stakeholders about some line of text in a spec doc, it may be far more productive to "show" examples that are possible based on a translation of the document into a generative specification.
+
+<iframe src='https://sejikco.github.io/CssGridSheetMusic/beethoven-ode-to-joy.html' style='width: 60vw;height: 40vh;'></iframe>
 
 -----------------#Craftsmanship-disclaimer.jumbo
 
