@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=versionize" rel="stylesheet" type="text/css"></style>
   </head>
-  <body>
+  <body class="presenter">
     <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
     <div id="outline"></div>
     <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=versionize" type="text/javascript"></script>
@@ -37,8 +37,8 @@
     }
     </script>
     <div class="slide-nav">
-        <div id="previous" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
-        <div id="next"     onclick="navigateWith(gratitude.generative_testing.core.nextSlideHash)">&gt;</div>
+        <div id="previous" title="press 'p'" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
+        <div id="next" title="press 'n' to advance to next slide"     onclick="navigateWith(gratitude.generative_testing.core.nextSlideHash)">&gt;</div>
     </div>
   </body>
 </html>

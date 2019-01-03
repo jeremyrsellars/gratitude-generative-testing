@@ -46,7 +46,7 @@ I'd like to get to know each other a bit over the next 55 minutes.  So, a short 
 
 ---------#Interview-1.jumbo
 
-# How many of us are in business?
+# How many of us are in "business"?
 
 ```speaker-note
 Let us propose for a moment that a business is a group of people oriented around the idea of providing products or services or ideas that clients would value... value enough to voluntarily return "certificates of gratitude" as compensation.  Perhaps these certificates are covered with images of famous people like Benjamin Franklin or perhaps they say "pay to the order of __`your name`__".  I'm getting at the notion that when we engage in business, mutual benefit is a good goal, at least at some level.  Both sides of the transaction get something they want.
@@ -108,7 +108,7 @@ Programming is a lot like that. ;-)
 
 * I think that's why we derive so much pleasure as we watch the CD-ROM spinning on the lathe in the work station and carefully take a chisel in hand and move it slowly to the correct part of the surface of the disk and tap out the beautiful stream of the music in our minds.
 
----------#Media
+---------#Media.jumbo-left
 
 # The media of programs
 
@@ -133,16 +133,16 @@ Generally, each of these technologies "stand on the shoulders of giants" and end
 > Being abstract is something profoundly different from being vague... The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.
 [Edsger W. Dijkstra](http://wiki.c2.com/?EwDijkstraQuotes)
 
----------
+---------.jumbo
 
-# The Single Level of Abstraction Principle
+# Single Level of Abstraction
 
 ab·stract (adjective)
 
 > Existing in thought or as an idea but not having a physical or concrete existence
 [Google](https://www.google.com/search?q=abstract&rlz=1C1GCEU_enUS826US826&oq=abstract&aqs=chrome..69i57j69i60j69i59j0l3.1199j1j1&sourceid=chrome&ie=UTF-8)
 
-ab·stract (adjective)
+<style type="text/css"></style>
 
 > Thought of apart from concrete realities, specific objects, or actual instances
 [Dictionary.com](https://www.dictionary.com/browse/abstract)
@@ -152,13 +152,12 @@ Appropriate use of abstraction – appropriate detail for the semantic level of 
 
 This idea of semantic level will also be helpful when understanding how to effectively test software.
 ```
-
 ---------
+#!/gratitude.callout.software_craftsmanship
+
+---------.jumbo-left
 
 # Craftsmanship Manifesto
-
-<a href="#!/gratitude.callout.software_craftsmanship/Software_Craftsmanship_Manifesto" target="manifesto">Open slide</a>
-<a href="http://manifesto.softwarecraftsmanship.org" target="manifesto">Open manifesto.softwarecraftsmanship.org</a>
 
 * "Well-crafted software"
     * Open to extension

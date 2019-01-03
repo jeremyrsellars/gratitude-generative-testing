@@ -22,11 +22,11 @@
 
 (defcard Welcome
   (sab/html
-   [:div
-             [:h1 {:style {:text-align "center"
-                           :font-size "4em"}}
-                "Generate Data for 10,000 Unit Tests"]
-             [:h1 "Jeremy Sellars"]
+   [:div {:style {:padding-left "12.5vw"
+                  :padding-right "12.5vw"}}
+      [:h1 {:style {:font-size "3.2em"}}
+        "Generate Data for 10,000 Unit Tests"]
+      [:h1 "Jeremy Sellars"]
     [:ul
       [:li "Content for this talk"
         [:ul
@@ -35,7 +35,7 @@
                 "jeremyrsellars.github.io/gratitude-generative-testing/slides.html"]]
           [:li "Source code – "
              [:a {:href "http://github.com/jeremyrsellars/gratitude-generative-testing/" :target "_new"}
-                "http://github.com/jeremyrsellars/gratitude-generative-testing/"]]]]
+                "github.com/jeremyrsellars/gratitude-generative-testing/"]]]]
       [:li "No New Legacy Blog – "
              [:a {:href "http://jeremyrsellars.github.io/no-new-legacy/" :target "_new"}
                 "jeremyrsellars.github.io/no-new-legacy/"]]
@@ -45,7 +45,7 @@
       [:li "Softek Solutions – "
              [:a {:href "http://softekinc.com" :target "_new"}
                 "softekinc.com"]]]
-    [:h2 "Outline"]
+    [:h1 "Outline"]
     [:ul
       (for [[title level href] (next gratitude.generative-testing.core/outline #_ :skip-the-title-slide)
             :when (zero? level)]
