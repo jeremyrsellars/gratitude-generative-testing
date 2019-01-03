@@ -124,7 +124,8 @@
     (s/gen ::award-gen/events
       (-> {}
           gratitude.data-generators/with-insane-user-generators
-          gratitude.data-generators/with-thank-you-note-generators)))```"
+          gratitude.data-generators/with-thank-you-note-generators)))
+  ```"
   (gen/generate
     (s/gen ::award-gen/events
       (-> {}
@@ -132,6 +133,17 @@
           gratitude.data-generators/with-thank-you-note-generators))))
 
 (defcard Visualized-awards-data-one-scenario
+  "
+  ```clojure
+            (gen/generate
+            (s/gen ::award-gen/events
+              (-> {}
+                  gratitude.data-generators/with-sane-user-generators
+                  (assoc ::user/avatar-url #(gen/fmap (partial str \"https://picsum.photos/36/36/?random&x=\")
+                                                      (s/gen int?)))
+                  gratitude.data-generators/with-thank-you-note-generators)))
+   ```
+   The results of the above expression are transformed to HTML to help visualize the events that are occurring."
   (fn [data-atom owner]
     (or (seq @data-atom)
       (do
@@ -151,7 +163,7 @@
         (gratitude.awards-app.mock-ui/events-visualization @data-atom)]))
   nil)
 
-(defcard Awards-data
+(defcard Awards-data-sample
   "```clojure
   (gen/sample
     (s/gen ::award-gen/events

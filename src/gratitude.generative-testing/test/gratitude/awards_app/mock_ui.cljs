@@ -1,6 +1,7 @@
 (ns gratitude.awards-app.mock-ui
-  (:require [devcards.core :refer [defcard deftest]]
+  (:require [clojure.string :as string]
             [clojure.spec.alpha :as s]
+            [devcards.core :refer [defcard deftest]]
             [sablono.core :as sab]
             [gratitude.awards :as awards]
             [gratitude.award-generators :as award-gen]
@@ -21,12 +22,12 @@
 (defmethod event-visualization :delay
   [[event-type {:keys [::award-gen/interval]}]]
   [:div {:style {:text-align "center"}}
-    (str "No activity for " (/ interval 1000) " seconds")])
+    [:b (str "No activity for " (/ interval 1000) " seconds")]])
 
 (defmethod event-visualization :generate-report
   [[event-type {:keys [::award-gen/interval]}]]
   [:div {:style {:text-align "center"}}
-    "Generate report"])
+    [:b "Generate report"]])
 
 (defmethod event-visualization :new-user
   [[event-type {:keys [::user/user]}]]
@@ -43,7 +44,8 @@
 (defmethod event-visualization :new-note
   [[event-type {:keys [::expression/tags ::expression/from
                        ::expression/to ::expression/message]}]]
-  [:div {:style {:border "1px solid lightgray"}}
+  [:div {:style {:border "1px solid lightgray"
+                 :padding-left "3em"}}
    [:div "From:" [:b from]]
    "To:"
    [:ul {:style {:display "inline-block"}}
@@ -88,7 +90,7 @@
         [:span {:style {;:float "left",
                         :background "lightgray" :border "1px solid gray"}}
           (name event-type)]
-        (str " at " date-of-entry)
+        (string/replace (str " at " date-of-entry) #" GMT.*" "")
         #_
         [:pre
           [:code
