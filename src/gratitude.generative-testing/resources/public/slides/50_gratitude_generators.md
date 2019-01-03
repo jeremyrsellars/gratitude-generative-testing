@@ -8,6 +8,14 @@ To-do: pull it all together.
 
 -----------
 
+--------
+#!/gratitude.generative_testing.section_50_gratitude_generators/Sane_users
+
+--------
+#!/gratitude.generative_testing.section_50_gratitude_generators/Insane_users
+
+--------
+
 # User generation
 
 ```clojure
@@ -222,9 +230,14 @@ To-do: pull it all together.
     5) ; sane users
 ```
 
---------#Insane_users_thank-you-notes
+--------
+#!/gratitude.generative_testing.section_50_gratitude_generators/Sane_users_thank-you-notes
 
---------#Sane_users_thank-you-notes
+--------
+#!/gratitude.generative_testing.section_50_gratitude_generators/Insane_users_thank-you-notes
+
+--------
+#!/gratitude.generative_testing.section_50_gratitude_generators/CodeMash_users_thank-you-notes
 
 -----------
 

@@ -48,15 +48,24 @@
           (for [[idx extra+markdown] (map-indexed vector (clojure.string/split slide-set-markdown slide-split-regex))
                   :let [[_ id classname] (re-find slide-extras-regex extra+markdown)
                         markdown (string/replace extra+markdown slide-extras-regex "")
+                        trimmed-markdown (string/trim markdown)
+                        placeholder-hash (when (string/starts-with? trimmed-markdown "#!/")
+                                            trimmed-markdown)
                         first-line (re-find #"(?i)\w[-_ a-z0-9'\"]+" markdown)
                         card-sym (symbol (str *ns*) (str (or id (str "slide-" idx))))]]
             {:card-sym card-sym
              :classname classname
-             :markdown markdown,
+             :markdown (if placeholder-hash nil markdown)
              :blank? (string/blank? markdown)
              :description first-line
-             :hash (symbol-hash (namespace card-sym) (name card-sym))}))]
+             :hash (or placeholder-hash
+                       (symbol-hash (namespace card-sym) (name card-sym)))}))]
     (list 'do
+      ; #_
+      ; `(swap! gratitude.generative-testing.core/outline-atom into
+      ;     ~(for [[idx markdown] (map-indexed vector slides)
+      ;            :let [card-sym (symbol (str *ns*) (str filename "-" idx))]]
+      ;          [(str idx) (str prefix card-sym)]))
       (cons 'clojure.core/vector
         (for [{:keys [card-sym classname markdown blank?]} slides
               :when (not blank?)]
