@@ -1,4 +1,4 @@
------------.jumbo
+-----------#Generative-Testing.jumbo
 
 # "Generative Testing"
 
@@ -13,7 +13,7 @@ From the plain English root verbs of "generative testing", we can surmise there 
 Let's start with the more familiar part: _testing_.
 ```
 
------------.jumbo
+-----------#Generative__Testing_.jumbo
 
 # Testing
 
@@ -25,7 +25,7 @@ Let's start with testing so we can connect with concepts you may already be fami
 Most generative testing software is part of a testing framework that does a lot of things for you, like selecting which tests to run, executing the tests, reporting the results of the tests, perhaps including a reason for the failure, etc..
 ```
 
----------
+---------#Sheepish-0
 
 ## Sheepish
 
@@ -44,7 +44,7 @@ Let's start with a simple test about the contents of a string: does a string loo
 
 https://imgflip.com/i/1q73q8
 
-----------
+----------#Sheepish-examples
 
 ## Function signature and examples
 
@@ -73,7 +73,7 @@ bool isSheepBleat(string s)
 |`·baa`    |false       |leading space |
 |`baa·`    |false       |trailing space|
 
------------.jumbo
+-----------#Example-based.jumbo
 
 # Example-based Tests
 
@@ -84,7 +84,7 @@ You can probably imagine these tests in your unit testing framework of choice.  
 * Unit tests
 * Scenario tests
 
-------------
+------------#Clojure
 
 # Clojure
 
@@ -105,7 +105,7 @@ A dynamically typed LISP dialect.
         false))
 ```
 
-------------
+------------#Clojure-example-based-tests
 
 # Clojure example-based tests
 
@@ -139,7 +139,7 @@ The parameterized test might look like this, which executes an assertion functio
      (assert-sheep-bleat text expected-answer reason)))
 ```
 
-------------
+------------#nUnit-example-based-tests
 
 # C# with nUnit example-based tests
 
@@ -171,7 +171,7 @@ The parameterized test might look like this, which executes an assertion functio
 }
 ```
 
---------------
+--------------#Oracle
 
 # Parameterized Test (with an oracle)
 
@@ -186,7 +186,7 @@ With unit tests, we may wish to come up with specific examples and test that aga
 ```
 
 
---------------
+--------------#Clojure-oracle
 
 # Clojure parameterized test (with an Oracle)
 
@@ -217,7 +217,7 @@ Same examples, but with the answers no-longer known beforehand.
     (assert-sheep-bleat text reason)))
 ```
 
---------------
+--------------#nUnit-oracle
 
 # C# parameterized test (with an Oracle)
 
@@ -252,7 +252,7 @@ Same examples, but with the answers no-longer known beforehand.
     }
 ```
 
----------
+---------#Clojure-properties
 
 #### Parameterized Test (with properties, without an oracle)
 
@@ -290,11 +290,11 @@ These facts should hold true for any test case applied to the system being teste
 
 This is one reason I recommend starting with example-based unit tests before moving on generating additional test cases.  But, just because you supply specific examples and results, that doesn't mean you can't benefit from the property tests above in the parameterized tests.  The properties should hold true for the specific examples and the new, generated examples.
 ```
----------.jumbo
+---------#When-properties-1.jumbo
 
 # Should I use examples or properties?
 
----------
+---------#When-properties-2
 
 # Should I use examples or properties?
 
@@ -302,7 +302,7 @@ This is one reason I recommend starting with example-based unit tests before mov
 
 ![Why not both?](https://i.kym-cdn.com/photos/images/newsfeed/000/538/731/0fc.gif)
 
-----------
+---------#When-properties-3
 
 ## Use examples...
 
@@ -336,7 +336,7 @@ This is one reason I recommend starting with example-based unit tests before mov
     * A rewrite in another language/platform
     * Count the cost (time, money, availability)
 
----------.jumbo
+---------#Awesome.jumbo
 
 # Random Examples
 

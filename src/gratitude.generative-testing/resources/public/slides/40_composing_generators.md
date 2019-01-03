@@ -1,10 +1,12 @@
+-----------#Transforming-and-Composing-Generators.jumbo
+
 # Transforming and Composing Generators
 
 <style class='before-speaker-note'></style>
 
 In order generate data useful for complicated applications, we'll need to assemble these generators to do much more powerful tasks.
 
---------------
+--------------#Transforming-Generators
 
 # Transforming Generators
 
@@ -47,7 +49,7 @@ In Clojure, to specify a list of a spec, use `(s/coll-of some-spec)`.  To apply 
 ; ("bb" "aaaaaba" "bbbbbaabaaabbbaab" "baaabbab" "abbabaabbbbababbabba" "aaaaabbbbbbbb" "abbaaabababbabb")
 ```
 
----------------
+---------------#Composing-Generators
 
 # Combining Generators (Trivial example)
 
@@ -61,7 +63,7 @@ In Clojure, to specify a list of a spec, use `(s/coll-of some-spec)`.  To apply 
 In order to generate composite data for non-trivial applications, we'll need to use more powerful generators.  These are built up from single-responsibility functions provided by the libraries.
 
 
----------------
+---------------#Generators-table
 
 # Combining Generators
 
@@ -94,7 +96,7 @@ In order to generate composite data for non-trivial applications, we'll need to 
 
 This list is a good place to start along the path of learning to transforming and combining generators.  Further description of the above, from the FsCheck perspective, can be found in [FsCheck Test Data: Useful-Generator-Combinators](https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators).
 
--------
+-------#List-types
 
 # List types
 
@@ -127,7 +129,7 @@ intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
 (s/coll-of int?, :count 5, :into (sorted-set))
 ```
 
--------
+-------#Labeled-data
 
 # Anonymous vs. Labeled data
 
@@ -163,7 +165,7 @@ Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
 
 (s/conform ::card-tuple [:hearts :ten])            ; yields {:suit :hearts, :rank :ten}
 ```
--------------
+-------------#Un-labeled-data
 
 # Staying safe with un-labeled data
 
@@ -194,7 +196,7 @@ Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
     var bmi = CalculateBMI(weight, height); // doesn't compile! Yeah!
 ```
 
-----------
+----------#arbitrary-data-types-and-specs
 
 # Registering generators and shrinkers for arbitrary data types/specs
 
@@ -224,9 +226,7 @@ public class LengthGenerators
  {:suit :spades, :rank :ace}]
 ```
 
--------------
-
-# Pulling it all together
+-------------#Card-types
 
 # Card types in `C#`
 
@@ -252,7 +252,7 @@ Now, let's build a card generator.  A card will be modeled with a type and enums
     }
 ```
 
----------
+---------#Card-generator-.net
 
 # Card Generator in `C#`
 
@@ -281,7 +281,7 @@ Generate example cards by defining and combining some generators with some of th
     }
 ```
 
------------
+-----------#Card-generator-clojure
 
 # Card Generator in Clojure
 
@@ -319,7 +319,7 @@ Generate example cards by defining and combining some generators with some of th
  {:suit :diamonds, :rank :queen})
 ```
 
------------
+-----------#Sheepish-gen-1
 
 # Back to the sheep pen
 
@@ -353,7 +353,7 @@ Generate example cards by defining and combining some generators with some of th
 (pprint/pprint (generate-examples ::usually-empty-string 40))
 ```
 
------------
+-----------#Sheepish-gen-2
 
 # Back to the sheep pen (continued)
 
@@ -375,7 +375,7 @@ Generate example cards by defining and combining some generators with some of th
 (pprint/pprint (generate-examples ::string-of-b 40))
 ```
 
------------
+-----------#Sheepish-gen-3
 
 # Back to the sheep pen (continued)
 
@@ -402,7 +402,7 @@ Generate example cards by defining and combining some generators with some of th
 (pprint/pprint (generate-examples ::sheepish-like-string 10))
 ```
 
-------------
+------------#generator-source
 
 # Source code
 

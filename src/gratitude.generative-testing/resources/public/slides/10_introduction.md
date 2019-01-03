@@ -126,14 +126,14 @@ Of course this isn't how it works.  We actually use ~~carefully arranged vacuum 
 Generally, each of these technologies "stand on the shoulders of giants" and endeavor to model the desired computation or algorithm in a way that is less specific about the hardware or the representation of bits, and more specific about the information of the system being modeled.
 ```
 
----------.jumbo
+---------#Abstract.jumbo
 
 # The "art" of abstraction
 
 > Being abstract is something profoundly different from being vague... The purpose of abstraction is not to be vague, but to create a new semantic level in which one can be absolutely precise.
 [Edsger W. Dijkstra](http://wiki.c2.com/?EwDijkstraQuotes)
 
----------.jumbo
+---------#Abstraction-principal.jumbo
 
 # Single Level of Abstraction
 
@@ -155,7 +155,7 @@ This idea of semantic level will also be helpful when understanding how to effec
 ---------
 #!/gratitude.callout.software_craftsmanship
 
----------.jumbo-left
+---------#Craftsmanship-manifesto.jumbo-left
 
 # Craftsmanship Manifesto
 
@@ -178,7 +178,7 @@ This idea of semantic level will also be helpful when understanding how to effec
 Software quality, from the [Manifesto for Software Craftsmanship](http://manifesto.softwarecraftsmanship.org/) emphasizes 4 values, and I see each of them touched on in these topics surrounding generative testing:
 ```
 
------------------.jumbo
+-----------------#Manifesto-1.jumbo
 
 ## Well-crafted software
 
@@ -190,7 +190,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * Also, a team's prior investment in tests shouldn't prevent or delay adding this feature.
 * In other words, in well-crafted software, both the product and the tests need to be extensible.
 
------------------.jumbo
+-----------------#Manifesto-2.jumbo
 
 ## Steadily adding value
 
@@ -200,7 +200,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * (I don't know about you, but that mucks up my estimates).
 * Generative testing supplements traditional example-based unit tests by making its own examples; a new field and generator can be declared once and then the generator takes over to "fill in" the new field.
 
------------------.jumbo
+-----------------#Manifesto-3.jumbo
 
 ## A community of professionals
 
@@ -211,7 +211,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * I am excited to see if this session adds to your excitement about these topics and helps you accomplish your goals.
 * Feel free to let me know on twitter, etc..
 
------------------.jumbo
+-----------------#Manifesto-4.jumbo
 
 ## Productive partnerships
 
@@ -226,7 +226,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * Think about software requirements/specification documents.
 * Rather than go back and forth with stakeholders about some line of text in a spec doc, it may be far more productive to "show" examples that are possible based on a translation of the document into a generative specification.
 
------------------.jumbo
+-----------------#Craftsmanship-disclaimer.jumbo
 
 
 # Enter the workshop

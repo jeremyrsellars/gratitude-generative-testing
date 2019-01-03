@@ -1,4 +1,4 @@
------------.jumbo-left
+-----------#_Generative_-testing.jumbo-left
 
 <style class='before-speaker-note'></style>
 
@@ -15,7 +15,7 @@
 2. Run the program or parameterized tests with that data.
     * See if the program produces the same answer as the oracle, or that other properties hold.
 
---------------
+--------------#QuickCheck
 
 # [QuickCheck ~1999](http://www.cse.chalmers.se/~rjmh/QuickCheck/)
 
@@ -32,7 +32,7 @@ The canonical example of a generative testing library is QuickCheck, a famous li
 
 ![John Hughes](http://www.cse.chalmers.se/~rjmh/Me%20prisma.jpg)
 
-----------------.jumbo
+----------------#Generators.jumbo
 
 # Generators
 
@@ -49,7 +49,7 @@ Shrink (produce less "interesting" values)
     * Giant string. Email body.  Fancy unicode characters.
 ```
 
----------.jumbo
+---------#Libraries.jumbo
 
 # Libraries
 
@@ -73,7 +73,7 @@ For comparison's sake, we'll try libraries in 2 different language ecosystems: C
 ```speaker-note
 Let's start with Clojure.
 ```
--------------
+-------------#REPL-1
 
 ## Clojure
 
@@ -103,7 +103,7 @@ Let's demonstrate an integer generator in each library to get a feel for what's 
 * [clojure.spec.alpha](https://clojure.org/guides/spec) – New in Clojure 1.9.  Alpha.  Powerful ideas, but subject to replacement.
 * Generative testing is powered by [test.check](https://github.com/clojure/test.check).
 
-------------
+------------#Clojure-Generator
 
 # Clojure Example
 
@@ -147,7 +147,7 @@ user=> (gen/sample (s/gen int?) 3))
     ```
     * See the `:require` section of [sheepish.d-parameterized-test-with-properties](https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/sheepish/test/sheepish/d_parameterized_test_with_generators.cljc#L2) or the [spec Guide](https://clojure.org/guides/spec).
 
--------------
+-------------#nUnit-Generator
 
 # FsCheck Generators
 
@@ -176,7 +176,7 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 
 ### Larger sizes produce more interesting values.
 
-------------
+------------#null
 
 # More example generators
 
@@ -195,7 +195,7 @@ Or, more literally, you can make a constant generator that always returns the sa
 Gen.Constant<string>(null);
 ```
 
-------------
+------------#alternatives
 
 ## Choose between alternatives
 
@@ -235,7 +235,7 @@ Gen<string> wgen = Gen.Frequency(
   Tuple.Create(1, Gen.Constant("Battlestar Galactica")));
 ```
 
-------------------
+------------------#source-code
 
 # Source code (generators in context)
 
