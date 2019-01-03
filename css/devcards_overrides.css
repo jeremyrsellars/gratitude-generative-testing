@@ -69,7 +69,10 @@ body {
 
 @media screen {
     .com-rigsomelight-devcards-card-base-no-pad {
-        min-height: calc(100vh - 7em);
+        min-height: calc(100vh - 9em);
+    }
+    body #com-rigsomelight-devcards-main {
+        padding-bottom: 1em;
     }
 }
 
@@ -107,11 +110,6 @@ body {
     color: white;
     font-weight: 600;
 }
-
-.com-rigsomelight-devcard:fullscreen {
-    transform: scale(1.1);
-}
-
 body {
     background-color: #fcf6eb;
     background-size: 1.4em 1.4em;

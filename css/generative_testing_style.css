@@ -256,13 +256,29 @@ pre code.lang-speaker-note {
 }
 
 @media (min-width: 1024px) {
+    .jumbo {
+        text-align: center;
+    }
     .jumbo h1, .jumbo h2, .jumbo h3 {
         text-align: center;
     }
+    .jumbo blockquote {
+        display: inline-block;
+    }
+    .jumbo {
+        padding-left: 12.5%;
+        padding-right: 12.5%;
+    }
+    .jumbo-left {
+        padding-left: 12.5%;
+        padding-right: 12.5%;
+    }
 }
 @media (min-height: 760px) {
-    .jumbo h1, .jumbo h2, .jumbo h3{
-        padding-top: 20vh;
+    body:not(.presenter) .jumbo{
+        padding-top: 15vh;
+    }
+    .jumbo h1, .jumbo h2, .jumbo h3, .jumbo-left h1, .jumbo-left h2, .jumbo-left h3{
         font-size: 4em;
     }
 }

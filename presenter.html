@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cards: Generate Data for 10,000 Unit Tests</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=20190102_213154" rel="stylesheet" type="text/css"></style>
+  </head>
+  <body class="presenter">
+    <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
+    <div id="outline"></div>
+    <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=20190102_213154" type="text/javascript"></script>
+    <link href="css/generative_testing_style.css?Rel=20190102_213154" rel="stylesheet" type="text/css">
+    <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/cs.min.js"></script>
+    <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/clojure.min.js"></script>
+    <style type="text/css">
+
+@media (min-width: 1200px) {
+    .com-rigsomelight-devcards-container {
+        width: 1100px;
+        width: calc(100% - 100px)
+    }
+}
+
+    </style>
+    <script type="text/javascript">
+    gratitude.generative_testing.core.main("outline");
+    gratitude.generative_testing.core.startSlides();
+    if(window.location.hash.length < 2) window.location.hash = gratitude.generative_testing.core.homeSlideHash();
+    var navigateWith = function navigateWith(fn) {
+        var h = fn(window.location.hash);
+        if(h){
+            window.location.hash=h;
+            window.scrollTo(0, 0);
+        }
+    }
+    </script>
+    <div class="slide-nav">
+        <div id="previous" title="press 'p'" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
+        <div id="next" title="press 'n' to advance to next slide"     onclick="navigateWith(gratitude.generative_testing.core.nextSlideHash)">&gt;</div>
+    </div>
+    <!-- controller.html -->
+    <button id="presentBtn" style="display: none; position: absolute; margin-left: auto; margin-right: auto; top: 0; z-index: 2;">Present</button>
+    <script>
+      // The Present button is visible if at least one presentation display is available
+      var presentBtn = document.getElementById("presentBtn");
+      // It is also possible to use relative presentation URL e.g. "presentation.html"
+      var presUrls = ["presentation.html"];
+      // show or hide present button depending on display availability
+      var handleAvailabilityChange = function(available) {
+        presentBtn.style.display = available ? "inline" : "none";
+      };
+      // Promise is resolved as soon as the presentation display availability is
+      // known.
+      var request = new PresentationRequest(presUrls);
+      request.getAvailability().then(function(availability) {
+        // availability.value may be kept up-to-date by the controlling UA as long
+        // as the availability object is alive. It is advised for the web developers
+        // to discard the object as soon as it's not needed.
+        handleAvailabilityChange(availability.value);
+        handleAvailabilityChange(true); // JRS
+        availability.onchange = function() { handleAvailabilityChange(this.value); };
+      }).catch(function() {
+        // Availability monitoring is not supported by the platform, so discovery of
+        // presentation displays will happen only after request.start() is called.
+        // Pretend the devices are available for simplicity; or, one could implement
+        // a third state for the button.
+        handleAvailabilityChange(true);
+      });
+    </script>
+
+    <script>
+      presentBtn.onclick = function () {
+        // Start new presentation.
+        request.start()
+          // The connection to the presentation will be passed to setConnection on
+          // success.
+          .then(setConnection);
+          // Otherwise, the user canceled the selection dialog or no screens were
+          // found.
+      };
+    </script>
+
+    <button id="reconnectBtn" style="display: none;">Reconnect</button>
+    <script>
+      var reconnect = function () {
+        // read presId from localStorage if exists
+        var presId = localStorage["presId"];
+        // presId is mandatory when reconnecting to a presentation.
+        if (!!presId) {
+          request.reconnect(presId)
+            // The new connection to the presentation will be passed to
+            // setConnection on success.
+            .then(setConnection);
+            // No connection found for presUrl and presId, or an error occurred.
+        }
+      };
+      // On navigation of the controller, reconnect automatically.
+      document.addEventListener("DOMContentLoaded", reconnect);
+      // Or allow manual reconnection.
+      reconnectBtn.onclick = reconnect;
+    </script>
+
+    <!-- Setting presentation.defaultRequest allows the page to specify the
+         PresentationRequest to use when the controlling UA initiates a
+         presentation. -->
+    <script>
+      navigator.presentation.defaultRequest = new PresentationRequest(presUrls);
+      navigator.presentation.defaultRequest.onconnectionavailable = function(evt) {
+        setConnection(evt.connection);
+      };
+    </script>
+
+    <button id="disconnectBtn" style="display: none;">Disconnect</button>
+    <button id="stopBtn" style="display: none;">Stop</button>
+    <button id="reconnectBtn" style="display: none;">Reconnect</button>
+    <script>
+      let connection;
+
+      // The Disconnect and Stop buttons are visible if there is a connected presentation
+      const stopBtn = document.querySelector("#stopBtn");
+      const reconnectBtn = document.querySelector("#reconnectBtn");
+      const disconnectBtn = document.querySelector("#disconnectBtn");
+
+      stopBtn.onclick = _ => {
+        connection && connection.terminate();
+      };
+
+      disconnectBtn.onclick = _ => {
+        connection && connection.close();
+      };
+
+      function setConnection(newConnection) {
+        // Disconnect from existing presentation, if not attempting to reconnect
+        if (connection && connection != newConnection && connection.state != 'closed') {
+          connection.onclosed = undefined;
+          connection.close();
+        }
+
+        // Set the new connection and save the presentation ID
+        connection = newConnection;
+        localStorage["presId"] = connection.id;
+
+        function showConnectedUI() {
+          // Allow the user to disconnect from or terminate the presentation
+          stopBtn.style.display = "inline";
+          disconnectBtn.style.display = "inline";
+          reconnectBtn.style.display = "none";
+        }
+
+        function showDisconnectedUI() {
+          disconnectBtn.style.display = "none";
+          stopBtn.style.display = "none";
+          reconnectBtn.style.display = localStorage["presId"] ? "inline" : "none";
+        }
+
+        // Monitor the connection state
+        connection.onconnect = _ => {
+          showConnectedUI();
+
+          // Register message handler
+          connection.onmessage = message => {
+            console.log(`Received message: ${message.data}`);
+          };
+
+          // Send initial message to presentation page
+          connection.send(window.location.hash);
+        };
+
+        connection.onclose = _ => {
+          console.log('onclose');
+          connection = null;
+          showDisconnectedUI();
+        };
+
+        connection.onterminate = _ => {
+          console.log('onterminate');
+          // Remove presId from localStorage if exists
+          delete localStorage["presId"];
+          connection = null;
+          showDisconnectedUI();
+        };
+      };
+
+      window.onhashchange = _ => {
+        var newHash = window.location.hash;
+        if(!!connection){
+            console.log("advertising " + newHash);
+            connection.send(newHash);
+            console.log("advertised  " + newHash);
+        }
+      };
+
+      setInterval(_ => {
+        document.title = !!navigator.receiver + new Date().toString().substring(15);
+      }, 1000)
+
+    </script>
+  </body>
+</html>
