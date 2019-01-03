@@ -7,6 +7,7 @@
             devcards.system
             [sablono.core :as sab]
             [us.sellars.slides.higlight-js :refer [schedule-code-highlighting]]
+            [gratitude.awards-app.mock_ui]
             [gratitude.data-generators]
             [gratitude.award-generators :as award-gen]
             [gratitude.expression :as expression]
@@ -129,6 +130,27 @@
       (-> {}
           gratitude.data-generators/with-insane-user-generators
           gratitude.data-generators/with-thank-you-note-generators))))
+
+(defcard Visualized-awards-data-one-scenario
+  (fn [data-atom owner]
+    (or (seq @data-atom)
+      (do
+        (reset! data-atom
+          (gen/generate
+            (s/gen ::award-gen/events
+              (-> {}
+                  gratitude.data-generators/with-sane-user-generators
+                  (assoc ::user/avatar-url #(gen/fmap (partial str "https://picsum.photos/36/36/?random&x=")
+                                                      (s/gen int?)))
+                  gratitude.data-generators/with-thank-you-note-generators))))
+        @data-atom))
+    (sab/html
+      [:div
+        [:button {:onClick #(reset! data-atom nil)}
+          "Regenerate"]
+        (gratitude.awards-app.mock-ui/events-visualization @data-atom)]))
+  nil)
+
 (defcard Awards-data
   "```clojure
   (gen/sample
