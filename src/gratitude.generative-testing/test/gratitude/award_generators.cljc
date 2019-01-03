@@ -2,7 +2,7 @@
   (:require [clojure.pprint :as pprint]
             [clojure.string :as string]
             [clojure.spec.alpha :as s]
-            [clojure.spec.gen.alpha :as sgen]
+            [clojure.spec.gen.alpha :as gen]
             [gratitude.user :as user]
             [gratitude.expression :as expression]
             [clojure.test.check.generators]))
@@ -26,4 +26,4 @@
                      ::generate-report ::generate-report))
 (s/def ::events (s/coll-of ::event))
 
-;(sgen/sample (s/gen ::events))
+;(gen/sample (s/gen ::events))
