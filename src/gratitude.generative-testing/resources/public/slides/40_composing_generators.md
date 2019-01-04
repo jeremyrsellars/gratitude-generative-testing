@@ -98,6 +98,8 @@ This list is a good place to start along the path of learning to transforming an
 
 -------#List-types
 
+<div class="speaker-note label">Abridge</div>
+
 # List types
 
 <style class='before-speaker-note'></style>
@@ -113,9 +115,9 @@ Gen<Tuple<Card,Card>> blackjackHandGen = cardGen.Two();        // Tuple<T1,T2>
 ```
 
 ```clojure
-(let [^Gen poker-hand-gen    (s/coll-of ::card, :count 5, :into [])    ; vector
-      ^Gen another-poker-gen (s/coll-of ::card, :count 5)              ; also vector
-      ^Gen blackack-hand-gen (s/coll-of ::card, :count 2, :into #{})]  ; hash set
+(let [^Gen poker-hand-gen    (s/gen (s/coll-of ::card, :count 5, :into []))    ; vector
+      ^Gen another-poker-gen (s/gen (s/coll-of ::card, :count 5))              ; also vector
+      ^Gen blackack-hand-gen (s/gen (s/coll-of ::card, :count 2, :into #{}))]  ; hash set
   ...)
 ```
 
@@ -131,6 +133,8 @@ intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
 
 -------#Labeled-data
 
+<div class="speaker-note label">Abridge</div>
+
 # Anonymous vs. Labeled data
 
 <style class='before-speaker-note'></style>
@@ -143,14 +147,14 @@ intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
 ### Alternative generators
 
 ```csharp
-Gen.OneOf(heartGen, queenSpadeGen, cardGen)     ; yields a card generator
+Tuple<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
 ```
 
 ```clojure
 (s/def ::card-classification
     (s/or :heart ::heart-card
           :queen-spade ::queen-of-spades
-          :zero-point-card ::card))                  ; yields a card generator
+          :zero-point-card ::card))                ; yields a card generator
 ```
 
 ### Heterogeneous tuple
@@ -166,6 +170,8 @@ Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
 (s/conform ::card-tuple [:hearts :ten])            ; yields {:suit :hearts, :rank :ten}
 ```
 -------------#Un-labeled-data
+
+<div class="speaker-note label">Abridge</div>
 
 # Staying safe with un-labeled data
 
@@ -196,7 +202,12 @@ Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
     var bmi = CalculateBMI(weight, height); // doesn't compile! Yeah!
 ```
 
+For more about this idea, see my blog: http://jeremyrsellars.github.io/no-new-legacy/posts/2017-08-08-domain-identifiers-instead-of-primitive-obsession/
+
+
 ----------#arbitrary-data-types-and-specs
+
+<div class="speaker-note label">Abridge</div>
 
 # Registering generators and shrinkers for arbitrary data types/specs
 
@@ -228,6 +239,8 @@ public class LengthGenerators
 
 -------------#Card-types
 
+<div class="speaker-note label">Abridge</div>
+
 # Card types in `C#`
 
 <style class='before-speaker-note'></style>
@@ -252,7 +265,7 @@ Now, let's build a card generator.  A card will be modeled with a type and enums
     }
 ```
 
----------#Card-generator-.net
+---------#Card-generator-FsCheck
 
 # Card Generator in `C#`
 
@@ -403,6 +416,8 @@ Generate example cards by defining and combining some generators with some of th
 ```
 
 ------------#generator-source
+
+<div class="speaker-note label">Omit</div>
 
 # Source code
 

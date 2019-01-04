@@ -59,7 +59,7 @@ Shrink (produce less "interesting" values)
 For comparison's sake, we'll try libraries in 2 different language ecosystems: Clojure (for JVM or the Browser) and C# for .Net.
 ```
 
-*Clojure*: [Clojure.Spec](https://clojure.org/guides/spec) via [Test.Check](https://github.com/clojure/test.check)
+*Clojure*: [Clojure.Spec](https://clojure.org/guides/spec) powered by [Test.Check](https://github.com/clojure/test.check)
 
 *C#/F#/.Net*: [FsCheck](https://fscheck.github.io/FsCheck)
 
@@ -74,6 +74,8 @@ For comparison's sake, we'll try libraries in 2 different language ecosystems: C
 Let's start with Clojure.
 ```
 -------------#REPL-1
+
+<div class="speaker-note label">Omit</div>
 
 ## Clojure
 
@@ -91,17 +93,24 @@ Let's start with Clojure.
 Let's demonstrate an integer generator in each library to get a feel for what's involved.
 ```
 
-### Clojure's interactive [REPL](https://clojure.org/guides/repl/introduction)
+### [clojure.spec.alpha](https://clojure.org/guides/spec)
+
+* [clojure.spec.alpha](https://clojure.org/guides/spec)
+    * New in Clojure 1.9.
+    * `...alpha` – Powerful ideas.  Production ready, but a forked project may eventually replace the "alpha" version to prevent breaking changes.)
+* Generative testing is powered by [test.check](https://github.com/clojure/test.check).
+
+### [Clojure test.check](https://github.com/clojure/test.check)
+
+> test.check is a Clojure property-based testing tool inspired by QuickCheck. The core idea of test.check is that instead of enumerating expected input and output for unit tests, you write properties about your function that should hold true for all inputs. This lets you write concise, powerful tests.
+- [test.check](https://github.com/clojure/test.check)
+
+### [REPL](https://clojure.org/guides/repl/introduction) (Clojure interactive)
 
 * **`R`**ead – Reads an expression that you type after the prompt (like `user=>`)
 * **`E`**valuate – Evaluates the expression, computing the result
 * **`P`**rint – Prints it to the screen
 * **`L`**oop – Loop back to the beginning to read again
-
-### [clojure.spec.alpha](https://clojure.org/guides/spec)
-
-* [clojure.spec.alpha](https://clojure.org/guides/spec) – New in Clojure 1.9.  Alpha.  Powerful ideas, but subject to replacement.
-* Generative testing is powered by [test.check](https://github.com/clojure/test.check).
 
 ------------#Clojure-Generator
 
@@ -126,7 +135,7 @@ Let's demonstrate an integer generator in each library to get a feel for what's 
 
 ```clojure
 user=> (require '[clojure.spec.alpha :as s]
-'[clojure.spec.gen.alpha :as gen] '[clojure.test.check.generators])`
+'[clojure.spec.gen.alpha :as gen] '[clojure.test.check.generators])
 user=> (s/gen int?)
 #clojure.test.check.generators.Generator{:gen #object[clojure.test.check.generators$such_that$fn__1825 0x633837ae "clojure.test.check.generators$such_that$fn__1825@633837ae"]}
 user=> (gen/generate (s/gen int?))
@@ -176,7 +185,7 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 
 ### Larger sizes produce more interesting values.
 
-------------#null
+------------#returns
 
 # More example generators
 
@@ -186,24 +195,45 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 (s/gen nil?)
 ```
 
+## Generator returns a value
+
 Or, more literally, you can make a constant generator that always returns the same value that is passed in.
 ```clojure
 (gen/return nil)
+(gen/return "Some String")
 ```
 
 ```csharp
 Gen.Constant<string>(null);
+Gen.Constant<string>("Some String");
 ```
 
-------------#alternatives
+------------#element-of-collection
 
-## Choose between alternatives
+## Choose an element from a collection
 
 <style class='before-speaker-note'></style>
 
 * Imagine you have a few values and you want a generator to make a random choice from just those already realized values. You want to select a random element from a list.
 * clojure.spec:
     * The default generator for a hash set `#{}` in clojure.spec is a choice of the members.
+
+```clojure
+(s/gen #{"bears" "beets" "Battlestar Galactica"})
+(gen/elements ["bears" "beets" "Battlestar Galactica"])
+```
+
+```csharp
+Gen<string> gen = Gen.Elements(new [] {"bears", "beets", "Battlestar Galactica"});
+```
+
+------------#alternatives
+
+## Choose between alternative generators
+
+<style class='before-speaker-note'></style>
+
+* Now, what if you want to pick a random generators and have that generator generate the value.
 * FsCheck
     * With FsCheck, making the choice between options can be done with a combination of generators, with `Gen.OneOf`.
     * In this case, it chooses between "constant" generators which always return the same value.
@@ -214,6 +244,10 @@ Gen.Constant<string>(null);
 ```clojure
 ; Equal probability, using a hash set literal value in `#{}`
 (s/gen #{"bears" "beets" "Battlestar Galactica"})
+(gen/elements #{"bears" "beets" "Battlestar Galactica"})
+(gen/one-of [(gen/return "bears")
+             (gen/return "beets")
+             (gen/return "Battlestar Galactica")])
 ; Weighted probability
 (gen/frequency
   [[2 (gen/return "bears")]

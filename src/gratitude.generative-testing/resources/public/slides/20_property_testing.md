@@ -73,7 +73,7 @@ bool isSheepBleat(string s)
 |`·baa`    |false       |leading space |
 |`baa·`    |false       |trailing space|
 
------------#Example-based.jumbo
+-----------#Example-based.jumbo-left
 
 # Example-based Tests
 
@@ -119,8 +119,8 @@ The parameterized test might look like this, which executes an assertion functio
 
 ```clojure
 (defn sheep-bleat?
-    [s]
-    false) ; obvious bug here!
+  [s]
+  false) ; obvious bug here!
 
 (defn assert-sheep-bleat
   [text expected-answer reason]
@@ -342,6 +342,8 @@ This is one reason I recommend starting with example-based unit tests before mov
 ![Why not both?](https://i.kym-cdn.com/photos/images/newsfeed/000/538/731/0fc.gif)
 
 ---------#When-properties-3
+
+# Thought tool: Should I use examples or properties?
 
 ## Use examples...
 

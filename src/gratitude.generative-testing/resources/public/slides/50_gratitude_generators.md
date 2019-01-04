@@ -1,4 +1,4 @@
------------#Gratitude-application-1.jumbo
+-----------#Gratitude-application-1
 
 # Generating data for a team-based gratitude application
 
