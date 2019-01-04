@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
     <div id="outline"></div>
     <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=versionize" type="text/javascript"></script>
+    <script src="js/presenter-aids.js?Rel=versionize" type="text/javascript"></script>
     <link href="css/generative_testing_style.css?Rel=versionize" rel="stylesheet" type="text/css">
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/cs.min.js"></script>
@@ -192,9 +193,7 @@
         }
       };
 
-      setInterval(_ => {
-        document.title = !!navigator.receiver + new Date().toString().substring(15);
-      }, 1000)
+      startPublishing();
 
     </script>
   </body>

@@ -79,12 +79,39 @@
   (let [hashs (map second @outline-atom)]
     (last hashs)))
 
+(def navigation-keycodes
+  {#_ page-up     33 previousSlideHash
+   #_ page-down   34 nextSlideHash
+   #_ arrow-left  37 previousSlideHash
+   #_ arrow-right 39 nextSlideHash})
+
 (def navigation-commands
   {"p" previousSlideHash
    "n" nextSlideHash
+   "b" nextSlideHash
    "c" identity})
    ; "h" homeSlideHash
    ; "e" endSlideHash})
+
+(defn handle-keydown [evt]
+  ;(println :cc (.-charCode evt) :kc (.-keyCode evt))
+  (let [new-hash-fn
+          (get navigation-keycodes
+               (.-keyCode evt)
+               (constantly nil))]
+    (when-let [new-hash (-> js/window .-location .-hash new-hash-fn)]
+      (obj/set (.-location js/window) "hash" new-hash)
+      (.scrollTo js/window 0 0))))
+
+(defn handle-keypress [evt]
+  ;(println :cc (.-charCode evt) :kc (.-keyCode evt))
+  (let [new-hash-fn
+          (get navigation-commands
+               (string/lower-case (.fromCharCode js/String (.-charCode evt)))
+               (constantly nil))]
+    (when-let [new-hash (-> js/window .-location .-hash new-hash-fn)]
+      (obj/set (.-location js/window) "hash" new-hash)
+      (.scrollTo js/window 0 0))))
 
 (defn ^:export main [element-id]
   ;; conditionally start the app based on whether the #main-app-area
@@ -102,15 +129,9 @@
                    :block "center"
                    :inline "center"})))))
 
-      (events/listen (.-body js/document) (.-KEYPRESS EventType)
-        (fn handle-keypress [evt]
-          (let [new-hash-fn
-                  (get navigation-commands
-                       (string/lower-case (.fromCharCode js/String (.-charCode evt)))
-                       (constantly nil))]
-            (when-let [new-hash (-> js/window .-location .-hash new-hash-fn)]
-              (obj/set (.-location js/window) "hash" new-hash)
-              (.scrollTo js/window 0 0)))))
+      (events/listen (.-body js/document) (.-KEYDOWN EventType) handle-keydown)
+      (events/listen (.-body js/document) (.-KEYPRESS EventType) handle-keypress)
+
       (.render js/ReactDOM (sab/html (us.sellars.slides.outline/scroll-chamber @outline-atom)) node))
     (println "outline element wasn't found")))
 

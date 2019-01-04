@@ -8,7 +8,7 @@
 
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/clojurescript "1.10.439"]
-                 [org.clojure/test.check "0.9.0"]
+                 [org.clojure/test.check "0.10.0-alpha3"]
                  [devcards "0.2.6"]
                  [sablono "0.8.4"]
 
@@ -30,7 +30,7 @@
 
   :cljsbuild {
               :builds [{:id "devcards"
-                        :source-paths ["show" "test" "src"]
+                        :source-paths ["show" "test" "src" "presenter"]
                         :figwheel { :devcards true  ;; <- note this
                                     :websocket-host :js-client-host
                                    ;; :open-urls will pop open your application
@@ -77,6 +77,7 @@
                                    :optimizations :advanced}}]}
 
   :figwheel { :css-dirs ["resources/public/css"]
+              :ring-handler presenter-aids.server/handler
               :server-ip "0.0.0.0"
               :server-port 3470}
 

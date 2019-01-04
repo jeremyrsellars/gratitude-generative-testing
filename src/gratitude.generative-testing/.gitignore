@@ -17,3 +17,4 @@ figwheel_server*
 *.tmp
 debug.log.txt
 publish-pages.exclusions.txt
+history.edn
