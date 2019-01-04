@@ -34,6 +34,15 @@ Unit tests validate one example at a time, but what if you didn't have to think 
     * Thought Expiriments
         *
 
+* Slide visuals
+    * Interview slides
+        * Money, checks -- http://localhost:3470/presenter.html#!/gratitude.generative_testing.section_10_introduction/Interview-1
+        * Hand shake
+        * Data
+    * Abstraction-principal -- http://localhost:3470/presenter.html#!/gratitude.generative_testing.section_10_introduction/
+    * Shoulders of giants -- http://localhost:3470/presenter.html#!/gratitude.generative_testing.section_10_introduction/Media
+    * Generate -> Test -- http://localhost:8080/slides.html#!/gratitude.generative_testing.section_20_property_testing/Generative-Testing
+
 * Generative Testing
     * Property Testing
         * Example-based vs. Property-based (parameterized tests & DRY)
