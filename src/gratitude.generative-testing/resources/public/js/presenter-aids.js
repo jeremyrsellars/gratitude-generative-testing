@@ -44,16 +44,7 @@ var publishPendingConsole = function publishPendingConsole(key) {
     delete pending[key];
     publishAll();
 }
-var publishPending;
-switch(window.location.port){
-    case 80:
-    case 443:
-        publishPending = publishPendingConsole;
-        break;
-    default:
-        publishPending = publishPendingServer;
-        break;
-}
+var publishPending = window.location.port ? publishPendingServer : publishPendingConsole;
 var publishAll = function(){
     // Indirectly recursive.
     for (var key in pending) {
