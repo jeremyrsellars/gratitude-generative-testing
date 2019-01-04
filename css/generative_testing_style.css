@@ -161,7 +161,7 @@ blockquote{
     margin:1.5em 10px;
     max-width:40em;
     padding:0.5em 10px;
-    quotes:"“" "”"
+    quotes:"\201C" "\201D";
 }
 
 blockquote p
@@ -255,6 +255,11 @@ pre code.lang-speaker-note {
     display: none;
 }
 
+.jumbo ul, .jumbo ol, .jumbo-left ul, .jumbo-left ol {
+  list-style-type: none;
+}
+
+
 @media (min-width: 1024px) {
     .jumbo {
         text-align: center;
@@ -287,6 +292,19 @@ pre code.lang-speaker-note {
 code.lang-speaker-note {
     background-color: #f8f8f8;
 }
+
+.speaker-note {
+    float: right;
+}
+
+.speaker-note.label {
+    border: 2px solid black;
+    background-color: #eee;
+    background-color: rgba(128, 128, 128, 0.3);
+    padding: 0.2em;
+    border-radius: 0.3em;
+}
+
 
 .slide-nav {
     position: fixed;
