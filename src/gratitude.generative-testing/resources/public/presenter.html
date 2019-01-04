@@ -118,6 +118,7 @@
     <button id="reconnectBtn" style="display: none;">Reconnect</button>
     <script>
       let connection;
+      var expectingResponse = false;
 
       // The Disconnect and Stop buttons are visible if there is a connected presentation
       const stopBtn = document.querySelector("#stopBtn");
@@ -162,10 +163,12 @@
 
           // Register message handler
           connection.onmessage = message => {
+            expectingResponse = false;
             console.log(`Received message: ${message.data}`);
           };
 
           // Send initial message to presentation page
+          expectingResponse = true;
           connection.send(window.location.hash);
         };
 
@@ -192,6 +195,14 @@
             console.log("advertised  " + newHash);
         }
       };
+
+      setInterval(_ => {
+        if(!!connection && expectingResponse){
+            console.log("No response from external presentation... disconnecting.")
+            connection.close();
+            setTimeout(reconnect, 500);
+        }
+      }, 1000)
 
       startPublishing();
 
