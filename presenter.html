@@ -4,14 +4,14 @@
     <title>Cards: Generate Data for 10,000 Unit Tests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=20190104_120728" rel="stylesheet" type="text/css"></style>
+    <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=20190104_122326" rel="stylesheet" type="text/css"></style>
   </head>
   <body class="presenter">
     <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
     <div id="outline"></div>
-    <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=20190104_120728" type="text/javascript"></script>
-    <script src="js/presenter-aids.js?Rel=20190104_120728" type="text/javascript"></script>
-    <link href="css/generative_testing_style.css?Rel=20190104_120728" rel="stylesheet" type="text/css">
+    <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=20190104_122326" type="text/javascript"></script>
+    <script src="js/presenter-aids.js?Rel=20190104_122326" type="text/javascript"></script>
+    <link href="css/generative_testing_style.css?Rel=20190104_122326" rel="stylesheet" type="text/css">
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/cs.min.js"></script>
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/clojure.min.js"></script>
@@ -118,6 +118,7 @@
     <button id="reconnectBtn" style="display: none;">Reconnect</button>
     <script>
       let connection;
+      var expectingResponse = false;
 
       // The Disconnect and Stop buttons are visible if there is a connected presentation
       const stopBtn = document.querySelector("#stopBtn");
@@ -162,10 +163,12 @@
 
           // Register message handler
           connection.onmessage = message => {
+            expectingResponse = false;
             console.log(`Received message: ${message.data}`);
           };
 
           // Send initial message to presentation page
+          expectingResponse = true;
           connection.send(window.location.hash);
         };
 
@@ -192,6 +195,14 @@
             console.log("advertised  " + newHash);
         }
       };
+
+      setInterval(_ => {
+        if(!!connection && expectingResponse){
+            console.log("No response from external presentation... disconnecting.")
+            connection.close();
+            setTimeout(reconnect, 500);
+        }
+      }, 1000)
 
       startPublishing();
 
