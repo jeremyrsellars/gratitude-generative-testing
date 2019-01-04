@@ -225,6 +225,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * As the saying goes, a picture is worth a thousand words.
 * Think about software requirements/specification documents.
 * Rather than go back and forth with stakeholders about some line of text in a spec doc, it may be far more productive to "show" examples that are possible based on a translation of the document into a generative specification.
+* Another good example is when there is an API boundary between your team and another team.  The generative specifications can be used to "mock up" the clients or servers.  That way if one team is "ready" before the other, then can still make progress, hopefully.
 
 <iframe src='https://sejikco.github.io/CssGridSheetMusic/beethoven-ode-to-joy.html' style='width: 60vw;height: 40vh;'></iframe>
 
