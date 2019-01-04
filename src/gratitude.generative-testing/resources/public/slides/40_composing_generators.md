@@ -62,8 +62,9 @@ In Clojure, to specify a list of a spec, use `(s/coll-of some-spec)`.  To apply 
 
 In order to generate composite data for non-trivial applications, we'll need to use more powerful generators.  These are built up from single-responsibility functions provided by the libraries.
 
-
 ---------------#Generators-table
+
+<div class="speaker-note label">Abridge</div>
 
 # Combining Generators
 
@@ -94,7 +95,183 @@ In order to generate composite data for non-trivial applications, we'll need to 
 
 <style class='before-speaker-note'></style>
 
-This list is a good place to start along the path of learning to transforming and combining generators.  Further description of the above, from the FsCheck perspective, can be found in [FsCheck Test Data: Useful-Generator-Combinators](https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators).
+This list is a good place to start along the path of learning to transforming and combining generators.  Further description of the above, from the FsCheck perspective, can be found in [FsCheck Test Data: Useful-Generator-Combinators](https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators).  The [Test.Check Cheat Sheet](https://github.com/clojure/test.check/blob/master/doc/cheatsheet.md) is also helpful.
+
+
+--------#Alternative_generators.jumbo-left
+
+# Alternative generators
+
+```csharp
+Gen<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
+```
+
+```clojure
+;; clojure.spec
+(s/or     :heart               ::heart-card
+          :queen-spade         ::queen-of-spades
+          :zero-point-card     ::card)
+; note:   ^ data-label         ^ spec              ; Data label is useful for conformance
+
+;; test.check
+(gen/one-of [(s/gen ::heart-card)
+             (s/gen ::queen-of-spades)
+             (s/gen ::card)])
+```
+
+A little more about Clojure.spec's conformance for re-labeling data from the [spec guide](https://clojure.org/guides/spec#_composing_predicates).
+
+--------#Exact-length_list.jumbo-left
+
+# Exact-length list
+
+```csharp
+Gen<IList<Card>> gen = cardGen.ListOf(5)   ; List of 5 cards
+```
+
+```clojure
+(s/coll-of ::card :count 5)                ; vector of 5 cards
+```
+
+--------#Homogeneous_pair_tuple.jumbo-left
+
+<div class="speaker-note label">Omit</div>
+
+# Homogeneous tuple
+
+```csharp
+Gen<Tuple<Card,Card>>            gen2 = cardGen.Two()
+Gen<Tuple<Card,Card,Card>>       gen3 = cardGen.Three()
+Gen<Tuple<Card,Card,Card,Card>>  gen4 = cardGen.Four()
+```
+
+```clojure
+(s/coll-of ::card :count 2)      ; vector of 2 cards
+(s/coll-of ::card :count 3)      ; vector of 3 cards
+(s/coll-of ::card :count 4)      ; vector of 4 cards
+```
+
+--------#Heterogeneous_tuple.jumbo-left
+
+# Heterogeneous tuple
+
+```csharp
+Gen<Tuple<Suit,Rank>> gen = Gen.zip(suitGen, rankGen)
+Gen<Tuple<float,float>> gen = Gen.zip(heightGen, weightGen)
+```
+
+```clojure
+(gen/tuple (s/gen ::suit) (s/gen ::rank))    ; => [:spade  :ten]
+(gen/tuple (s/gen int?)   (s/gen string?))   ; => [1       "ab"]
+              /--- specs ---\
+             v               v
+(s/cat :suit ::suit,   :rank ::rank)         ; => [:spade  :ten]
+       ^- data labels -^                     ; Data label is useful for conformance
+;; conformance demo
+(s/def ::card-tuple
+  (s/cat :suit ::suit, :rank ::rank))        ; yields [:hearts :ten]
+;; Reattach the data labels with `conform`
+(s/conform ::card-tuple [:hearts :ten])      ; yields {:suit :hearts, :rank :ten}
+```
+
+A little more about Clojure.spec's conformance for re-labeling data from the [spec guide](https://clojure.org/guides/spec#_composing_predicates).
+
+--------#Element_from_list.jumbo-left
+
+# Element from list
+
+```csharp
+Gen<Card> gen = Gen.Elements(new Card[]{exampleCard1, exampleCard2})
+```
+
+```clojure
+(gen/elements [example-card-1 example-card-2])
+```
+
+--------#Size-driven_single.jumbo-left
+
+<div class="speaker-note label">Omit</div>
+
+# Size-driven single
+
+```csharp
+Gen<Card> gen = Gen.GrowingElements(new Card[]{exampleCard1, exampleCard2})
+```
+
+--------#Size-driven_list.jumbo-left
+
+# Size-driven list
+
+```csharp
+Gen<IList<Card>> gen = cardGen.ListOf()
+```
+
+```clojure
+(s/coll-of ::card)
+(s/* ::card)
+```
+
+--------#Size-driven_list_non-empty.jumbo-left
+
+<div class="speaker-note label">Abridge</div>
+
+# Size-driven list, non-empty
+
+```csharp
+Gen<IList<Card>> gen = cardGen.NonEmptyListOf(size)
+```
+
+```clojure
+(s/coll-of ::card :min-count 1)
+(s/+ ::card)
+```
+
+--------#Constant.jumbo-left
+
+<div class="speaker-note label">Omit</div>
+
+# Constant
+
+```csharp
+Gen<Card> gen = Gen.Constant(queenOfSpades)
+```
+
+```clojure
+#{:some-value}
+(gen/return :some-value)
+```
+
+--------#Satisfying_constraint.jumbo-left
+
+# Satisfying constraint (Such-that)
+
+```csharp
+cardGen.Where(c => c.Suit == Suit.Hearts)
+cardGen.TryWhere(c => c.Suit == Suit.Hearts
+                   && c.Suit == Suit.Clubs)    // impossible or improbable, but don't throw
+```
+
+```clojure
+(s/and ::card is-heart?)
+(s/and ::card is-heart? is-club?) ; will throw
+;; To avoid exceptions in Use a custom generator that *will* satisfy the constraint.
+```
+
+Note: Use a custom generator that *will* satisfy the constraint so it will be fast.
+
+--------#Random_permutations.jumbo-left
+
+<div class="speaker-note label">Omit</div>
+
+# Random permutations
+
+```csharp
+Gen.Shuffle(new Card[]{exampleCard1, exampleCard2})
+```
+
+```clojure
+(gen/shuffle xs)
+```
 
 -------#List-types
 
@@ -178,7 +355,6 @@ Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
 <style class='before-speaker-note'></style>
 
 * Since FsCheck uses `System.Tuple`, which doesn't support "naming" the ordinals, it uses anonymous labels like `tuple.Item1`, `.Item2`, etc. so the semantic meaning of `Item2` may not be obvious in the code.  Often the generic type serves to label the data, but when a tuple is used to model both height and weight with a float, this can be confusing.  If you want to embedd the intended use in the type, consider avoiding a primitive like float, and using a custom type.
-
 
 ```csharp
     float CalculateBMI(float height, float weight) // confusing
