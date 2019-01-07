@@ -123,7 +123,7 @@ Let's demonstrate an integer generator in each library to get a feel for what's 
 2. We creates an instance of a Java class called `Generator` in the `clojure.test.check.generators` package, then we generate some examples with it.
 3. Notice:
     * `int?` is a `fn` from Clojure's standard library that asks if a value is an integer.  Clojure.spec is able to look up an appropriate generator from this function.  It's a generator that is capable of generating integers.
-    * `(gen/generate (s/gen int?))` yields an integer (and not necessarilly a simple one)
+    * `(gen/generate (s/gen int?))` yields an integer (and not necessarily a simple one)
     * `(gen/sample (s/gen int?) 3)` yields 3 integers, usually simpler ones
 
 <style class='before-speaker-note'></style>
@@ -165,9 +165,9 @@ user=> (gen/sample (s/gen int?) 3))
 * Let's see how to create and use a generator in FsCheck.
     * Again, we'll ask for an int generator.
     * It creates an instance of a .Net class called `Gen` in the `FsCheck` namespace.
-* FsCheck generators also have a `size` parameter that can help control the iterestingness of data generated, to prevent examples from being too simple to expose errors or too complex to execute quickly.  A larger "size" in a list generator may produce longer lists, while a larger "size" in a string generator may produce more of the unusual characters, for example.
+* FsCheck generators also have a `size` parameter that can help control the interestingness of data generated, to prevent examples from being too simple to expose errors or too complex to execute quickly.  A larger "size" in a list generator may produce longer lists, while a larger "size" in a string generator may produce more of the unusual characters, for example.
     * The precise effect of generating different 'sizes', changes from type to type.  Different generators use it differently, but the key point is this: **larger sizes produce more interesting values.**
-    * FsCheck has a good writeup of this in the [documentation](https://fscheck.github.io/FsCheck/TestData.html#The-size-of-test-data) linked in the last slide.
+    * FsCheck has a good write-up of this in the [documentation](https://fscheck.github.io/FsCheck/TestData.html#The-size-of-test-data) linked in the last slide.
     * The libraries usually offer a way to opt-out of using size in some parts of your code.  This could be used to let you generate many small examples.
 * Some ways of generating examples:
     1. So, one way to make a generator for integer values is `var gen = Gen.Choose(low, hi)`.  This returns an instance of `Gen<int>`.

@@ -16,7 +16,7 @@ We know sheepish has only `a` and `b` characters, so let's take a list of random
 
 1. Gen1: Choose between `a` and `b`.
 2. Gen2: Make a list of outputs of Gen1.
-    * `.NonEmptyListOf()`, or just `.ListOf()` – Generates a collection of of values from a generator.
+    * `.NonEmptyListOf()`, or just `.ListOf()` – Generates a collection of values from a generator.
     * `(s/coll-of some-spec)` – Generates a collection of of values from a generator.
 3. Gen3: Apply a function to the output of Gen2 (convert to string).
     * `Gen.Select` – Apply a function to transform generated values.
@@ -319,7 +319,7 @@ intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
 * Another difference is in whether or not list contents are labeled.
 * To generate a random value from 2 generators, FsCheck's `Gen.OneOf` takes 2 parameters, while Clojure spec `s/or` takes 4 – twice as many parameters.  This is also true of homogeneous tuples with `s/cat`.  Both produce similar unlabeled data, but in Clojure the values can be run 'backwards' through a spec to produce labeled data.  This is called conformance.
 * The Clojure "alternative" generator, the card classification example, produces a single card that matches one of the specs. The "extra" parameters provide labels for "conforming" a value, a process similar to destructuring.  This is out of scope for data generation (and this talk), but it can sure come in handy to switch behavior based on which spec matches.
-* For the tuple example, a vector is returned containing a value matching each spec in order, the "extra" parameters also provide labels when conforming a value for destructuring or runtime introspection.
+* For the tuple example, a vector is returned containing a value matching each spec in order; the "extra" parameters also provide labels when conforming a value for destructuring or runtime introspection.
 
 ### Alternative generators
 
@@ -354,7 +354,7 @@ Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
 
 <style class='before-speaker-note'></style>
 
-* Since FsCheck uses `System.Tuple`, which doesn't support "naming" the ordinals, it uses anonymous labels like `tuple.Item1`, `.Item2`, etc. so the semantic meaning of `Item2` may not be obvious in the code.  Often the generic type serves to label the data, but when a tuple is used to model both height and weight with a float, this can be confusing.  If you want to embedd the intended use in the type, consider avoiding a primitive like float, and using a custom type.
+* Since FsCheck uses `System.Tuple`, which doesn't support "naming" the ordinals, it uses anonymous labels like `tuple.Item1`, `.Item2`, etc. so the semantic meaning of `Item2` may not be obvious in the code.  Often the generic type serves to label the data, but when a tuple is used to model both height and weight with a float, this can be confusing.  If you want to embed the intended use in the type, consider avoiding a primitive like float, and using a custom type.
 
 ```csharp
     float CalculateBMI(float height, float weight) // confusing

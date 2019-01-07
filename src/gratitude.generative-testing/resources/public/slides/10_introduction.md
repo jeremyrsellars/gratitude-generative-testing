@@ -57,7 +57,7 @@ Let us propose for a moment that a business is a group of people oriented around
 # How many of us are employees?
 
 ```speaker-note
-I think it is a useful analogy, if we don't stretch it too far, that we, as employees, provide our employer with products, services, research, labor, TPS reports, or ideas that they value, and that they compensate us for.  In a way, we individuals are in business serving our customor (even if that *customer* is our *employer*).
+I think it is a useful analogy, if we don't stretch it too far, that we, as employees, provide our employer with products, services, research, labor, TPS reports, or ideas that they value, and that they compensate us for.  In a way, we individuals are in business serving our customer (even if that *customer* is our *employer*).
 ```
 
 ---------#Interview-3.jumbo
