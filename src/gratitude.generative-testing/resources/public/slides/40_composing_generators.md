@@ -71,27 +71,26 @@ In order to generate composite data for non-trivial applications, we'll need to 
 <style class='before-speaker-note'></style>
 
 * Here are some generators for testing the card game of "Hearts," which uses a standard 52-card deck of playing cards.
-* Some of the generators listed below are built from random card generator, `Gen<Card> cardGen` in C# or `(s/gen ::card)`.
-* Let's go through this list in order.
+* Let's go through this list.  There are a lot more, but these are ones that I commonly use.
 
 <style id='combinators' class='before-alternating-table'></style>
 
 |Description|Example|FsCheck (C#)|Clojure `(s/gen …)`|
 |-----------|-------|------------|-------------------|
-|Alternative generators|`card`| `Gen.OneOf(heartGen, queenSpadeGen, cardGen)`| `(s/or :heart ::heart-card`<br>`,     :queen-spade ::queen-of-spades`<br>`,     :zero-point-card ::card)`<br>`(gen/one-of [heart-gen queen-of-spades-gen)`|
-|Exact-length list|`[card]`| `cardGen.ListOf(5)`| `(s/coll-of ::card :count 5)`|
-|Homogeneous pair tuple|`card` * `2`| `cardGen.Two()`| `(s/coll-of ::card :count 2)`<br>`(s/coll-of ::card :count 2 :into [])`|
-|Homogeneous 3-tuple|`card` * `3`| `cardGen.Three()`| `(s/coll-of ::card :count 3)`|
-|Homogeneous 4-tuple|`card` * `4`| `cardGen.Four()`| `(s/coll-of ::card :count 4)`|
-|Heterogeneous tuple|`suit` * `rank`| `Gen.zip(suitGen, rankGen)`|`(s/cat :suit ::suit, :rank ::rank)`<br>`(gen/tuple (s/gen int?) (s/gen string?))`|
-|Element from list|`card`| `Gen.Elements(new Card[]{exampleCard1,exampleCard2})`| `(gen/elements [example-card-1 example-card-2])`|
-|Size-driven single|`card`| `Gen.GrowingElements(new Card[]{exampleCard1,exampleCard2})`| |
-|Size-driven list|`[card]`| `cardGen.ListOf()`| `(s/coll-of ::card)`<br>`(s/* ::card)`|
-|Size-driven list, non-empty|`[card]`| `cardGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
-|Constant|`card`| `Gen.Constant(queenOfSpades)`| `#{some-value}`|
-|Satisfying constraint|`card`| `cardGen.Where(c => c.Suit == Suit.Hearts)`| `(s/and ::card is-heart?)`|
-|Satisfying constraint<br>(without throwing)|`card`| `cardGen.TryWhere(c => c.Suit == Suit.Hearts`<br>`/* improbable */      c.Suit == Suit.Clubs)`| `Use a custom generator`<br>`to avoid exception`|
-|Random permutations|`[card]`| `Gen.Shuffle(new Card[]{exampleCard1,exampleCard2})`| `(gen/shuffle xs)`|
+|Alternative generators|`Q♠`| `Gen.OneOf(heartGen, queenSpadeGen, cardGen)`| `(s/or :heart ::heart-card`<br>`,     :queen-spade ::queen-of-spades`<br>`,     :zero-point-card ::card)`<br>`(gen/one-of [heart-gen queen-of-spades-gen)`|
+|Exact-length list|`[♥ ♣ ♥ ♦ ♠]`| `suitGen.ListOfLength(5)`| `(s/coll-of ::suit :count 5)`|
+|Homogeneous pair tuple|`♥` · `♠`| `suitGen.Two()`| `(s/coll-of ::suit :count 2)`<br>`(s/coll-of ::suit :count 2 :into [])`|
+|Homogeneous 3-tuple|`♥` · `♦` · `♠`| `suitGen.Three()`| `(s/coll-of ::suit :count 3)`|
+|Homogeneous 4-tuple|`♥` · `♦` · `♠` · `♦`| `suitGen.Four()`| `(s/coll-of ::suit :count 4)`|
+|Heterogeneous tuple|`K` · `♥`| `Gen.zip(suitGen, rankGen)`|`(s/cat :rank ::rank, :suit ::suit)`<br>`(gen/tuple (s/gen ::rank) (s/gen ::suit))`|
+|Element from list|`♥`| `Gen.Elements(new Suit[]{Suit.Heart,suit.Spade})`| `(gen/elements [:heart :spade])`|
+|Size-driven single|`K♥`| `Gen.GrowingElements(new Card[]{spades1,heartsK})`| |
+|Size-driven list|`[]` or `[♥ ♣ ♥ ♦ ♠]`| `suitGen.ListOf(size)`| `(s/coll-of ::card)`<br>`(s/* ::card)`|
+|Size-driven list, non-empty|`[K♥ 9♦ 3♣ K♥]`| `suitGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
+|Constant|`"Queen"`| `Gen.Constant("Queen")`| `#{"Queen"}`|
+|Satisfying constraint|`K♥`| `cardGen.Where(c => c.Suit == Suit.Hearts)`| `(s/and ::card is-heart?)`|
+|Satisfying constraint<br>(without throwing)|`null`/`None`| `suitGen.TryWhere(c => c.Suit == Suit.Hearts`<br>`/* improbable */      c.Suit == Suit.Clubs)`| `Use a custom generator`<br>`to avoid exception`|
+|Random permutations|`["Q" "J" "K"]`| `Gen.Shuffle(new Rank[]{"K","Q","J"})`| `(gen/shuffle ["K" "Q" "J"])`|
 
 <style class='before-speaker-note'></style>
 
@@ -507,6 +506,14 @@ Generate example cards by defining and combining some generators with some of th
  {:suit :hearts,   :rank :three}
  {:suit :diamonds, :rank :queen})
 ```
+
+-----------#Application.review
+
+# Review Generators and Combinators
+
+-----------#Application.part-header
+
+# Part 4.  Generators in Action
 
 -----------#Sheepish-gen-1
 
