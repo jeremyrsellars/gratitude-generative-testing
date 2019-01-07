@@ -76,22 +76,22 @@ In order to generate composite data for non-trivial applications, we'll need to 
 
 <style id='combinators' class='before-alternating-table'></style>
 
-|Description|FsCheck (C#)|Clojure `(s/gen …)`|
-|-----------|------------|-------------------|
-|alternative generators| `Gen.OneOf(heartGen, queenSpadeGen, cardGen)`| `(s/or :heart ::heart-card`<br>`      :queen-spade ::queen-of-spades`<br>`      :zero-point-card ::card)`|
-|exact-length list| `cardGen.ListOf(5)`| `(s/coll-of ::card :count 5)`|
-|homogeneous pair tuple| `cardGen.Two()`| `(s/coll-of ::card :count 2)`<br>`(s/coll-of ::card :count 2 :into [])`|
-|homogeneous triple tuple| `cardGen.Three()`| `(s/coll-of ::card :count 3)`|
-|homogeneous quadruple tuple| `cardGen.Four()`| `(s/coll-of ::card :count 4)`|
-|heterogeneous tuple| `Gen.zip(suitGen, rankGen)`|`(s/cat :suit ::suit, :rank ::rank)`<br>`(gen/tuple (s/gen int?) (s/gen string?))`|
-|element from list| `Gen.Elements(new Card[]{exampleCard1,exampleCard2})`| `(gen/elements [example-card-1 example-card-2])`|
-|size-driven single| `Gen.GrowingElements(new Card[]{exampleCard1,exampleCard2})`| |
-|size-driven list| `cardGen.ListOf()`| `(s/coll-of ::card)`<br>`(s/* ::card)`|
-|size-driven list, non-empty| `cardGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
-|constant| `Gen.Constant(queenOfSpades)`| `#{some-value}`|
-|satisfying constraint| `cardGen.Where(c => c.Suit == Suit.Hearts)`| `(s/and ::card is-heart?)`|
-|satisfying constraint<br>(without throwing)| `cardGen.TryWhere(c => c.Suit == Suit.Hearts`<br>`                  && c.Suit == Suit.Clubs)`<br>`// impossible or improbable`| `Use a custom generator`|
-|random permutations| `Gen.Shuffle(new Card[]{exampleCard1,exampleCard2})`| `(gen/shuffle xs)`|
+|Description|Example|FsCheck (C#)|Clojure `(s/gen …)`|
+|-----------|-------|------------|-------------------|
+|Alternative generators|`card`| `Gen.OneOf(heartGen, queenSpadeGen, cardGen)`| `(s/or :heart ::heart-card`<br>`,     :queen-spade ::queen-of-spades`<br>`,     :zero-point-card ::card)`<br>`(gen/one-of [heart-gen queen-of-spades-gen)`|
+|Exact-length list|`[card]`| `cardGen.ListOf(5)`| `(s/coll-of ::card :count 5)`|
+|Homogeneous pair tuple|`card` * `2`| `cardGen.Two()`| `(s/coll-of ::card :count 2)`<br>`(s/coll-of ::card :count 2 :into [])`|
+|Homogeneous 3-tuple|`card` * `3`| `cardGen.Three()`| `(s/coll-of ::card :count 3)`|
+|Homogeneous 4-tuple|`card` * `4`| `cardGen.Four()`| `(s/coll-of ::card :count 4)`|
+|Heterogeneous tuple|`suit` * `rank`| `Gen.zip(suitGen, rankGen)`|`(s/cat :suit ::suit, :rank ::rank)`<br>`(gen/tuple (s/gen int?) (s/gen string?))`|
+|Element from list|`card`| `Gen.Elements(new Card[]{exampleCard1,exampleCard2})`| `(gen/elements [example-card-1 example-card-2])`|
+|Size-driven single|`card`| `Gen.GrowingElements(new Card[]{exampleCard1,exampleCard2})`| |
+|Size-driven list|`[card]`| `cardGen.ListOf()`| `(s/coll-of ::card)`<br>`(s/* ::card)`|
+|Size-driven list, non-empty|`[card]`| `cardGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
+|Constant|`card`| `Gen.Constant(queenOfSpades)`| `#{some-value}`|
+|Satisfying constraint|`card`| `cardGen.Where(c => c.Suit == Suit.Hearts)`| `(s/and ::card is-heart?)`|
+|Satisfying constraint<br>(without throwing)|`card`| `cardGen.TryWhere(c => c.Suit == Suit.Hearts`<br>`/* improbable */      c.Suit == Suit.Clubs)`| `Use a custom generator`<br>`to avoid exception`|
+|Random permutations|`[card]`| `Gen.Shuffle(new Card[]{exampleCard1,exampleCard2})`| `(gen/shuffle xs)`|
 
 <style class='before-speaker-note'></style>
 
