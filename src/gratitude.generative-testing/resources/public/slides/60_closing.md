@@ -19,6 +19,7 @@
     * Clojure.spec Guide – https://clojure.org/guides/spec
     * Test.check – https://github.com/clojure/test.check
     * More advanced test.check generators – https://clojure.github.io/test.check/clojure.test.check.generators.html
+    * [Test.Check Cheat Sheet](https://github.com/clojure/test.check/blob/master/doc/cheatsheet.md)
 * C#/F#/.Net
     * FsCheck – https://fscheck.github.io/FsCheck
     * "Size"/complexity of generated data – https://fscheck.github.io/FsCheck/TestData.html#The-size-of-test-data
