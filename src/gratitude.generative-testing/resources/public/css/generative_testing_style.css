@@ -112,7 +112,7 @@ body .hljs {
     border: 1px solid #aaa;
     border-radius: 0.3em;
     padding: 0.5em;
-    font-family: "lucida console";
+    font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
 }
 
 @media screen {
@@ -227,10 +227,19 @@ blockquote:before
 
 .before-speaker-note + *,
 code.lang-speaker-note {
+    background-color: #f0f0f0;
+}
+
+.before-speaker-note + p,
+.before-speaker-note + ul,
+.before-speaker-note + ol
+{
     background-color: #f8f8f8;
+    border: 1px dashed #888;
 }
 
 
+pre code.lang-speaker-note {
 pre code.lang-speaker-note {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     white-space: pre-wrap;
