@@ -28,7 +28,9 @@ body {
 }
 
 .com-rigsomelight-devcards_rendered-card code {
+    font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
     font-size: 90%;
+    white-space: pre-wrap;
 }
 
 .com-rigsomelight-devcards_rendered-card h1,

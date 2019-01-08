@@ -112,7 +112,7 @@ body .hljs {
     border: 1px solid #aaa;
     border-radius: 0.3em;
     padding: 0.5em;
-    font-family: "lucida console";
+    font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
 }
 
 @media screen {
@@ -227,7 +227,15 @@ blockquote:before
 
 .before-speaker-note + *,
 code.lang-speaker-note {
+    background-color: #f0f0f0;
+}
+
+.before-speaker-note + p,
+.before-speaker-note + ul,
+.before-speaker-note + ol
+{
     background-color: #f8f8f8;
+    border: 1px dashed #888;
 }
 
 
@@ -253,6 +261,20 @@ pre code.lang-speaker-note {
 
 .slide-class {
     display: none;
+}
+
+.title-slide h1{
+    color: white;
+    background-color: #428bca;
+    text-align: center;
+}
+
+.part-header h1{
+    color: white;
+    background-color: #428bca;
+    padding: 1em;
+    text-align: center;
+    margin-top: 2em;
 }
 
 .jumbo ul, .jumbo ol, .jumbo-left ul, .jumbo-left ol {
