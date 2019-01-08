@@ -347,7 +347,7 @@ intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
 ### Alternative generators
 
 ```csharp
-Tuple<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
+Gen<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
 ```
 
 ```clojure
@@ -360,7 +360,7 @@ Tuple<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
 ### Mixed-type tuple
 
 ```csharp
-Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
+Gen<Tuple<Suit,Rank>> gen = Gen.zip(suitGen, rankGen)
 ```
 
 ```clojure

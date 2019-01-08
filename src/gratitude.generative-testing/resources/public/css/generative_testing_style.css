@@ -365,3 +365,38 @@ code.lang-speaker-note {
     border-bottom-left-radius: 100%;
     text-align: right;
 }
+
+
+
+/****************************** gratitude.css *************************/
+label {
+    display: block;
+}
+
+.registration {
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 5em;
+    background-color: wheat;
+    border: 5px solid gray;
+}
+
+.registration img {
+    border-radius: 100%;
+    width: 128px;
+    height: 128px;
+    border: 5px solid gray;
+    border: 5px solid rgba(128, 128, 128, 0.5);
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 10%;
+}
+
+.data-entry {
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 1em;
+    background-color: aliceblue;
+    border: 5px solid gray;
+}
+

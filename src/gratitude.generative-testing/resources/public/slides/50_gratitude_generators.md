@@ -16,6 +16,18 @@
     * Message composition screen
 * Monthly award generation
 
+-----------#Gratitude-application-user-demo-1
+
+# Registration (empty)
+
+<div class="registration"><h1>It is nice to meet you!</h1><form><div>Avatar<img></div><label for="id"><div>Email address</div><input id="id" placeholder="your.email@example.com" value=""></label><label for="name"><div>Full name</div><input id="name" placeholder="General Greatful" value=""></label><input type="submit"></form></div>
+
+-----------#Gratitude-application-user-demo-2
+
+# Registration (populated)
+
+<div class="registration"><h1>It is nice to meet you!</h1><form><div>Avatar<img src="https://picsum.photos/128/128/?random&amp;x="><label for="avatar-url"><input id="avatar-url" placeholder="http://your.domain/image" value="https://picsum.photos/128/128/?random&amp;x="></label></div><label for="id"><div>Email address</div><input id="id" placeholder="your.email@example.com" value="jo@example.com"></label><label for="name"><div>Full name</div><input id="name" placeholder="General Greatful" value="The Jo Sen Wan"></label><input type="submit"></form></div>
+
 -----------#Gratitude-application-user-spec
 
 # User spec definition
@@ -225,6 +237,12 @@ Because usually the randomly-generated avatar-url string won't match the regex. 
             (s/gen #{".com" ".us" ".co" ".org"})))}))
 ```
 
+-----------#Gratitude-application-user-demo-3
+
+# Application (Mockups)
+
+<div class="data-entry"><h1>Gratitue Rocks!</h1><form><label for="to"><div>To</div><input id="to"></label><label for="message"><div>Message</div><textarea id="message" rows="10" cols="80"></textarea></label><label for="cheers"><div>Cheers</div><select id="cheers"><option value="0">0 Cheers</option><option value="1" selected="">1 Cheers</option><option value="2">2 Cheers</option><option value="3">3 Cheers</option></select></label><label for="tags"><div>Tags</div><input id="tags"></label><input type="submit"></form></div>
+
 --------#Thank-you-note-spec
 
 # Thank you notes definition
@@ -248,20 +266,6 @@ Because usually the randomly-generated avatar-url string won't match the regex. 
 --------#Thank-you-note-samples
 
 # Thank you notes samples
-
-```clojure
-  (gen/sample
-    (s/gen ::user/user
-      (-> {}
-          gratitude.data-generators/with-insane-user-generators))
-    10) ; insane users
-
-  (gen/sample
-    (s/gen ::user/user
-      (-> {}
-          gratitude.data-generators/with-sane-user-generators))
-    5) ; sane users
-```
 
 --------
 #!/gratitude.generative_testing.section_50_gratitude_generators/Sane_users_thank-you-notes
