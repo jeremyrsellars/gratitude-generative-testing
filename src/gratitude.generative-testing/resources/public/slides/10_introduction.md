@@ -175,6 +175,25 @@ This idea of semantic level will also be helpful when understanding how to effec
 * I am excited to bring this to your attention and shed light on it from my point of view.
 
 ```speaker-note
++----------------------------------------------------+
+|                                                    |
+|                +--------------------------------------+
+|                |                                   |  |
+|                |                +----------------------------------+
+|                |                |                  |  |            |
+|                |                | Generative Tests |  |            |
+|                |                | Property Tests   |  |            |
+|                |                |                  |  |            |
++----------------------------------------------------+  |            |
+  Extensibility  |                |                     |            |
+                 +--------------------------------------+            |
+                   Functional     |                                  |
+                   programming    |                                  |
+                                  +----------------------------------+
+                                    Software Quality
+```
+
+```speaker-note
 The [Manifesto for Software Craftsmanship](http://manifesto.softwarecraftsmanship.org/) emphasizes 4 values, and I see each of them touched on in these topics surrounding generative testing:
 ```
 
