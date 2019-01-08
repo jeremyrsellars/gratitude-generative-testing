@@ -20,7 +20,7 @@
 # [QuickCheck ~1999](http://www.cse.chalmers.se/~rjmh/QuickCheck/)
 
 ```speaker-note
-The canonical example of a generative testing library is QuickCheck, a famous library from the Haskell development community.
+The canonical example of a generative testing library is QuickCheck, a famous Haskell library.
 ```
 
 > **QuickCheck is a tool for testing Haskell programs automatically. The programmer provides a specification of the program, in the form of properties which functions should satisfy, and QuickCheck then tests that the properties hold in a large number of randomly generated cases.** Specifications are expressed in Haskell, using combinators defined in the QuickCheck library. QuickCheck provides combinators to define properties, observe the distribution of test data, and define test data generators.
@@ -31,6 +31,11 @@ The canonical example of a generative testing library is QuickCheck, a famous li
 * ["2018 ACM Fellows Honored for Pivotal Achievements that Underpin the Digital Age"](https://www.acm.org/media-center/2018/december/fellows-2018)
 
 ![John Hughes](http://www.cse.chalmers.se/~rjmh/Me%20prisma.jpg)
+
+
+-----------#Part_2_Generators.part-header
+
+# Part 2: Generators
 
 ----------------#Generators.jumbo
 
@@ -54,8 +59,6 @@ Shrink (produce less "interesting" values)
 # Libraries
 
 ```speaker-note
-~~Less talk, more code!~~
-
 For comparison's sake, we'll try libraries in 2 different language ecosystems: Clojure (for JVM or the Browser) and C# for .Net.
 ```
 
@@ -147,7 +150,7 @@ user=> (gen/sample (s/gen int?) 3))
 ```
 
 * `int?` is a `fn` from Clojure's standard library
-* `(s/gen int?)` yields a `clojure.test.check.generators.Generator`
+* `(s/gen int?)` yields a `clojure.test.check.generators.Generator`, not an int.
 * `(gen/generate (s/gen int?))` yields an integer
 * `(gen/sample (s/gen int?) 3)` yields 3 integers
 * If you're following along in the REPL, you'll need to include the `test.check` library before you start the REPL.  Add `:dependencies` to project.clj:
@@ -185,9 +188,11 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 
 ### Larger sizes produce more interesting values.
 
-------------#returns
+------------#returns.jumbo-left
 
 # More example generators
+
+These functions return generators, not the generated values.
 
 ## Generate null/nil
 
@@ -204,8 +209,9 @@ Or, more literally, you can make a constant generator that always returns the sa
 ```
 
 ```csharp
-Gen.Constant<string>(null);
-Gen.Constant<string>("Some String");
+Gen<string> Gen.Constant<string>(null);
+Gen<string> Gen.Constant<string>("Some String");
+Gen<Card> gen = Gen.Constant(queenOfSpades)
 ```
 
 ------------#element-of-collection
@@ -214,68 +220,34 @@ Gen.Constant<string>("Some String");
 
 <style class='before-speaker-note'></style>
 
+* At their core, generators are usually built from a random number generator.  Get a random floating point number, multiply it by the size of the list, to get an index from the list.
 * Imagine you have a few values and you want a generator to make a random choice from just those already realized values. You want to select a random element from a list.
 * clojure.spec:
     * The default generator for a hash set `#{}` in clojure.spec is a choice of the members.
+
+Generator picks a single element from a collection.
+
+```csharp
+Gen<string> gen = Gen.Elements(new [] {"bears", "beets", "Battlestar Galactica"});
+```
 
 ```clojure
 (s/gen #{"bears" "beets" "Battlestar Galactica"})
 (gen/elements ["bears" "beets" "Battlestar Galactica"])
 ```
 
+--------#Random_permutations.jumbo-left
+
+# Random permutations
+
+Generates a shuffled version of a list.
+
 ```csharp
-Gen<string> gen = Gen.Elements(new [] {"bears", "beets", "Battlestar Galactica"});
+Gen<Card> gen = Gen.Shuffle(new Card[]{exampleCard1, exampleCard2})
 ```
-
-------------#alternatives
-
-## Choose between alternative generators
-
-<style class='before-speaker-note'></style>
-
-* Now, what if you want to pick a random generators and have that generator generate the value.
-* FsCheck
-    * With FsCheck, making the choice between options can be done with a combination of generators, with `Gen.OneOf`.
-    * In this case, it chooses between "constant" generators which always return the same value.
-* Weighted vs. unweighted
-    * FsCheck has an easy way for each.
-    * Clojure.spec doesn't have use for weighted generation, but this is possible with test.check. It is very similar to the FsCheck method.
 
 ```clojure
-; Equal probability, using a hash set literal value in `#{}`
-(s/gen #{"bears" "beets" "Battlestar Galactica"})
-(gen/elements #{"bears" "beets" "Battlestar Galactica"})
-(gen/one-of [(gen/return "bears")
-             (gen/return "beets")
-             (gen/return "Battlestar Galactica")])
-; Weighted probability
-(gen/frequency
-  [[2 (gen/return "bears")]
-   [1 (gen/return "beets")]
-   [1 (gen/return "Battlestar Galactica")]])
+(gen/shuffle [:a :b :c :d])
 ```
 
-```csharp
-// Equal probability
-Gen<string> gen = Gen.Elements(new [] {"bears", "beets", "Battlestar Galactica"});
-Gen<string> gen = Gen.OneOf(
-  Gen.Constant("bears"),
-  Gen.Constant("beets"),
-  Gen.Constant("Battlestar Galactica"));
-// Weighted probability
-Gen<string> wgen = Gen.Frequency(
-  Tuple.Create(2, Gen.Constant("bears")),
-  Tuple.Create(1, Gen.Constant("beets")),
-  Tuple.Create(1, Gen.Constant("Battlestar Galactica")));
-```
-
-------------------#source-code
-
-# Source code (generators in context)
-
-<style class='before-speaker-note'></style>
-
-A lot of the data generation capabilities of these libraries comes from combining simpler generators to create more capable generators.
-
-* Clojure: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/sheepish/test/sheepish/d_parameterized_test_with_generators.cljc
-* C#: https://github.com/jeremyrsellars/no-new-legacy/blob/master/src/Sheepish.net/Sheepish.CSharp/D_Parameterized_Test_With_Generators.cs
+There are usually many more functions for subsets and combinations of a list.

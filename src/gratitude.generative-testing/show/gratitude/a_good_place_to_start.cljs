@@ -46,7 +46,7 @@
              [:a {:href "http://softekinc.com" :target "_new"}
                 "softekinc.com"]]]
     [:h1 "Outline"]
-    [:ul
+    [:ol
       (for [[title level href] (next gratitude.generative-testing.core/outline #_ :skip-the-title-slide)
             :when (zero? level)]
         [:li {:key (str title "_" href)}[:a {:href href} title]])]])

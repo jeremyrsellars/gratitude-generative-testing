@@ -41,7 +41,7 @@ This conference wouldn't be possible without our sponsors.
 # Introductions
 
 ```speaker-note
-I'd like to get to know each other a bit over the next 55 minutes.  So, a short informal interview which you should feel free to participate in as much or as little as you desire.
+I'd like to get to know each other a bit over the next 55 minutes.  So, here is a short informal interview which you should feel free to participate in as much or as little as you desire.
 ```
 
 ---------#Interview-1.jumbo
@@ -57,7 +57,7 @@ Let us propose for a moment that a business is a group of people oriented around
 # How many of us are employees?
 
 ```speaker-note
-I think it is a useful analogy, if we don't stretch it too far, that we, as employees, provide our employer with products, services, research, labor, TPS reports, or ideas that they value, and that they compensate us for.  In a way, we individuals are in business serving our customer (even if that *customer* is our *employer*).
+We, as employees, provide our employer with products, services, research, labor, TPS reports, or ideas that they value, and that they compensate us for.  I think it is a useful analogy, if we don't stretch it too far, that in a way, we individuals are in business serving our customer (even if that *customer* is our *employer*).
 ```
 
 ---------#Interview-3.jumbo
@@ -175,7 +175,7 @@ This idea of semantic level will also be helpful when understanding how to effec
 * I am excited to bring this to your attention and shed light on it from my point of view.
 
 ```speaker-note
-Software quality, from the [Manifesto for Software Craftsmanship](http://manifesto.softwarecraftsmanship.org/) emphasizes 4 values, and I see each of them touched on in these topics surrounding generative testing:
+The [Manifesto for Software Craftsmanship](http://manifesto.softwarecraftsmanship.org/) emphasizes 4 values, and I see each of them touched on in these topics surrounding generative testing:
 ```
 
 -----------------#Manifesto-1.jumbo
@@ -220,7 +220,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 * One of the great helps from all things "generative" is that generative models can build examples.
     * A regular expression matches many valid email addresses, for example.
     * The regex specifies what some text should look like.
-    * This ability to evaluate data against a specification is useful (in a reductive sense), but what if you had a way to derive many different examples of example text?  That could help you talk with the stakeholders and show examples to make sure everyone is bleating the same language.
+    * This ability to evaluate data against a specification is useful (in a reductive sense), but what if you had a way to derive many different examples of example text?  That could help you talk with the stakeholders and show examples to make sure everyone is speaking the same language.
     * Another example is in music.  When my wife teaches piano lessons...  "Ok, now play it with feeling."
 * As the saying goes, a picture is worth a thousand words.
 * Think about software requirements/specification documents.
@@ -236,7 +236,7 @@ Software quality, from the [Manifesto for Software Craftsmanship](http://manifes
 
 <style class='before-speaker-note'></style>
 
-* I don't mean to say that craftsmanship demands using generative testing.
-* I am suggesting that this is another useful tool for your workshop.
+* I don't mean to imply that professionalism or craftsmanship demand using generative testing.
+* I am suggesting that these are useful tools for your workshop.
 
 * Let's get started!

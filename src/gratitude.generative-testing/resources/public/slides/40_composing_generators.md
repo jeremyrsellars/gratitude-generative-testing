@@ -1,10 +1,16 @@
------------#Transforming-and-Composing-Generators.jumbo
+-----------#Part_3_Transforming-and-Composing-Generators.part-header
 
-# Transforming and Composing Generators
+# Part 3: Transforming and Composing Generators
 
 <style class='before-speaker-note'></style>
 
-In order generate data useful for complicated applications, we'll need to assemble these generators to do much more powerful tasks.
+* In order generate data useful for complicated applications, we'll need to assemble these generators to do much more powerful tasks.
+* A lot of the data generation capabilities of these libraries comes from combining and transforming simpler generators to create more capable generators.
+
+<span></span>
+
+* Transform results of a generator
+* Combine results from several generators
 
 --------------#Transforming-Generators
 
@@ -12,7 +18,7 @@ In order generate data useful for complicated applications, we'll need to assemb
 
 <style class='before-speaker-note'></style>
 
-We know sheepish has only `a` and `b` characters, so let's take a list of random choices of these and convert them to a string.  In both examples, we'll build a generator that applies a function to the output of another generator.
+We know sheepish has only `a` and `b` characters, so let's take a list of random choices of these and convert them to a string.  In both examples, we'll build a generator that applies a function to the output of another generator.  Both examples are the same process.
 
 1. Gen1: Choose between `a` and `b`.
 2. Gen2: Make a list of outputs of Gen1.
@@ -29,11 +35,10 @@ With FsCheck, the Gen class offers extension methods, much like LINQ's `.ToList(
 
 ```csharp
         static IEnumerable<string> SheepishAlphabetExamples =>
-            Gen.OneOf(Gen.Constant('a'),
-                      Gen.Constant('b'))    // Choose beetween a and b
-                .ListOf()                   // Make a list like [a, b, a]
-                .Select(chars => new string(chars.ToArray())) // To string
-                .Sample(4, 7);              // take 7 examples
+            Gen.Elements(new [] {'a', 'b'}) // Choose beetween a and b
+               .ListOf()                    // Make a list like [a, b, a]
+               .Select(chars => new string(chars.ToArray())) // To string
+               .Sample(4, 7);               // take 7 examples
 ```
 
 <style class='before-speaker-note'></style>
@@ -49,13 +54,36 @@ In Clojure, to specify a list of a spec, use `(s/coll-of some-spec)`.  To apply 
 ; ("bb" "aaaaaba" "bbbbbaabaaabbbaab" "baaabbab" "abbabaabbbbababbabba" "aaaaabbbbbbbb" "abbaaabababbabb")
 ```
 
+--------#Satisfying_constraint.jumbo-left
+
+# Satisfying constraint (Such-that)
+
+Generates a value from the supplied generator.  The value is returned if it passes a test, otherwise it keeps trying (or throws an exception).
+
+```csharp
+cardGen.Where(c => c.Suit == Suit.Hearts)
+cardGen.TryWhere(c => c.Suit == Suit.Hearts
+                   && c.Suit == Suit.Clubs)    // impossible or improbable, but don't throw
+```
+
+```clojure
+(s/and ::card is-heart?)
+(s/and ::card is-heart? is-club?) ; will throw
+;; To avoid exceptions, use a custom generator that *will* satisfy the constraint.
+```
+
+**Best practice:** Use a custom generator that *will* satisfy the constraint so it will be fast.
+
 ---------------#Composing-Generators
 
 # Combining Generators (Trivial example)
 
 ```csharp
-            Gen.OneOf(Gen.Constant('a'),
-                      Gen.Constant('b'))    // Choose beetween a and b
+// Equal probability
+Gen<string> gen = Gen.OneOf(
+  Gen.Constant("a"),
+  Gen.Constant("b"));
+gen.Sample(8) // produces something like  ["a", "a", "b", "a", "b", "b", "a", "b"]
 ```
 
 <style class='before-speaker-note'></style>
@@ -66,7 +94,7 @@ In order to generate composite data for non-trivial applications, we'll need to 
 
 <div class="speaker-note label">Abridge</div>
 
-# Combining Generators
+# Combining and Transforming Generators
 
 <style class='before-speaker-note'></style>
 
@@ -79,27 +107,67 @@ In order to generate composite data for non-trivial applications, we'll need to 
 |-----------|-------|------------|-------------------|
 |Alternative generators|`Q♠`| `Gen.OneOf(heartGen, queenSpadeGen, cardGen)`| `(s/or :heart ::heart-card`<br>`,     :queen-spade ::queen-of-spades`<br>`,     :zero-point-card ::card)`<br>`(gen/one-of [heart-gen queen-of-spades-gen)`|
 |Exact-length list|`[♥ ♣ ♥ ♦ ♠]`| `suitGen.ListOfLength(5)`| `(s/coll-of ::suit :count 5)`|
-|Homogeneous pair tuple|`♥` · `♠`| `suitGen.Two()`| `(s/coll-of ::suit :count 2)`<br>`(s/coll-of ::suit :count 2 :into [])`|
-|Homogeneous 3-tuple|`♥` · `♦` · `♠`| `suitGen.Three()`| `(s/coll-of ::suit :count 3)`|
-|Homogeneous 4-tuple|`♥` · `♦` · `♠` · `♦`| `suitGen.Four()`| `(s/coll-of ::suit :count 4)`|
-|Heterogeneous tuple|`K` · `♥`| `Gen.zip(suitGen, rankGen)`|`(s/cat :rank ::rank, :suit ::suit)`<br>`(gen/tuple (s/gen ::rank) (s/gen ::suit))`|
+|Same type pair tuple|`♥` · `♠`| `suitGen.Two()`| `(s/coll-of ::suit :count 2)`<br>`(s/coll-of ::suit :count 2 :into [])`|
+|Same type 3-tuple|`♥` · `♦` · `♠`| `suitGen.Three()`| `(s/coll-of ::suit :count 3)`|
+|Same type 4-tuple|`♥` · `♦` · `♠` · `♦`| `suitGen.Four()`| `(s/coll-of ::suit :count 4)`|
+|Mixed-type tuple|`K` · `♥`| `Gen.zip(suitGen, rankGen)`|`(s/cat :rank ::rank, :suit ::suit)`<br>`(gen/tuple (s/gen ::rank) (s/gen ::suit))`|
 |Element from list|`♥`| `Gen.Elements(new Suit[]{Suit.Heart,suit.Spade})`| `(gen/elements [:heart :spade])`|
 |Size-driven single|`K♥`| `Gen.GrowingElements(new Card[]{spades1,heartsK})`| |
 |Size-driven list|`[]` or `[♥ ♣ ♥ ♦ ♠]`| `suitGen.ListOf(size)`| `(s/coll-of ::card)`<br>`(s/* ::card)`|
-|Size-driven list, non-empty|`[K♥ 9♦ 3♣ K♥]`| `suitGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
-|Constant|`"Queen"`| `Gen.Constant("Queen")`| `#{"Queen"}`|
+|Size-driven list, non-empty|`[K♥ 9♦ 3♣ K♥]`| `cardGen.NonEmptyListOf(size)`| `(s/coll-of ::card :min-count 1)`<br>`(s/+ ::card)`|
 |Satisfying constraint|`K♥`| `cardGen.Where(c => c.Suit == Suit.Hearts)`| `(s/and ::card is-heart?)`|
-|Satisfying constraint<br>(without throwing)|`null`/`None`| `suitGen.TryWhere(c => c.Suit == Suit.Hearts`<br>`/* improbable */      c.Suit == Suit.Clubs)`| `Use a custom generator`<br>`to avoid exception`|
-|Random permutations|`["Q" "J" "K"]`| `Gen.Shuffle(new Rank[]{"K","Q","J"})`| `(gen/shuffle ["K" "Q" "J"])`|
 
 <style class='before-speaker-note'></style>
 
 This list is a good place to start along the path of learning to transforming and combining generators.  Further description of the above, from the FsCheck perspective, can be found in [FsCheck Test Data: Useful-Generator-Combinators](https://fscheck.github.io/FsCheck/TestData.html#Useful-Generator-Combinators).  The [Test.Check Cheat Sheet](https://github.com/clojure/test.check/blob/master/doc/cheatsheet.md) is also helpful.
 
+------------#alternatives
+
+## Choose between alternative generators
+
+<style class='before-speaker-note'></style>
+
+* Now, what if you want to pick a random generators and have that generator generate the value.
+* This generator also gets a random index from a list.  This time, it takes the generator at that index and uses it to generate a value.
+* FsCheck
+    * With FsCheck, making the choice between options can be done with a combination of generators, with `Gen.OneOf`.
+    * In this case, it chooses between "constant" generators which always return the same value.
+* Weighted vs. unweighted
+    * FsCheck has an easy way for each.
+    * Clojure.spec doesn't have use for weighted generation, but this is possible with test.check. It is very similar to the FsCheck method.
+
+Generates a value from one of the suplied generators.
+
+```csharp
+// Equal probability
+Gen<string> gen = Gen.OneOf(
+  Gen.Constant("bears"),
+  Gen.Constant("beets"),
+  Gen.Constant("Battlestar Galactica"));
+// Weighted probability
+Gen<string> wgen = Gen.Frequency(
+  Tuple.Create(2, Gen.Constant("bears")),
+  Tuple.Create(1, Gen.Constant("beets")),
+  Tuple.Create(1, Gen.Constant("Battlestar Galactica")));
+```
+
+```clojure
+; Equal probability, using a hash set literal value in `#{}`
+(gen/one-of [(gen/return "bears")
+             (gen/return "beets")
+             (gen/return "Battlestar Galactica")])
+; Weighted probability
+(gen/frequency
+  [[2 (gen/return "bears")]
+   [1 (gen/return "beets")]
+   [1 (gen/return "Battlestar Galactica")]])
+```
 
 --------#Alternative_generators.jumbo-left
 
 # Alternative generators
+
+Generates a value from one of the suplied generators.
 
 ```csharp
 Gen<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
@@ -124,6 +192,8 @@ A little more about Clojure.spec's conformance for re-labeling data from the [sp
 
 # Exact-length list
 
+Generates a list of values generated from the suplied generators.
+
 ```csharp
 Gen<IList<Card>> gen = cardGen.ListOf(5)   ; List of 5 cards
 ```
@@ -132,11 +202,13 @@ Gen<IList<Card>> gen = cardGen.ListOf(5)   ; List of 5 cards
 (s/coll-of ::card :count 5)                ; vector of 5 cards
 ```
 
---------#Homogeneous_pair_tuple.jumbo-left
+--------#Same type_pair_tuple.jumbo-left
 
 <div class="speaker-note label">Omit</div>
 
-# Homogeneous tuple
+# Same type tuple
+
+Generates a tuple/list of values generated from the suplied generators.
 
 ```csharp
 Gen<Tuple<Card,Card>>            gen2 = cardGen.Two()
@@ -152,20 +224,22 @@ Gen<Tuple<Card,Card,Card,Card>>  gen4 = cardGen.Four()
 
 --------#Heterogeneous_tuple.jumbo-left
 
-# Heterogeneous tuple
+# Mixed-type tuple
+
+Generates a tuple/list of values generated from the suplied generators.
 
 ```csharp
-Gen<Tuple<Suit,Rank>> gen = Gen.zip(suitGen, rankGen)
+Gen<Tuple<Suit,Rank>>   gen = Gen.zip(suitGen, rankGen)
 Gen<Tuple<float,float>> gen = Gen.zip(heightGen, weightGen)
 ```
 
 ```clojure
 (gen/tuple (s/gen ::suit) (s/gen ::rank))    ; => [:spade  :ten]
 (gen/tuple (s/gen int?)   (s/gen string?))   ; => [1       "ab"]
-              /--- specs ---\
-             v               v
+;             /--- specs ---\
+;            v               v
 (s/cat :suit ::suit,   :rank ::rank)         ; => [:spade  :ten]
-       ^- data labels -^                     ; Data label is useful for conformance
+;      ^- data labels -^                     ; Data label is useful for conformance
 ;; conformance demo
 (s/def ::card-tuple
   (s/cat :suit ::suit, :rank ::rank))        ; yields [:hearts :ten]
@@ -179,27 +253,22 @@ A little more about Clojure.spec's conformance for re-labeling data from the [sp
 
 # Element from list
 
+Retrieves a random value from the list.
+
 ```csharp
 Gen<Card> gen = Gen.Elements(new Card[]{exampleCard1, exampleCard2})
+Gen<Card> gen = Gen.GrowingElements(new Card[]{exampleCard1, exampleCard2}) // prefers first elements in list
 ```
 
 ```clojure
 (gen/elements [example-card-1 example-card-2])
 ```
 
---------#Size-driven_single.jumbo-left
-
-<div class="speaker-note label">Omit</div>
-
-# Size-driven single
-
-```csharp
-Gen<Card> gen = Gen.GrowingElements(new Card[]{exampleCard1, exampleCard2})
-```
-
 --------#Size-driven_list.jumbo-left
 
 # Size-driven list
+
+Generates a (possibly empty) list of items produced by another generator.
 
 ```csharp
 Gen<IList<Card>> gen = cardGen.ListOf()
@@ -216,6 +285,8 @@ Gen<IList<Card>> gen = cardGen.ListOf()
 
 # Size-driven list, non-empty
 
+Generates a non-empty list of items produced by another generator.
+
 ```csharp
 Gen<IList<Card>> gen = cardGen.NonEmptyListOf(size)
 ```
@@ -223,53 +294,6 @@ Gen<IList<Card>> gen = cardGen.NonEmptyListOf(size)
 ```clojure
 (s/coll-of ::card :min-count 1)
 (s/+ ::card)
-```
-
---------#Constant.jumbo-left
-
-<div class="speaker-note label">Omit</div>
-
-# Constant
-
-```csharp
-Gen<Card> gen = Gen.Constant(queenOfSpades)
-```
-
-```clojure
-#{:some-value}
-(gen/return :some-value)
-```
-
---------#Satisfying_constraint.jumbo-left
-
-# Satisfying constraint (Such-that)
-
-```csharp
-cardGen.Where(c => c.Suit == Suit.Hearts)
-cardGen.TryWhere(c => c.Suit == Suit.Hearts
-                   && c.Suit == Suit.Clubs)    // impossible or improbable, but don't throw
-```
-
-```clojure
-(s/and ::card is-heart?)
-(s/and ::card is-heart? is-club?) ; will throw
-;; To avoid exceptions in Use a custom generator that *will* satisfy the constraint.
-```
-
-Note: Use a custom generator that *will* satisfy the constraint so it will be fast.
-
---------#Random_permutations.jumbo-left
-
-<div class="speaker-note label">Omit</div>
-
-# Random permutations
-
-```csharp
-Gen.Shuffle(new Card[]{exampleCard1, exampleCard2})
-```
-
-```clojure
-(gen/shuffle xs)
 ```
 
 -------#List-types
@@ -316,7 +340,7 @@ intGen.ListOf(5).Select(lst => new SortedSet<int>(lst))
 <style class='before-speaker-note'></style>
 
 * Another difference is in whether or not list contents are labeled.
-* To generate a random value from 2 generators, FsCheck's `Gen.OneOf` takes 2 parameters, while Clojure spec `s/or` takes 4 – twice as many parameters.  This is also true of homogeneous tuples with `s/cat`.  Both produce similar unlabeled data, but in Clojure the values can be run 'backwards' through a spec to produce labeled data.  This is called conformance.
+* To generate a random value from 2 generators, FsCheck's `Gen.OneOf` takes 2 parameters, while Clojure spec `s/or` takes 4 – twice as many parameters.  This is also true of same type tuples with `s/cat`.  Both produce similar unlabeled data, but in Clojure the values can be run 'backwards' through a spec to produce labeled data.  This is called conformance.
 * The Clojure "alternative" generator, the card classification example, produces a single card that matches one of the specs. The "extra" parameters provide labels for "conforming" a value, a process similar to destructuring.  This is out of scope for data generation (and this talk), but it can sure come in handy to switch behavior based on which spec matches.
 * For the tuple example, a vector is returned containing a value matching each spec in order; the "extra" parameters also provide labels when conforming a value for destructuring or runtime introspection.
 
@@ -333,7 +357,7 @@ Tuple<Card> gen = Gen.OneOf(heartGen, queenSpadeGen, cardGen)
           :zero-point-card ::card))                ; yields a card generator
 ```
 
-### Heterogeneous tuple
+### Mixed-type tuple
 
 ```csharp
 Tuple<Suit,Rank> gen = Gen.zip(suitGen, rankGen)
@@ -507,13 +531,13 @@ Generate example cards by defining and combining some generators with some of th
  {:suit :diamonds, :rank :queen})
 ```
 
------------#Application.review
+-----------#Generators-review.review
 
 # Review Generators and Combinators
 
------------#Application.part-header
+-----------#Part_4_Application.part-header
 
-# Part 4.  Generators in Action
+# Part 4: Generators in Action
 
 -----------#Sheepish-gen-1
 

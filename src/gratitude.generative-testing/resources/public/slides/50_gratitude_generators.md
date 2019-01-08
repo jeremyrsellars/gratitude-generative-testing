@@ -27,7 +27,7 @@
 
 (def avatar-url-regex #"(?i)https?://[-a-zA-Z0-9@:%._\\+~#=]+\.[a-z]+[-a-zA-Z0-9@:%_\\+.~#?&//=]*.*")
 
-(s/def ::avatar-url #(re-matches avatar-url-regex %))
+(s/def ::avatar-url (s/and string? #(re-matches avatar-url-regex %)))
 (s/def ::id string?)
 (s/def ::full-name string?)
 
@@ -39,10 +39,10 @@
 ### Try to generate some example users
 
 ```clojure
-  (gen/sample
-    (s/gen ::user/user)
-    1))                    ; throws because the random string didn't match regex.
-                           ; A custom generator is required.
+(gen/sample
+  (s/gen ::user/user)
+  1))                    ; throws because the random string didn't match regex.
+                         ; A custom generator is required.
 ```
 
 --------#Failed-such-that
@@ -50,16 +50,19 @@
 # Generating a user (for registration)
 
 ```clojure
-  (gen/sample
-    (s/gen ::user/user)
-    1))
+(gen/sample
+  (s/gen ::user/user)
+  1)
+
+(gen/generate
+  (s/gen ::user/avatar-url))
 ```
 
 Often produces an error:
 
-> `Error: Unable to construct gen at: [:gratitude.user/avatar-url] for: :gratitude.user/avatar-url]`
+> `Couldn't satisfy such-that predicate after 100 tries.`
 
-Because usually the randomly-generated avatar-url string won't match the regex.
+Because usually the randomly-generated avatar-url string won't match the regex.  For this, we need a custom generator.
 
 --------
 #!/gratitude.generative_testing.section_50_gratitude_generators/Sane_users
