@@ -69,6 +69,7 @@ For comparison's sake, we'll try libraries in 2 different language ecosystems: C
 
 <style class='before-speaker-note'></style>
 
+* This is mostly an "idea talk," meant to encourage you to think about how generative testing could help you.  The particulars of the programming language and library aren't that important.  In the last slide, I'll point you to resources that may help.
 * Haskell: [QuickCheck](https://wiki.haskell.org/Introduction_to_QuickCheck1)
 * Clojure: [Clojure.Spec](https://clojure.org/guides/spec), which generates data according to a specification using a QuickCheck-inspired property-based testing library called [Test.Check](https://github.com/clojure/test.check).
 * C#/.Net: [FsCheck](https://fscheck.github.io/FsCheck) is a QuickCheck-inspired property based testing framework implemented in F#.  It has good support for C#, as well.
