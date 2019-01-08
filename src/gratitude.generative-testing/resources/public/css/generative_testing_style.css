@@ -240,7 +240,6 @@ code.lang-speaker-note {
 
 
 pre code.lang-speaker-note {
-pre code.lang-speaker-note {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     white-space: pre-wrap;
 }
@@ -262,6 +261,20 @@ pre code.lang-speaker-note {
 
 .slide-class {
     display: none;
+}
+
+.title-slide h1{
+    color: white;
+    background-color: #428bca;
+    text-align: center;
+}
+
+.part-header h1{
+    color: white;
+    background-color: #428bca;
+    padding: 1em;
+    text-align: center;
+    margin-top: 2em;
 }
 
 .jumbo ul, .jumbo ol, .jumbo-left ul, .jumbo-left ol {

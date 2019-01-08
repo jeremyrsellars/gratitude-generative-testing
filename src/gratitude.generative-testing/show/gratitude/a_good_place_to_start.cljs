@@ -24,8 +24,9 @@
   (sab/html
    [:div {:style {:padding-left "12.5vw"
                   :padding-right "12.5vw"}}
-      [:h1 {:style {:font-size "3.2em"}}
-        "Generate Data for 10,000 Unit Tests"]
+      [:div {:class "title-slide"}
+        [:h1 {:style {:font-size "3.2em"}}
+          "Generate Data for 10,000 Unit Tests"]]
       [:h1 "Jeremy Sellars"]
     [:ul
       [:li "Content for this talk"
