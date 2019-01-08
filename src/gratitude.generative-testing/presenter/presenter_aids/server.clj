@@ -18,6 +18,11 @@
 (def history-file (read-setting "PRESENTER_HISTORY_FILE" "history.edn"))
 (println "Recording history to" history-file)
 
+(defn- safe-file-name
+  [f]
+  (when (nil? (re-find #"[\\/:]" f))
+    f))
+
 (defn- load-edn
   [filename]
   (with-open [r (java.io.PushbackReader.
@@ -73,11 +78,11 @@
          println)))
 
 (defn load-history-handler
-  [{:keys [uri request-method] :as request}]
+  [{:keys [uri request-method query-string] :as request}]
   (println ::request request)
   {:status 200
    :headers {"Content-Type" "text/plain"}
-   :body (->> history-file
+   :body (->> (or (safe-file-name query-string) history-file)
               load-edn
               history-report
               with-out-str)})
