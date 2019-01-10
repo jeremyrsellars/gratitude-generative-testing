@@ -169,26 +169,22 @@ Because usually the randomly-generated avatar-url string won't match the regex. 
 (def sane-full-name
   #(gen/frequency
       [[6 (gen/fmap (partial string/join " ") ;   "first last"
-              (gen/tuple
-                (sane-first-name)
-                (sane-last-name)))]
+              (gen/tuple (sane-first-name)
+                         (sane-last-name)))]
        [2 (gen/fmap (partial string/join ", ")  ; "last, first"
-              (gen/tuple
-                (sane-last-name)
-                (sane-first-name)))]
+              (gen/tuple (sane-last-name)
+                         (sane-first-name)))]
        [2 (gen/fmap (partial string/join " ")   ; "name name name"
                 (gen/list (sane-first-name)))]]))
 
 (def insane-full-name
   #(gen/frequency
       [[6 (gen/fmap (partial string/join " ") ;   "first last"
-              (gen/tuple
-                (insane-first-name)
-                (insane-last-name)))]
+              (gen/tuple (insane-first-name)
+                         (insane-last-name)))]
        [2 (gen/fmap (partial string/join ", ")  ; "last, first"
-              (gen/tuple
-                (insane-last-name)
-                (insane-first-name)))]
+              (gen/tuple (insane-last-name)
+                         (insane-first-name)))]
        [2 (gen/fmap (partial string/join " ")   ; "name name name"
                 (gen/list (insane-first-name)))]]))
 ```

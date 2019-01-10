@@ -44,9 +44,17 @@ This conference wouldn't be possible without our sponsors.
 I'd like to get to know each other a bit over the next 55 minutes.  So, here is a short informal interview which you should feel free to participate in as much or as little as you desire.
 ```
 
+```speaker-note
+Raise hand as an example.
+```
+
 ---------#Interview-1.jumbo
 
 # How many of us are in "business"?
+
+```speaker-note
+Raise hand as an example.
+```
 
 ```speaker-note
 Let us propose for a moment that a business is a group of people oriented around the idea of providing products or services or ideas that clients would value... value enough to voluntarily return "certificates of gratitude" as compensation.  Perhaps these certificates are covered with images of famous people like Benjamin Franklin or perhaps they say "pay to the order of __`your name`__".  I'm getting at the notion that when we engage in business, mutual benefit is a good goal, at least at some level.  Both sides of the transaction get something they want.
@@ -57,6 +65,10 @@ Let us propose for a moment that a business is a group of people oriented around
 # How many of us are employees?
 
 ```speaker-note
+Raise hand as an example.
+```
+
+```speaker-note
 We, as employees, provide our employer with products, services, research, labor, TPS reports, or ideas that they value, and that they compensate us for.  I think it is a useful analogy, if we don't stretch it too far, that in a way, we individuals are in business serving our customer (even if that *customer* is our *employer*).
 ```
 
@@ -65,12 +77,20 @@ We, as employees, provide our employer with products, services, research, labor,
 # How many of us are in "Information Technology?"
 
 ```speaker-note
+Raise hand as an example.
+```
+
+```speaker-note
 * I used to kind of bristle if someone confused "programming" with "Information Technology."  Then I realized that much of programming is collecting facts, and writing an algorithm to interpret the facts to produce a desired result.  Sometimes the end-result is information (as in a database or a report).  Other times it is a systematic action taken on the information produced.
 ```
 
 ---------#Interview-4.jumbo
 
 # Do you love data?
+
+```speaker-note
+Raise hand as an example.
+```
 
 ```speaker-note
 Since you all have come to a session about generating data and generative testing, I am going to assume many of you are involved in or are at least interested in pursuits of gathering data, interpreting data, creating data, using data to assess the capabilities of the software and systems that you design and build.
@@ -106,7 +126,7 @@ Programming is a lot like that. ;-)
 
 <style class='before-speaker-note'></style>
 
-* I think that's why we derive so much pleasure as we watch the CD-ROM spinning on the lathe in the work station and carefully take a chisel in hand and move it slowly to the correct part of the surface of the disk and tap out the beautiful stream of the music in our minds.
+* I think that's why we derive so much pleasure as we watch the CD-ROM spinning on the lathe in the work station and carefully take a laser in hand and move it slowly to the correct part of the surface of the disk and tap out the beautiful stream of the music in our minds.
 
 ---------#Media.jumbo-left
 

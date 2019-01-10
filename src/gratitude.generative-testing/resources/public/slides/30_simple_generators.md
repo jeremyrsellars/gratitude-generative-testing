@@ -29,6 +29,7 @@ The canonical example of a generative testing library is QuickCheck, a famous Ha
 <style class='before-speaker-note'></style>
 
 * ["2018 ACM Fellows Honored for Pivotal Achievements that Underpin the Digital Age"](https://www.acm.org/media-center/2018/december/fellows-2018)
+* Thanks to John Hughes for sharing his ideas that have inspired so many libraries.
 
 ![John Hughes](http://www.cse.chalmers.se/~rjmh/Me%20prisma.jpg)
 
@@ -189,19 +190,25 @@ IEnumerable<int> examples = generator.Sample(size, exampleCount);
 
 ### Larger sizes produce more interesting values.
 
-------------#returns.jumbo-left
+------------#strings.jumbo-left
 
 # More example generators
 
 These functions return generators, not the generated values.
 
-## Generate null/nil
-
 ```clojure
-(s/gen nil?)
+(s/gen nil?)       ; Gen that generates nil
+
+(s/gen string?)    ; Gen that generates strings
+(gen/string)       ; Gen that generates strings
+(gen/string-ascii) ; Gen that generates ASCII-limited strings
 ```
 
-## Generator returns a value
+------------#returns.jumbo-left
+
+# More example generators
+
+These functions return generators, not the generated values.
 
 Or, more literally, you can make a constant generator that always returns the same value that is passed in.
 ```clojure

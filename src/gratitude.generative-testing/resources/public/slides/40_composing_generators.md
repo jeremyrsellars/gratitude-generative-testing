@@ -202,7 +202,7 @@ Gen<IList<Card>> gen = cardGen.ListOf(5)   ; List of 5 cards
 (s/coll-of ::card :count 5)                ; vector of 5 cards
 ```
 
---------#Same type_pair_tuple.jumbo-left
+--------#Same_type_pair_tuple.jumbo-left
 
 <div class="speaker-note label">Omit</div>
 
@@ -256,11 +256,14 @@ A little more about Clojure.spec's conformance for re-labeling data from the [sp
 Retrieves a random value from the list.
 
 ```csharp
-Gen<Card> gen = Gen.Elements(new Card[]{exampleCard1, exampleCard2})
-Gen<Card> gen = Gen.GrowingElements(new Card[]{exampleCard1, exampleCard2}) // prefers first elements in list
+// Equally-weighted gen
+Gen<Card> equalWeightGen   = Gen.Elements(new Card[]{exampleCard1, exampleCard2})
+// prefers first elements in list
+Gen<Card> frontWeightedGen = Gen.GrowingElements(new Card[]{exampleCard1, exampleCard2})
 ```
 
 ```clojure
+;; Equally-weighted gen
 (gen/elements [example-card-1 example-card-2])
 ```
 
@@ -408,7 +411,7 @@ For more about this idea, see my blog: http://jeremyrsellars.github.io/no-new-le
 
 <div class="speaker-note label">Abridge</div>
 
-# Registering generators and shrinkers for arbitrary data types/specs
+# Generators and shrinkers for arbitrary data types/specs
 
 ```csharp
 public class LengthGenerators
@@ -416,8 +419,8 @@ public class LengthGenerators
     public static Arbitrary<T> Arbitrary<Length> arbLen =
         Gen.Choose(0, 1000).Select(s => Length.FromInches(s)).ToArbitrary();
 }
-// Then register all the Arbitrary generators with
-// Arb.Register<LengthGenerators>();
+// Then register all the Arbitrary generators with Arb.Register<T>(), powered by Reflection.
+Arb.Register<LengthGenerators>();
 ```
 
 ```clojure
@@ -476,20 +479,20 @@ Generate example cards by defining and combining some generators with some of th
     class E_Hearts_Card_Generators
     {
         static Gen<Suit> suitGen =
-            Gen.Elements((Suit[])Enum.GetValues(typeof(Suit)));
+            Gen.Elements((Suit[])Enum.GetValues(typeof(Suit)));             // 1. Select a random Suit
         static Gen<Rank> rankGen =
-            Gen.Elements((Rank[])Enum.GetValues(typeof(Rank)));
+            Gen.Elements((Rank[])Enum.GetValues(typeof(Rank)));             // 2. Select a random Rank
 
-        static Gen<Card> heartGen =
+        static Gen<Card> heartGen =                                         // 3. Heart with random Rank
             rankGen
             .Select(rank => new Card { Rank = rank, Suit = Suit.Hearts });
 
-        static Gen<Card> cardGen =
-            Gen.zip(rankGen, suitGen)
-            .Select(c => new Card { Rank = c.Item1, Suit = c.Item2 });
+        static Gen<Card> cardGen =                                          // 4. Random card
+            Gen.zip(rankGen, suitGen)                                       //      Rank*Suit tuple
+            .Select(c => new Card { Rank = c.Item1, Suit = c.Item2 });      //      Convert to Card
 
         static IReadOnlyList<Card> CreateRandomCards(int count) =>
-            cardGen.Sample(100, count);
+            cardGen.Sample(1, count);
     }
 ```
 
