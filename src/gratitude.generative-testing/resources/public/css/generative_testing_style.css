@@ -115,6 +115,10 @@ body .hljs {
     font-family: Lucida Console,Lucida Sans Typewriter,monaco,Bitstream Vera Sans Mono,monospace;
 }
 
+.hljs-comment {
+    color: #00a040;
+}
+
 @media screen {
     body .hljs {
         font-size: 18pt;
