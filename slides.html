@@ -4,13 +4,13 @@
     <title>Slides: Generate Data for 10,000 Unit Tests</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=20190109_205821" rel="stylesheet" type="text/css"></style>
+    <link id="com-rigsomelight-devcards-addons-css"  href="css/devcards_overrides.css?Rel=20190109_221145" rel="stylesheet" type="text/css"></style>
   </head>
   <body>
     <link rel="stylesheet" href="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/default.min.css">
     <div id="outline"></div>
-    <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=20190109_205821" type="text/javascript"></script>
-    <link href="css/generative_testing_style.css?Rel=20190109_205821" rel="stylesheet" type="text/css">
+    <script src="js/compiled/gratitude/generative_testing_devcards.js?Rel=20190109_221145" type="text/javascript"></script>
+    <link href="css/generative_testing_style.css?Rel=20190109_221145" rel="stylesheet" type="text/css">
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/cs.min.js"></script>
     <script src="cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/languages/clojure.min.js"></script>
@@ -45,6 +45,21 @@ body::after {
 .speaker-note { opacity: 0.3; }
 
     </style>
+    <script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script>
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-85077174-2']);
+      _gaq.push(['_trackPageview']);
+
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
     <script type="text/javascript">
     gratitude.generative_testing.core.main("outline");
     gratitude.generative_testing.core.startSlides();
@@ -56,6 +71,16 @@ body::after {
             window.scrollTo(0, 0);
         }
     }
+
+    window.onhashchange = function onhashchange () {
+        var newHash = window.location.hash;
+        var ga = window.ga;
+        if(!!ga){
+            ga('set', 'page', '/gratitude-generative-testing/' + h);
+            ga('send', 'pageview');
+        }
+    };
+
     </script>
     <div class="slide-nav">
         <div id="previous" title="press 'p'" onclick="navigateWith(gratitude.generative_testing.core.previousSlideHash)">&lt;</div>
